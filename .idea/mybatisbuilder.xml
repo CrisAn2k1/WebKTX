@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MybatisBuilder.project.settings">
+    <option name="connectionInfoList">
+      <list>
+        <ConnectionInfo>
+          <option name="database" value="quanlyktx" />
+          <option name="description" value="" />
+          <option name="driverClass" value="" />
+          <option name="driverLibrary" value="" />
+          <option name="driverType" value="MySQL" />
+          <option name="host" value="127.0.0.1" />
+          <option name="id" value="4618de34a96542a5b8843c6a21aa4194" />
+          <option name="name" value="local" />
+          <option name="port" value="3306" />
+          <option name="url" value="" />
+          <option name="userName" value="root" />
+        </ConnectionInfo>
+      </list>
+    </option>
+    <option name="defaultParameters">
+      <DefaultParameters>
+        <option name="renameConfig">
+          <Config>
+            <option name="mapperTypePattern" value="" />
+            <option name="exampleTypePattern" value="" />
+            <option name="sqlFileNamePattern" value="" />
+          </Config>
+        </option>
+        <option name="selectWithLockConfig">
+          <SelectWithLockConfig>
+            <option name="byPrimaryKeyWithLockOverride" value="" />
+            <option name="byExampleWithLockOverride" value="" />
+          </SelectWithLockConfig>
+        </option>
+      </DefaultParameters>
+    </option>
+    <option name="historyMap">
+      <map>
+        <entry key="JAVA_CLIENT_PACKAGE">
+          <value>
+            <list>
+              <option value="mapper" />
+            </list>
+          </value>
+        </entry>
+        <entry key="JAVA_MODEL_PACKAGE">
+          <value>
+            <list>
+              <option value="model" />
+            </list>
+          </value>
+        </entry>
+        <entry key="SQL_MAP_PACKAGE">
+          <value>
+            <list>
+              <option value="sqlmap" />
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="lastGeneratorParamWrapper">
+      <GeneratorParamWrapper>
+        <option name="defaultTableConfigWrapper">
+          <TableConfigurationWrapper>
+            <option name="domainObjectRenamingRule">
+              <DomainObjectRenamingRule>
+                <option name="replaceString" value="" />
+                <option name="searchString" value="" />
+              </DomainObjectRenamingRule>
+            </option>
+            <option name="generatedKeyWrapper">
+              <GeneratedKeyWrapper>
+                <option name="identity" value="false" />
+              </GeneratedKeyWrapper>
+            </option>
+          </TableConfigurationWrapper>
+        </option>
+        <option name="javaClientConfig">
+          <JavaClientGeneratorConfiguration>
+            <option name="configurationType" value="XMLMAPPER" />
+            <option name="targetPackage" value="mapper" />
+            <option name="targetProject" value="$PROJECT_DIR$/src/main/java" />
+          </JavaClientGeneratorConfiguration>
+        </option>
+        <option name="javaModelConfig">
+          <JavaModelGeneratorConfiguration>
+            <option name="targetPackage" value="model" />
+            <option name="targetProject" value="$PROJECT_DIR$/src/main/java" />
+          </JavaModelGeneratorConfiguration>
+        </option>
+        <option name="selectedTables">
+          <list>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Hoadon" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="hoadon" />
+            </TableInfo>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Hosochuyenphong" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="hosochuyenphong" />
+            </TableInfo>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Hosodangky" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="hosodangky" />
+            </TableInfo>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Noithat" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="noithat" />
+            </TableInfo>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Phong" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="phong" />
+            </TableInfo>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="PhongNoithat" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="phong_noithat" />
+            </TableInfo>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Toanha" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="toanha" />
+            </TableInfo>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="User" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="user" />
+            </TableInfo>
+          </list>
+        </option>
+        <option name="sqlMapConfig">
+          <SqlMapGeneratorConfiguration>
+            <option name="targetPackage" value="sqlmap" />
+            <option name="targetProject" value="$PROJECT_DIR$/src/main/resources" />
+          </SqlMapGeneratorConfiguration>
+        </option>
+        <option name="targetRuntime" value="MyBatis3DynamicSql" />
+      </GeneratorParamWrapper>
+    </option>
+    <option name="tableInfoMap">
+      <map>
+        <entry key="quanlyktx#hoadon">
+          <value>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Hoadon" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="hoadon" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="quanlyktx#hosochuyenphong">
+          <value>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Hosochuyenphong" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="hosochuyenphong" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="quanlyktx#hosodangky">
+          <value>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Hosodangky" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="hosodangky" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="quanlyktx#noithat">
+          <value>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Noithat" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="noithat" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="quanlyktx#phong">
+          <value>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Phong" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="phong" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="quanlyktx#phong_noithat">
+          <value>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="PhongNoithat" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="phong_noithat" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="quanlyktx#toanha">
+          <value>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="Toanha" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="toanha" />
+            </TableInfo>
+          </value>
+        </entry>
+        <entry key="quanlyktx#user">
+          <value>
+            <TableInfo>
+              <option name="database" value="quanlyktx" />
+              <option name="domainName" value="User" />
+              <option name="tableComment" value="" />
+              <option name="tableName" value="user" />
+            </TableInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

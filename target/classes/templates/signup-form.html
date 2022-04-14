@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description" content="Landing PAGE Html5 Template" />
+
+    <meta name="keywords" content="landing,startup,flat" />
+
+    <meta name="author" content="Made By GN DESIGNS" />
+
+    <title>Trang chủ - Ký Túc Xá TP.HCM</title>
+
+    <!-- // PLUGINS (css files) // -->
+
+    <link rel="icon" href="/assets/img/banner.jpg" sizes="32x32">
+    <link rel="icon" href="/assets/img/banner.jpg" sizes="192x192">
+
+    <link rel="stylesheet" href="/assets/css/main.css"/>
+
+    <link rel="stylesheet" href="/assets/css/style.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+
+    <link href="assets/js/plugins/bootsnav_files/skins/color.css" rel="stylesheet"/>
+
+    <link href="assets/js/plugins/bootsnav_files/css/animate.css" rel="stylesheet"/>
+
+    <link href="assets/js/plugins/bootsnav_files/css/bootsnav.css" rel="stylesheet"/>
+
+    <link href="assets/js/plugins/bootsnav_files/css/overwrite.css" rel="stylesheet"/>
+
+    <link href="assets/js/plugins/owl-carousel/owl.carousel.css" rel="stylesheet"/>
+
+    <link href="assets/js/plugins/owl-carousel/owl.theme.css" rel="stylesheet"/>
+
+    <link href="assets/js/plugins/owl-carousel/owl.transitions.css" rel="stylesheet"/>
+
+    <link href="assets/js/plugins/Magnific-Popup-master/Magnific-Popup-master/dist/magnific-popup.css" rel="stylesheet"/>
+
+    <!--// ICONS //-->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+    <!--// BOOTSTRAP & Main //-->
+
+    <link href="assets/bootstrap-3.3.7/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+</head>
+<body>
+<section id="home">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 col-md-offset-1">
+                <form th:action="@{/register}" th:object="${newUser}" method="post" class="signup-form" >
+                    <h2 class="text-center">Đăng ký</h2>
+                    <hr/>
+                    <div class="form-group">
+                        <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Họ tên"
+                            th:field="*{hoten}"
+                            required="required">
+                    </div>
+                    <div class="form-group">
+                        <input
+                            th:field="*{email}"
+                            name="email"
+                            type="email"
+                            class="form-control"
+                            placeholder="Địa chỉ email"
+                            required="required"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <input
+                            th:field="*{username}"
+                            name="username"
+                            type="text"
+                            class="form-control"
+                            placeholder="Tên đăng nhập"
+                            required="required"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <input
+                            th:field="*{password}"
+                            type="password"
+                            class="form-control"
+                            placeholder="Mật khẩu"
+                            required="required"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                            type="password"
+                            class="form-control"
+                            placeholder="Xác nhận mật khẩu"
+                            required="required"
+                        />
+                    </div>
+
+                    <div class="form-group text-center">
+                        <button  type="submit" class="btn btn-blue btn-block">
+                            Đăng ký
+                        </button>
+                        <div>
+                            <a th:href="@{/homepage}">Đã có tài khoản?Đăng Nhập</a>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>
