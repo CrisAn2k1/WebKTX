@@ -47,9 +47,20 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping({ "/signup_success","/login-success"})
-    public String welcome(Model model) {
+
+    @GetMapping("/index")
+    public String indexPage(Model model){
         return "index";
+    }
+
+    @GetMapping("/thong-tin-lien-he")
+    public String infoPage(Model model){
+        return "thong-tin-lien-he";
+    }
+
+    @GetMapping({"/","/signup_success","/login-success"})
+    public String welcome(Model model) {
+        return "login";
     }
 }
 

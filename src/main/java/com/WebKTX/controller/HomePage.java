@@ -21,14 +21,11 @@ class HomePage {
 		List<User> listUser = userRepo.findAll();
 		model.addAttribute("listUser",listUser);
 
-		return "homepage";
-	}
-
-
-	@GetMapping("/index")
-	public String indexPage(Model model){
 		return "index";
 	}
+
+
+
 
 
 
