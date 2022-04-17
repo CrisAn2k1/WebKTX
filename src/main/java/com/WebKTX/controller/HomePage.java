@@ -21,8 +21,11 @@ class HomePage {
 		List<User> listUser = userRepo.findAll();
 		model.addAttribute("listUser",listUser);
 
-		return "homepage";
+		return "index";
 	}
+
+
+
 
 
 
