@@ -25,6 +25,12 @@ class HomePage {
 	}
 
 
+	@GetMapping("/index")
+	public String indexPage(Model model){
+		return "index";
+	}
+
+
 
 
 }

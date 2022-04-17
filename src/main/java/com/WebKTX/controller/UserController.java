@@ -47,9 +47,9 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping({"/", "/signup_success","/login-success"})
+    @GetMapping({ "/signup_success","/login-success"})
     public String welcome(Model model) {
-        return "signup-success";
+        return "index";
     }
 }
 
