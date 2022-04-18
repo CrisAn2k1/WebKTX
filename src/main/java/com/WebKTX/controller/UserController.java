@@ -1,6 +1,8 @@
 package com.WebKTX.controller;
+import java.util.List;
 
 import com.WebKTX.model.User;
+
 import com.WebKTX.repository.UserRepository;
 import com.WebKTX.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,5 +64,14 @@ public class UserController {
     public String welcome(Model model) {
         return "login";
     }
+
+
+//     @GetMapping("/user")
+//     public String userInfo(Model model){
+//         List<User> listUser = repo.findAll();
+//         model.addAttribute("listUser", listUser);
+
+//         return "index";
+//     }
 }
 
