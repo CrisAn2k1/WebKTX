@@ -59,6 +59,11 @@ public class UserController {
         return "thong-tin-lien-he";
     }
 
+    @GetMapping("/thong-bao")
+    public String noticePage(Model model){
+        return "thong-bao";
+    }
+
     @GetMapping({"/","/signup_success","/login-success"})
     public String welcome(Model model) {
         return "login";
