@@ -1,6 +1,7 @@
 package com.WebKTX.controller;
 
 import com.WebKTX.model.User;
+
 import com.WebKTX.repository.UserRepository;
 import com.WebKTX.service.UserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,21 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping({"/", "/signup_success","/login-success"})
-    public String welcome(Model model) {
-        return "signup-success";
+
+    @GetMapping("/thong-tin-sinh-vien")
+    public String indexPage(Model model){
+        return "thong-tin-sinh-vien";
     }
+
+    @GetMapping("/thong-tin-lien-he")
+    public String infoPage(Model model){
+        return "thong-tin-lien-he";
+    }
+
+    @GetMapping({"/","/signup_success","/login-success"})
+    public String welcome(Model model) {
+        return "login";
+    }
+
 }
 
