@@ -4,7 +4,11 @@ import com.WebKTX.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.text.SimpleDateFormat;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Date;
 
 public class UserDetail implements UserDetails {
 
@@ -50,8 +54,40 @@ public class UserDetail implements UserDetails {
         return true;
     }
 
+    public String email(){
+        return  user.getEmail();
+    }
+
     public String fullName() {
         return user.getHoten();
+    }
+
+    public String ngaySinh(){
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String date = this.user.getNgaysinh().format(formatters);
+        return date;
+    }
+
+    public String gioiTinh(){
+        return  user.getGioitinh();
+    }
+
+    public String dienThoai() {
+        return user.getPhone();
+    }
+
+    public String diaChi(){
+        return user.getDiachicutru();
+    }
+
+    public String truongHoc(){
+        return user.getTruonghoc();
+    }
+
+    public String nienKhoa(){
+        int currentYear = Year.now().getValue();
+        String namThu = String.valueOf(currentYear - user.getNienkhoa().intValue()) ;
+        return namThu;
     }
 
 }

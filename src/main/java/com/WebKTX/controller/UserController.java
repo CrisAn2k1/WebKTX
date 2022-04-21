@@ -1,5 +1,4 @@
 package com.WebKTX.controller;
-import java.util.List;
 
 import com.WebKTX.model.User;
 
@@ -50,9 +49,9 @@ public class UserController {
     }
 
 
-    @GetMapping("/index")
+    @GetMapping("/thong-tin-sinh-vien")
     public String indexPage(Model model){
-        return "index";
+        return "thong-tin-sinh-vien";
     }
 
     @GetMapping("/thong-tin-lien-he")
@@ -65,13 +64,5 @@ public class UserController {
         return "login";
     }
 
-
-//     @GetMapping("/user")
-//     public String userInfo(Model model){
-//         List<User> listUser = repo.findAll();
-//         model.addAttribute("listUser", listUser);
-
-//         return "index";
-//     }
 }
 

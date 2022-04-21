@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
 
@@ -29,7 +29,7 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="thong-tin-sinh-vien.html">
                 <div class="sidebar-brand-text mx-3">Quản lý KTX</div>
             </a>
             <!-- Divider -->
@@ -44,14 +44,14 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" th:href="@{/index}" >Thông tin chung</a>
+                        <a class="collapse-item" th:href="@{/thong-tin-sinh-vien}" >Thông tin chung</a>
                         <a class="collapse-item" th:href="@{/thong-tin-lien-he}">Thông tin liên hệ</a>
                     </div>
                 </div>
             </li>
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="thong-tin-sinh-vien.html">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Thông tin hóa đơn</span></a>
             </li>
@@ -294,15 +294,13 @@
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Nguyễn Huy Bảo Toàn </h6>
+                                    <h6 class="m-0 font-weight-bold text-primary" >[[${#request.userPrincipal.principal.fullName}]]</h6>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">Ngày sinh: 15/03/2001</h4>
-                                    <h4 class="small font-weight-bold">Giới tính: Nam</h4>
-                                    <h4 class="small font-weight-bold">Mã số sinh viên: 1911066628</h4>
-                                    <h4 class="small font-weight-bold">CMND/CCCD: 212583214</h4>
-                                    <h4 class="small font-weight-bold">Nơi cấp CMND/CCCD: Quảng Ngãi</h4>
-                                    <h4 class="small font-weight-bold">Dân tộc: Kinh</h4>
+                                    <h4 class="small font-weight-bold">Ngày sinh: [[${#request.userPrincipal.principal.ngaySinh}]]</h4>
+                                    <h4 class="small font-weight-bold">Giới tính: [[${#request.userPrincipal.principal.gioiTinh}]]</h4>
+                                    <h4 class="small font-weight-bold">Trường: [[${#request.userPrincipal.principal.truongHoc}]]</h4>
+                                    <h4 class="small font-weight-bold">Năm thứ: [[${#request.userPrincipal.principal.nienKhoa}]]</h4>
                                 </div>
                             </div>
                         </div>
