@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 
 <head>
 
@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="thong-tin-sinh-vien.html">
 
                 <div class="sidebar-brand-text mx-3">Quản lý KTX</div>
             </a>
@@ -41,7 +41,7 @@
 
             <!-- Nav Item - Dashboard -->
             <!-- <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="thong-tin-sinh-vien.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Trang chủ</span></a>
             </li> -->
@@ -65,7 +65,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" th:href="@{/index}" >Thông tin chung</a>
+                        <a class="collapse-item" th:href="@{/thong-tin-sinh-vien}" >Thông tin chung</a>
                         <a class="collapse-item" th:href="@{/thong-tin-lien-he}">Thông tin liên hệ</a>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
             <!-- Nav Item - Utilities Collapse Menu -->
 
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="thong-tin-sinh-vien.html">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>Thông tin hóa đơn</span></a>
             </li>
@@ -331,12 +331,10 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <h4 class="small font-weight-bold">Tỉnh: Quảng Ngãi</h4>
-                                            <h4 class="small font-weight-bold">Quận: Quảng Ngãi</h4>
-                                            <h4 class="small font-weight-bold">Phường: Trần Phú</h4>
-                                            <h4 class="small font-weight-bold">Số nhà/Tên dường: Ngô Sĩ Liên</h4>
-                                            <h4 class="small font-weight-bold">Email: nhbtoan1503@gmail.com</h4>
-                                            <h4 class="small font-weight-bold">SDT: 0934942127</h4>
+                                            <h4 class="small font-weight-bold">Điện thoại: [[${#request.userPrincipal.principal.dienThoai}]]</h4>
+                                            <h4 class="small font-weight-bold">Địa chỉ: [[${#request.userPrincipal.principal.diaChi}]]</h4>
+                                            <h4 class="small font-weight-bold">Email: [[${#request.userPrincipal.principal.email}]]</h4>
+
 
                                         </div>
                                         <!-- <div class="col-auto">
