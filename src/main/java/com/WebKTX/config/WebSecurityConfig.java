@@ -40,19 +40,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
+                .authorizeRequests()
                 .antMatchers("/","/homepage","/login-success","/login","/thong-bao","/thong-tin-sinh-vien","/thong-tin-lien-he").authenticated()  // các URL bắt buộc đăng nhập
                 .antMatchers("/**").permitAll().                                     // các URL không bắt buộc đăng nhập
-            and()
+                and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/homepage")                 //trang mặc định khi đăng nhập thành công
                 .failureUrl("/login?success=fail")
                 .loginProcessingUrl("/j_spring_security_check").
-            and().logout(logout -> logout
+                and().logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/homepage")
                         .addLogoutHandler(new SecurityContextLogoutHandler()
-                ));
+                        ));
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

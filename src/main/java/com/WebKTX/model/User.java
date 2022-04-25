@@ -67,6 +67,39 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "id_role"))
     private Set<Role> roles = new LinkedHashSet<>();
 
+    @Column(name = "tinh", length = 50)
+    private String tinh;
+
+    @Column(name = "huyen", length = 50)
+    private String huyen;
+
+    @Column(name = "xa", length = 50)
+    private String xa;
+
+    public String getXa() {
+        return xa;
+    }
+
+    public void setXa(String xa) {
+        this.xa = xa;
+    }
+
+    public String getHuyen() {
+        return huyen;
+    }
+
+    public void setHuyen(String huyen) {
+        this.huyen = huyen;
+    }
+
+    public String getTinh() {
+        return tinh;
+    }
+
+    public void setTinh(String tinh) {
+        this.tinh = tinh;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }

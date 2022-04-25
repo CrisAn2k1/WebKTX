@@ -21,6 +21,15 @@ class HomePage {
 		return "thong-tin-sinh-vien";
 	}
 
+	@GetMapping("/huong-dan-dang-ky-o-ktx")
+	public String guideRegister(){
+		return "guide-register-ktx";
+	}
+
+	@GetMapping("/form-dang-ky-o-ktx")
+	public String formRegister(){
+		return "form-register-ktx";
+	}
 
 
 
