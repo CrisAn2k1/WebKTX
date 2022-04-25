@@ -63,31 +63,49 @@ public class UserDetail implements UserDetails {
     }
 
     public String ngaySinh(){
+        if(user.getNgaysinh()==null)
+        {
+            return "Đang cập nhật";
+        }
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         String date = this.user.getNgaysinh().format(formatters);
         return date;
     }
 
     public String gioiTinh(){
-        return  user.getGioitinh();
+        if (user.getGioitinh()==null){
+            return "Đang cập nhật";
+        }
+        return user.getGioitinh();
     }
 
     public String dienThoai() {
+        if (user.getPhone()==null){
+            return "Đang cập nhật";
+        }
         return user.getPhone();
     }
 
     public String diaChi(){
+        if (user.getDiachicutru()==null){
+            return "Đang cập nhật";
+        }
         return user.getDiachicutru();
     }
 
     public String truongHoc(){
+        if (user.getTruonghoc()==null){
+            return "Đang cập nhật";
+        }
         return user.getTruonghoc();
     }
 
     public String nienKhoa(){
+        if (user.getNienkhoa()==null){
+            return "Đang cập nhật";
+        }
         int currentYear = Year.now().getValue();
         String namThu = String.valueOf(currentYear - user.getNienkhoa().intValue()) ;
         return namThu;
     }
-
 }
