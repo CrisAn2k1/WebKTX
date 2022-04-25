@@ -2,6 +2,7 @@ package com.WebKTX.service;
 
 import com.WebKTX.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.text.SimpleDateFormat;
@@ -17,6 +18,7 @@ public class UserDetail implements UserDetails {
     public UserDetail(User user) {
         this.user = user;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
