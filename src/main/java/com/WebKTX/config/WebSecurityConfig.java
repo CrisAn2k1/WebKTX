@@ -41,15 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .antMatchers("/",
-                        "/homepage",
-                        "/login-success",
-                        "/login",
-                        "/thong-bao",
-                        "/thong-tin-sinh-vien",
-                        "/thong-tin-lien-he").authenticated()  // các URL bắt buộc đăng nhập
-                .antMatchers("/**","/register").permitAll()// các URL không bắt buộc đăng nhập
-                .antMatchers("/confirm").permitAll(). // các URL không bắt buộc đăng nhập
+                .antMatchers("/","/homepage","/login-success","/login","/thong-bao","/thong-tin-sinh-vien","/thong-tin-lien-he").authenticated()  // các URL bắt buộc đăng nhập
+                .antMatchers("/**").permitAll().                                     // các URL không bắt buộc đăng nhập
             and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/homepage")                 //trang mặc định khi đăng nhập thành công
