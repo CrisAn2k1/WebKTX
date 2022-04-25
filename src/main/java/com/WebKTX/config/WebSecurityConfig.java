@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
 
 @Configuration
@@ -42,7 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/","/homepage","/login-success","/login","/thong-bao","/thong-tin-sinh-vien","/thong-tin-lien-he").authenticated()  // các URL bắt buộc đăng nhập
-                .antMatchers("/**").permitAll().                                     // các URL không bắt buộc đăng nhập
+                .antMatchers("/**").permitAll().     // các URL không bắt buộc đăng nhập
+            and()
+                .csrf()
+                .csrfTokenRepository(new HttpSessionCsrfTokenRepository()).
             and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/homepage")                 //trang mặc định khi đăng nhập thành công

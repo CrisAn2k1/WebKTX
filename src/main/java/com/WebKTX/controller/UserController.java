@@ -50,22 +50,22 @@ public class UserController {
 
 
     @GetMapping("/thong-tin-sinh-vien")
-    public String indexPage(Model model){
+    public String indexPage(){
         return "thong-tin-sinh-vien";
     }
 
     @GetMapping("/thong-tin-lien-he")
-    public String infoPage(Model model){
+    public String infoPage(){
         return "thong-tin-lien-he";
     }
 
     @GetMapping("/thong-bao")
-    public String noticePage(Model model){
+    public String noticePage(){
         return "thong-bao";
     }
 
     @GetMapping({"/","/signup_success","/login-success"})
-    public String welcome(Model model) {
+    public String welcome() {
         return "login";
     }
 
