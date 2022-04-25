@@ -51,6 +51,16 @@ public class User {
     @Column(name = "trangthai")
     private Boolean trangthai;
 
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    private boolean isEnabled;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_phong")
     private Phong idPhong;
