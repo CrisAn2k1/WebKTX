@@ -42,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/","/homepage","/login-success","/login","/thong-bao","/thong-tin-sinh-vien","/thong-tin-lien-he").authenticated()  // các URL bắt buộc đăng nhập
-                .antMatchers("/**").permitAll().                                     // các URL không bắt buộc đăng nhập
+                .antMatchers("/**","/register","/confirm").permitAll().                                     // các URL không bắt buộc đăng nhập
                 and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/homepage")                 //trang mặc định khi đăng nhập thành công
