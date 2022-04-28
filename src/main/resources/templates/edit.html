@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <div>
+      <form
+        th:object="${editUser}"
+        th:action="@{/testUser/edit}"
+        method="post"
+        novalidate="novalidate"
+      >
+        <input type="text" th:field="*{id}" id="phone" placeholder="phone" hidden />
+        <label for="phone">Số điện thoại:</label>
+        <input type="text" th:field="*{phone}" id="phone" placeholder="phone" />
+        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+        <label for="diachicutru">Địa chỉ</label>
+        <input type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="diachicutru" />
+        <span th:if="${#fields.hasErrors('diachicutru')}" th:errors="*{diachicutru}"></span>
+        <input type="submit" value="Update User" />
+      </form>
+    </div>
+  </body>
+</html>

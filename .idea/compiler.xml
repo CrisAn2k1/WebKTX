@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="KTX" target="11" />
+      <module name="KTX" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
