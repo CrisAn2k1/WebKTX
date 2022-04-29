@@ -125,6 +125,11 @@ public class UserController {
         return "thong-bao";
     }
 
+    @GetMapping("/admin")
+    public String adminPage(){
+        return "admin";
+    }
+
     @GetMapping({"/","/signup_success","/login-success"})
     public String welcome() {
         return "login";

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -238,6 +239,8 @@
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
                 <span>Copyright &copy; Nhóm Java</span>
+                <!--<span sec:authentication="name">Username</span>-->
+                <span sec:authentication="principal.authorities">Roles</span>
             </div>
         </div>
     </footer>
