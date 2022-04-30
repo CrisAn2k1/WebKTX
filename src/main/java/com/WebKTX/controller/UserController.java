@@ -9,7 +9,9 @@ import com.WebKTX.service.EmailSenderService;
 import com.WebKTX.service.UserService;
 import com.WebKTX.service.UserServiceIplm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -146,6 +148,7 @@ public class UserController {
     }
 
     @GetMapping("/thong-tin-sinh-vien")
+    @PreAuthorize("hasAnyAuthority('user')")
     public String indexPage(){
         return "thong-tin-sinh-vien";
     }

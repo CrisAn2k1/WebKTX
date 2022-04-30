@@ -2,6 +2,7 @@ package com.WebKTX.config;
 
 
 
+import com.WebKTX.model.Role;
 import com.WebKTX.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Set;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Configuration
@@ -43,14 +52,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/","/homepage","/login-success","/login"
-                        ,"/thong-bao","/thong-tin-sinh-vien","/thong-tin-lien-he"
+                        ,"/thong-tin-sinh-vien","/thong-tin-lien-he","/thong-bao"
                         ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon").authenticated()  // các URL bắt buộc đăng nhập
-                .antMatchers("/**","/register","/confirm").permitAll().                                     // các URL không bắt buộc đăng nhập
+                .antMatchers("/**","/register","/confirm").permitAll().
+                 antMatchers("/thong-tin-sinh-vien").hasRole("user")
+                .antMatchers("/" ,"/admin/**","/thong-tin-lien-he","/hoadon").hasRole("admin").
+               // .anyRequest().authenticated().// các URL không bắt buộc đăng nhập
             and()
                 .csrf().csrfTokenRepository( new HttpSessionCsrfTokenRepository()).
             and()
                 .formLogin().loginPage("/login").permitAll()
-                .defaultSuccessUrl("/homepage")                 //trang mặc định khi đăng nhập thành công
+                .successHandler(new AuthenticationSuccessHandler() {
+                    @Override
+                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+                        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+                        if (roles.contains("admin")) {
+                            System.out.println("Quyen: " +roles.toString());
+                            response.sendRedirect("/thong-tin-lien-he");
+                        }
+                        else {
+                            System.out.println("Quyen: " +roles.toString());
+                            response.sendRedirect("/homepage");
+                        }
+                    }
+                })//trang mặc định khi đăng nhập thành công
                 .failureUrl("/login?success=fail")
                 .loginProcessingUrl("/j_spring_security_check").
             and().logout(logout -> logout
