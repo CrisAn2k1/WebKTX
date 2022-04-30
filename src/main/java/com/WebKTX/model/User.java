@@ -71,7 +71,7 @@ public class User {
     @OneToMany(mappedBy = "idUser")
     private Set<Hosodangky> hosodangkies = new LinkedHashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "roles_users",
             joinColumns = @JoinColumn(name = "id_user"),
             inverseJoinColumns = @JoinColumn(name = "id_role"))
