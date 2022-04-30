@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Set;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+
 
 @Configuration
 @EnableWebSecurity
@@ -46,12 +48,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/","/homepage","/login-success","/login","/thong-bao","/thong-tin-sinh-vien","/thong-tin-lien-he").authenticated()  // các URL bắt buộc đăng nhập
-                .antMatchers("/**","/register","/confirm").permitAll() // các URL không bắt buộc đăng nhập
+                .antMatchers("/","/homepage","/login-success","/login"
+                        ,"/thong-bao","/thong-tin-sinh-vien","/thong-tin-lien-he"
+                        ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon").authenticated()  // các URL bắt buộc đăng nhập
+                .antMatchers("/**","/register","/confirm").permitAll()                                     // các URL không bắt buộc đăng nhập
                 .antMatchers("/").hasRole("user")
                 .antMatchers("/" ,"/admin/**").hasRole("admin")
-                .anyRequest().authenticated()
-                .and()
+                .anyRequest().authenticated().
+            and()
+                .csrf().csrfTokenRepository( new HttpSessionCsrfTokenRepository()).
+            and()
                 .formLogin().loginPage("/login").permitAll()
                 //.defaultSuccessUrl("/homepage")                 //trang mặc định khi đăng nhập thành công
                 .successHandler(new AuthenticationSuccessHandler() {
@@ -68,11 +74,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 })
                 .failureUrl("/login?success=fail")
                 .loginProcessingUrl("/j_spring_security_check").
-                and().logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/homepage")
-                        .addLogoutHandler(new SecurityContextLogoutHandler()
-                        ));
+            and().logout(logout -> logout
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/homepage")
+                    .addLogoutHandler(new SecurityContextLogoutHandler()
+                    ));
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

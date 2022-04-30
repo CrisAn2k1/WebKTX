@@ -65,6 +65,10 @@ public class UserDetail implements UserDetails {
         return true;
     }
 
+    public Integer id(){
+        return user.getId();
+    }
+
     public String email(){
         return  user.getEmail();
     }
