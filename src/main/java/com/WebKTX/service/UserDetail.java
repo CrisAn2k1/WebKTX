@@ -1,14 +1,15 @@
 package com.WebKTX.service;
 
+import com.WebKTX.model.Role;
 import com.WebKTX.model.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
 
 public class UserDetail implements UserDetails {
 
@@ -20,7 +21,15 @@ public class UserDetail implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<Role> roles = user.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            System.out.println("Quyen:" + role.getName());
+        }
+
+        return authorities;
     }
 
     @Override
