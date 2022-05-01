@@ -6,7 +6,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
