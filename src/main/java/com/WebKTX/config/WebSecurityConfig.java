@@ -54,10 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/homepage","/login-success","/login"
                         ,"/thong-tin-sinh-vien","/thong-tin-lien-he","/thong-bao"
                         ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon").authenticated()  // các URL bắt buộc đăng nhập
-                .antMatchers("/**","/register","/confirm").permitAll().
-                 antMatchers("/thong-tin-sinh-vien").hasRole("user")
-                .antMatchers("/" ,"/admin/**","/thong-tin-lien-he","/hoadon").hasRole("admin").
-               // .anyRequest().authenticated().// các URL không bắt buộc đăng nhập
+                .antMatchers("/**","/register","/confirm").permitAll().// các URL không bắt buộc đăng nhập
+                 antMatchers("/","/hoadon").hasAnyAuthority("user")
+                .antMatchers("/","/thong-tin-lien-he","/admin/**").hasAnyAuthority("admin").
             and()
                 .csrf().csrfTokenRepository( new HttpSessionCsrfTokenRepository()).
             and()
@@ -67,11 +66,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
                         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
                         if (roles.contains("admin")) {
-                            System.out.println("Quyen: " +roles.toString());
                             response.sendRedirect("/thong-tin-lien-he");
                         }
                         else {
-                            System.out.println("Quyen: " +roles.toString());
                             response.sendRedirect("/homepage");
                         }
                     }
@@ -82,7 +79,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutUrl("/logout")
                     .logoutSuccessUrl("/homepage")
                     .addLogoutHandler(new SecurityContextLogoutHandler()
-                    ));
+                    ))//.exceptionHandling().accessDeniedPage("/testUser")
+        ;
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
