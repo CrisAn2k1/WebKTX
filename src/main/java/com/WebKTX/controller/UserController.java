@@ -3,6 +3,7 @@ package com.WebKTX.controller;
 import com.WebKTX.model.ConfirmationToken;
 import com.WebKTX.model.User;
 
+import com.WebKTX.repository.ConfirmToken;
 import com.WebKTX.repository.ConfirmationTokenRepository;
 import com.WebKTX.repository.UserRepository;
 import com.WebKTX.service.EmailSenderService;
@@ -30,6 +31,9 @@ public class UserController {
 
     @Autowired
     private EmailSenderService emailSenderService;
+
+    @Autowired
+    private ConfirmToken confirmToken;
 
     @Autowired
     private UserRepository repo;
@@ -66,8 +70,9 @@ public class UserController {
     }
 
     // Hàm dùng để xoá user
-    @GetMapping("/testUser/{id}/remove")
-    public String removeUser(@PathVariable("id") Integer id){
+    @GetMapping("/testUser/{id}/{idToken}/remove")
+    public String removeUser(@PathVariable("id") Integer id, @PathVariable("idToken") Long idToken){
+        confirmToken.deleteById(idToken);
         userService.removeUser(id);
         return "redirect:/testUser";
     }
