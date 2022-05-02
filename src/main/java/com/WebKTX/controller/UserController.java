@@ -1,16 +1,17 @@
 package com.WebKTX.controller;
 
 import com.WebKTX.model.ConfirmationToken;
+import com.WebKTX.model.Role;
 import com.WebKTX.model.User;
 
 import com.WebKTX.repository.ConfirmToken;
 import com.WebKTX.repository.ConfirmationTokenRepository;
+import com.WebKTX.repository.RoleRepository;
 import com.WebKTX.repository.UserRepository;
 import com.WebKTX.service.EmailSenderService;
 import com.WebKTX.service.UserService;
 import com.WebKTX.service.UserServiceIplm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,14 +37,17 @@ public class UserController {
     private ConfirmToken confirmToken;
 
     @Autowired
-    private UserRepository repo;
+    private UserRepository userRepo;
+
+    @Autowired
+    private RoleRepository roleRepo;
 
     @Autowired
     private UserService userService;
 
     @GetMapping("/testUser")
     public String listUser(Model model){
-        List<User> listUser = (List<User>) repo.findAll();
+        List<User> listUser = (List<User>) userRepo.findAll();
         model.addAttribute("listUser",listUser);
 
 
@@ -53,7 +57,7 @@ public class UserController {
     // (GET: Truyền và hiển thị vào dữ liệu người dùng trước khi chỉnh sửa)
     @GetMapping("/testUser/{id}/edit")
     public String editUser(@PathVariable("id") Integer id, Model model){
-        User editUser = repo.findById(id).orElse(null);
+        User editUser = userRepo.findById(id).orElse(null);
         if(editUser == null){
             return "redirect:/testUser";
         }
@@ -87,7 +91,7 @@ public class UserController {
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView registerUser(ModelAndView modelAndView, User user){
 
-        User existingUser = repo.findByEmail(user.getEmail());
+        User existingUser = userRepo.findByEmail(user.getEmail());
         if(existingUser != null)
         {
             modelAndView.addObject("message","This email already exists!");
@@ -98,8 +102,9 @@ public class UserController {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
-            repo.save(user);
 
+            user.setRoles(roleRepo.findByName("user"));
+            userRepo.save(user);
             ConfirmationToken confirmationToken = new ConfirmationToken(user);
 
             confirmationTokenRepository.save(confirmationToken);
@@ -127,9 +132,9 @@ public class UserController {
 
         if(token != null)
         {
-            User user = repo.findByEmail(token.getUser().getEmail());
-            user.setEnabled(true);
-            repo.save(user);
+            User user = userRepo.findByEmail(token.getUser().getEmail());
+            user.setIsEnabled(true);
+            userRepo.save(user);
             modelAndView.setViewName("login");
         }
         else
