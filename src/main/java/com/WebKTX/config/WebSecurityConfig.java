@@ -61,18 +61,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().csrfTokenRepository( new HttpSessionCsrfTokenRepository()).
             and()
                 .formLogin().loginPage("/login").permitAll()
-                .successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-                        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-                        if (roles.contains("admin")) {
-                            response.sendRedirect("/thong-tin-lien-he");
-                        }
-                        else {
-                            response.sendRedirect("/homepage");
-                        }
-                    }
-                })//trang mặc định khi đăng nhập thành công
+                .defaultSuccessUrl("/homepage")
+//                .successHandler(new AuthenticationSuccessHandler() {
+//                    @Override
+//                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+//                        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+//                        if (roles.contains("admin")) {
+//                            response.sendRedirect("/thong-tin-lien-he");
+//                        }
+//                        else {
+//                            response.sendRedirect("/homepage");
+//                        }
+//                    }
+//                })//trang mặc định khi đăng nhập thành công
                 .failureUrl("/login?success=fail")
                 .loginProcessingUrl("/j_spring_security_check").
             and().logout(logout -> logout

@@ -51,15 +51,15 @@ public class User {
     @Column(name = "trangthai")
     private Boolean trangthai;
 
-    public boolean isEnabled() {
-        return isEnabled;
-    }
+    @Column(name = "is_enabled", nullable = false)
+    private Boolean isEnabled = false;
 
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_token")
+    private ConfirmationToken idToken;
 
-    private boolean isEnabled;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private ConfirmationToken confirmationTokens;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_phong")
@@ -85,6 +85,30 @@ public class User {
 
     @Column(name = "xa", length = 50)
     private String xa;
+
+    public ConfirmationToken getConfirmationTokens() {
+        return confirmationTokens;
+    }
+
+    public void setConfirmationTokens(ConfirmationToken confirmationTokens) {
+        this.confirmationTokens = confirmationTokens;
+    }
+
+    public ConfirmationToken getIdToken() {
+        return idToken;
+    }
+
+    public void setIdToken(ConfirmationToken idToken) {
+        this.idToken = idToken;
+    }
+
+    public Boolean getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
 
     public String getXa() {
         return xa;

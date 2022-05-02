@@ -71,7 +71,7 @@
             <td th:text="${user.diachicutru}"></td>
             <td><a th:href="@{testUser/{id}/edit(id=${user.getId()})}">Edit</a></td>
             <td><a th:href="@{testUser/{id}/view(id=${user.getId()})}">View</a></td>
-            <td><a th:href="@{testUser/{id}/{idToken}/remove(id=${user.getId()},idToken=${user})}">Delete</a></td>
+            <td><a th:href="@{testUser/{id}/{idToken}/remove(id=${user.getId()},idToken=${user.getConfirmationTokens().getTokenid()})}">Delete</a></td>
           </tr>
         </tbody>
       </table>
