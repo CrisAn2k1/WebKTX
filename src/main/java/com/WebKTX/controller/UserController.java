@@ -2,14 +2,12 @@ package com.WebKTX.controller;
 
 import com.WebKTX.model.ConfirmationToken;
 import com.WebKTX.model.Danhmucnoithat;
-import com.WebKTX.model.Role;
 import com.WebKTX.model.User;
 
 import com.WebKTX.repository.*;
 import com.WebKTX.service.EmailSenderService;
 import com.WebKTX.service.FurnitureService;
 import com.WebKTX.service.UserService;
-import com.WebKTX.service.UserServiceIplm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -89,18 +87,18 @@ public class UserController {
 
     // Furniture Management
 
-    @GetMapping("/quan-ly-noi-that")
+    @GetMapping("/furniture-management")
     public String listFur(Model model){
         List<Danhmucnoithat> listFur = (List<Danhmucnoithat>) furnitureRepo.findAll();
         model.addAttribute("listFur",listFur);
-        return "quan-ly-noi-that";
+        return "furniture-management";
     }
 
-    @GetMapping("/quan-ly-noi-that/{id}/edit")
+    @GetMapping("/furniture-management/{id}/edit")
     public String editFur(@PathVariable("id") Integer id, Model model){
         Danhmucnoithat editFur = furnitureRepo.findById(id).orElse(null);
         if(editFur == null){
-            return "redirect:/quan-ly-noi-that";
+            return "redirect:/furniture-management";
         }
         else {
             model.addAttribute("editFur",editFur);
@@ -108,17 +106,17 @@ public class UserController {
         }
     }
 
-    @PostMapping("/quan-ly-noi-that/edit")
+    @PostMapping("/furniture-management/edit")
     public String updateFurniture(Danhmucnoithat danhmucnoithat){
         furnitureService.updateFurniture(danhmucnoithat.getId(), danhmucnoithat);
-        return "redirect:/quan-ly-noi-that";
+        return "redirect:/furniture-management";
     }
 
-    @GetMapping("/quan-ly-noi-that/{id}/remove")
+    @GetMapping("/furniture-management/{id}/remove")
     public String removeFurniture(@PathVariable("id") Integer id){
 
         furnitureService.removeFurniture(id);
-        return "redirect:/quan-ly-noi-that";
+        return "redirect:/furniture-management";
     }
     //================================
     @GetMapping("/register")
@@ -217,6 +215,12 @@ public class UserController {
     public String welcome() {
         return "login";
     }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin";
+    }
+
 
 }
 
