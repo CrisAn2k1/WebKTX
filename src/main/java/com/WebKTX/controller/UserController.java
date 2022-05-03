@@ -1,14 +1,13 @@
 package com.WebKTX.controller;
 
 import com.WebKTX.model.ConfirmationToken;
+import com.WebKTX.model.Danhmucnoithat;
 import com.WebKTX.model.Role;
 import com.WebKTX.model.User;
 
-import com.WebKTX.repository.ConfirmToken;
-import com.WebKTX.repository.ConfirmationTokenRepository;
-import com.WebKTX.repository.RoleRepository;
-import com.WebKTX.repository.UserRepository;
+import com.WebKTX.repository.*;
 import com.WebKTX.service.EmailSenderService;
+import com.WebKTX.service.FurnitureService;
 import com.WebKTX.service.UserService;
 import com.WebKTX.service.UserServiceIplm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +40,13 @@ public class UserController {
 
     @Autowired
     private RoleRepository roleRepo;
+
+    @Autowired
+    private FurnitureRepository furnitureRepo;
+
+    @Autowired
+    private FurnitureService furnitureService;
+
 
     @Autowired
     private UserService userService;
@@ -81,6 +87,40 @@ public class UserController {
         return "redirect:/testUser";
     }
 
+    // Furniture Management
+
+    @GetMapping("/quan-ly-noi-that")
+    public String listFur(Model model){
+        List<Danhmucnoithat> listFur = (List<Danhmucnoithat>) furnitureRepo.findAll();
+        model.addAttribute("listFur",listFur);
+        return "quan-ly-noi-that";
+    }
+
+    @GetMapping("/quan-ly-noi-that/{id}/edit")
+    public String editFur(@PathVariable("id") Integer id, Model model){
+        Danhmucnoithat editFur = furnitureRepo.findById(id).orElse(null);
+        if(editFur == null){
+            return "redirect:/quan-ly-noi-that";
+        }
+        else {
+            model.addAttribute("editFur",editFur);
+            return "edit-furniture";
+        }
+    }
+
+    @PostMapping("/quan-ly-noi-that/edit")
+    public String updateFurniture(Danhmucnoithat danhmucnoithat){
+        furnitureService.updateFurniture(danhmucnoithat.getId(), danhmucnoithat);
+        return "redirect:/quan-ly-noi-that";
+    }
+
+    @GetMapping("/quan-ly-noi-that/{id}/remove")
+    public String removeFurniture(@PathVariable("id") Integer id){
+
+        furnitureService.removeFurniture(id);
+        return "redirect:/quan-ly-noi-that";
+    }
+    //================================
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("newUser", new User());
