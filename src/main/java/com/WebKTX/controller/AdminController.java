@@ -95,7 +95,7 @@ public class AdminController {
     public String listFur(Model model){
         List<Danhmucnoithat> listFur = (List<Danhmucnoithat>) furnitureRepo.findAll();
         model.addAttribute("listFur",listFur);
-        return "furniture-management";
+        return "admin/admin";
     }
 
     @GetMapping("/furniture-management/{id}/edit")
@@ -106,7 +106,7 @@ public class AdminController {
         }
         else {
             model.addAttribute("editFur",editFur);
-            return "edit-furniture";
+            return "admin/edit-furniture";
         }
     }
 
