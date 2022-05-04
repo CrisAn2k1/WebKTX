@@ -215,7 +215,7 @@ public class UserController {
 
     @GetMapping("/admin")
     public String admin(){
-        return "admin/admin";
+        return "admin";
     }
 
 
