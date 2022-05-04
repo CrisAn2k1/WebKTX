@@ -1,16 +1,12 @@
 package com.WebKTX.controller;
 
 import com.WebKTX.model.ConfirmationToken;
-import com.WebKTX.model.Role;
 import com.WebKTX.model.User;
 
-import com.WebKTX.repository.ConfirmToken;
-import com.WebKTX.repository.ConfirmationTokenRepository;
-import com.WebKTX.repository.RoleRepository;
-import com.WebKTX.repository.UserRepository;
+import com.WebKTX.repository.*;
 import com.WebKTX.service.EmailSenderService;
+import com.WebKTX.service.FurnitureService;
 import com.WebKTX.service.UserService;
-import com.WebKTX.service.UserServiceIplm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,8 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Service
 @Controller
@@ -43,44 +37,85 @@ public class UserController {
     private RoleRepository roleRepo;
 
     @Autowired
+    private FurnitureRepository furnitureRepo;
+
+    @Autowired
+    private FurnitureService furnitureService;
+
+
+    @Autowired
     private UserService userService;
 
-    @GetMapping("/testUser")
-    public String listUser(Model model){
-        List<User> listUser = (List<User>) userRepo.findAll();
-        model.addAttribute("listUser",listUser);
-
-
-        return "testUser";
-    }
-    // Hàm chỉnh sửa thông tin user
-    // (GET: Truyền và hiển thị vào dữ liệu người dùng trước khi chỉnh sửa)
-    @GetMapping("/testUser/{id}/edit")
-    public String editUser(@PathVariable("id") Integer id, Model model){
-        User editUser = userRepo.findById(id).orElse(null);
-        if(editUser == null){
-            return "redirect:/testUser";
-        }
-        else {
-            model.addAttribute("editUser",editUser);
-            return "edit";
-        }
-    }
-    // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
-    @PostMapping("/testUser/edit")
-    public String updateUser(User user){
-        userService.updateInfo(user.getId(), user);
-        return "redirect:/testUser";
-    }
-
-    // Hàm dùng để xoá user
-    @GetMapping("/testUser/{id}/{idToken}/remove")
-    public String removeUser(@PathVariable("id") Integer id, @PathVariable("idToken") Long idToken){
-        confirmToken.deleteById(idToken);
-        userService.removeUser(id);
-        return "redirect:/testUser";
-    }
-
+//    @GetMapping("/testUser")
+//    public String listUser(Model model){
+//        List<User> listUser = (List<User>) userRepo.findAll();
+//        model.addAttribute("listUser",listUser);
+//
+//
+//        return "testUser";
+//    }
+//    // Hàm chỉnh sửa thông tin user
+//    // (GET: Truyền và hiển thị vào dữ liệu người dùng trước khi chỉnh sửa)
+//    @GetMapping("/testUser/{id}/edit")
+//    public String editUser(@PathVariable("id") Integer id, Model model){
+//        User editUser = userRepo.findById(id).orElse(null);
+//        if(editUser == null){
+//            return "redirect:/testUser";
+//        }
+//        else {
+//            model.addAttribute("editUser",editUser);
+//            return "edit";
+//        }
+//    }
+//    // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
+//    @PostMapping("/testUser/edit")
+//    public String updateUser(User user){
+//        userService.updateInfo(user.getId(), user);
+//        return "redirect:/testUser";
+//    }
+//
+//    // Hàm dùng để xoá user
+//    @GetMapping("/testUser/{id}/{idToken}/remove")
+//    public String removeUser(@PathVariable("id") Integer id, @PathVariable("idToken") Long idToken){
+//        confirmToken.deleteById(idToken);
+//        userService.removeUser(id);
+//        return "redirect:/testUser";
+//    }
+//
+//    // Furniture Management
+//
+//    @GetMapping("/furniture-management")
+//    public String listFur(Model model){
+//        List<Danhmucnoithat> listFur = (List<Danhmucnoithat>) furnitureRepo.findAll();
+//        model.addAttribute("listFur",listFur);
+//        return "furniture-management";
+//    }
+//
+//    @GetMapping("/furniture-management/{id}/edit")
+//    public String editFur(@PathVariable("id") Integer id, Model model){
+//        Danhmucnoithat editFur = furnitureRepo.findById(id).orElse(null);
+//        if(editFur == null){
+//            return "redirect:/furniture-management";
+//        }
+//        else {
+//            model.addAttribute("editFur",editFur);
+//            return "edit-furniture";
+//        }
+//    }
+//
+//    @PostMapping("/furniture-management/edit")
+//    public String updateFurniture(Danhmucnoithat danhmucnoithat){
+//        furnitureService.updateFurniture(danhmucnoithat.getId(), danhmucnoithat);
+//        return "redirect:/furniture-management";
+//    }
+//
+//    @GetMapping("/furniture-management/{id}/remove")
+//    public String removeFurniture(@PathVariable("id") Integer id){
+//
+//        furnitureService.removeFurniture(id);
+//        return "redirect:/furniture-management";
+//    }
+//    //================================
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("newUser", new User());
@@ -177,6 +212,12 @@ public class UserController {
     public String welcome() {
         return "login";
     }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin";
+    }
+
 
 }
 
