@@ -19,7 +19,7 @@ public class PhongNoiThatServiceImpl implements PhongNoiThatService {
 
     @Override
     public void removeFurniture(Integer id) {
-//        Danhmucnoithat furnitureRemove = furnitureRepo.findById(id).orElse(null);
-//        furnitureRepo.delete(furnitureRemove);
+        PhongNoithat furnitureRemove = phongNoiThatRepo.findById(id).orElse(null);
+        phongNoiThatRepo.delete(furnitureRemove);
     }
 }
