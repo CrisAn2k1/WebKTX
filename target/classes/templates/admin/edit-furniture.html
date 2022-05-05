@@ -54,7 +54,7 @@
         <div class="row mt-3">
           <form
                   th:object="${editFur}"
-                  th:action="@{/furniture-management/edit}"
+                  th:action="@{/admin/furniture-management/edit}"
                   method="post"
                   novalidate="novalidate"
                   style="
@@ -71,7 +71,7 @@
             <input type="text" th:field="*{soluong}" id="soluongton" placeholder="soluongton" />
             <span th:if="${#fields.hasErrors('soluong')}" th:errors="*{soluong}"></span><br><br>
             <input  type="submit" value="Cập nhật" /><br>
-            <a th:href="@{/furniture-management}">Quay về</a>
+            <a th:href="@{/admin/furniture-management}">Quay về</a>
           </form>
         </div>
       </div>

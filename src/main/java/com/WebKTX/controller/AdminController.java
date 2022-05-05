@@ -95,10 +95,19 @@ public class AdminController {
 
     // Quản lý nội thất
     @GetMapping("/furniture-management")
-    public String listFur(Model model){
-        List<PhongNoithat> listFur =  phongNoiThatRepo.findAll();
-        model.addAttribute("listFur",listFur);
+    public String listPhong(Model model){
+        List<Phong> listPhong =  phongRepo.findAll();
+        model.addAttribute("listPhong",listPhong);
         return "admin/furniture-management";
+    }
+
+    @GetMapping("/furniture-management/{idPhong}")
+    public String listFurPhong(@PathVariable("idPhong") String idPhong, Model model){
+        System.out.println("Phòng :" + idPhong);
+        List<PhongNoithat> listFur = phongNoiThatRepo.findByIdPhong(idPhong);
+        model.addAttribute("listFur",listFur);
+        model.addAttribute("maphong",idPhong);
+        return "admin/furniture-item";
     }
 
     @GetMapping("/furniture-management/{id}/edit")
