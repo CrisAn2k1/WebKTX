@@ -1541,6 +1541,7 @@ id_role</ColNames>
     </column>
     <column id="396" parent="296" name="id_phong">
       <DataType>varchar(5)|0s</DataType>
+      <DefaultExpression>&apos;P1008&apos;</DefaultExpression>
       <Position>18</Position>
     </column>
     <column id="397" parent="296" name="id_token">
@@ -1552,29 +1553,34 @@ id_role</ColNames>
       <DefaultExpression>&apos;123456789&apos;</DefaultExpression>
       <Position>20</Position>
     </column>
-    <foreign-key id="399" parent="296" name="id_user_phong">
+    <column id="399" parent="296" name="mssv">
+      <DataType>varchar(15)|0s</DataType>
+      <DefaultExpression>&apos;1911065963&apos;</DefaultExpression>
+      <Position>21</Position>
+    </column>
+    <foreign-key id="400" parent="296" name="id_user_phong">
       <ColNames>id_phong</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id_phong</RefColNames>
       <RefTableName>phong</RefTableName>
     </foreign-key>
-    <foreign-key id="400" parent="296" name="id_user_token">
+    <foreign-key id="401" parent="296" name="id_user_token">
       <ColNames>id_token</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>token_id</RefColNames>
       <RefTableName>confirmation_token</RefTableName>
     </foreign-key>
-    <index id="401" parent="296" name="id_user_phong_idx">
+    <index id="402" parent="296" name="id_user_phong_idx">
       <ColNames>id_phong</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="402" parent="296" name="id_user_token_idx">
+    <index id="403" parent="296" name="id_user_token_idx">
       <ColNames>id_token</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="403" parent="296" name="PRIMARY">
+    <key id="404" parent="296" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
