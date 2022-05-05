@@ -58,14 +58,13 @@
                   novalidate="novalidate"
           >
             <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
-
-            <label for="id">Tên nội thất: </label>
-            <input type="text" th:field="*{ten}" id="ten" placeholder="ten" />
-            <span th:if="${#fields.hasErrors('ten')}" th:errors="*{ten}"></span>
-
+            <label>Tên phòng: </label>
+            <input disabled type="text" th:placeholder="${editFur.getIdPhong().getId()}"/><br>
+            <label>Tên nội thất: </label>
+            <input disabled type="text" th:placeholder="${editFur.getIdNoithat().getTen()}"/><br>
             <label for="soluongton">Số lượng tồn: </label>
-            <input type="text" th:field="*{soluongton}" id="soluongton" placeholder="soluongton" />
-            <span th:if="${#fields.hasErrors('soluongton')}" th:errors="*{soluongton}"></span>
+            <input type="text" th:field="*{soluong}" id="soluongton" placeholder="soluongton" />
+            <span th:if="${#fields.hasErrors('soluong')}" th:errors="*{soluong}"></span>
             <input  type="submit" value="Cập nhật" />
           </form>
         </div>

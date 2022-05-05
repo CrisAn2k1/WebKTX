@@ -2,10 +2,10 @@ package com.WebKTX.controller;
 
 import com.WebKTX.model.*;
 import com.WebKTX.repository.ConfirmToken;
-import com.WebKTX.repository.FurnitureRepository;
+import com.WebKTX.repository.PhongNoiThatRepository;
 import com.WebKTX.repository.RoleRepository;
 import com.WebKTX.repository.UserRepository;
-import com.WebKTX.service.FurnitureService;
+import com.WebKTX.service.PhongNoiThatService;
 import com.WebKTX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +18,6 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class AdminController {
@@ -32,10 +31,10 @@ public class AdminController {
     private RoleRepository roleRepo;
 
     @Autowired
-    private FurnitureRepository furnitureRepo;
+    private PhongNoiThatRepository phongNoiThatRepo;
 
     @Autowired
-    private FurnitureService furnitureService;
+    private PhongNoiThatService phongNoiThatService;
 
 
     @Autowired
@@ -53,21 +52,21 @@ public class AdminController {
         return secondaryTemplateResolver;
     }
 
-    @GetMapping("/testUser")
+    @GetMapping("/quan-ly-sinh-vien")
     public String listUser(Model model){
         List<User> listUser = (List<User>) userRepo.findAll();
         model.addAttribute("listUser",listUser);
 
 
-        return "testUser";
+        return "list-user";
     }
     // Hàm chỉnh sửa thông tin user
     // (GET: Truyền và hiển thị vào dữ liệu người dùng trước khi chỉnh sửa)
-    @GetMapping("/testUser/{id}/edit")
+    @GetMapping("/quan-ly-sinh-vien/{id}/edit")
     public String editUser(@PathVariable("id") Integer id, Model model){
         User editUser = userRepo.findById(id).orElse(null);
         if(editUser == null){
-            return "redirect:/testUser";
+            return "redirect:/quan-ly-sinh-vien";
         }
         else {
             model.addAttribute("editUser",editUser);
@@ -75,18 +74,18 @@ public class AdminController {
         }
     }
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
-    @PostMapping("/testUser/edit")
+    @PostMapping("/quan-ly-sinh-vien/edit")
     public String updateUser(User user){
         userService.updateInfo(user.getId(), user);
-        return "redirect:/testUser";
+        return "redirect:/quan-ly-sinh-vien";
     }
 
     // Hàm dùng để xoá user
-    @GetMapping("/testUser/{id}/{idToken}/remove")
+    @GetMapping("/quan-ly-sinh-vien/{id}/{idToken}/remove")
     public String removeUser(@PathVariable("id") Integer id, @PathVariable("idToken") Long idToken){
         confirmToken.deleteById(idToken);
         userService.removeUser(id);
-        return "redirect:/testUser";
+        return "redirect:/quan-ly-sinh-vien";
     }
 
     // Furniture Management
@@ -101,28 +100,30 @@ public class AdminController {
     // test
     @GetMapping("/furniture-management")
     public String listFur(Model model){
-        List<PhongNoithat> listFur = (List<PhongNoithat>) furnitureRepo.findAll();
+        List<PhongNoithat> listFur =  phongNoiThatRepo.findAll();
         model.addAttribute("listFur",listFur);
         return "admin/furniture-management";
     }
-//
-//    @GetMapping("/furniture-management/{idPhong}/edit")
-//    public String editFur(@PathVariable("idPhong") PhongNoithatId idPhong, Model model){
-//        Optional<PhongNoithat> editFur = furnitureRepo.findById(idPhong);
-//        if(editFur == null){
-//            return "redirect:/furniture-management";
-//        }
-//        else {
-//            model.addAttribute("editFur",editFur);
-//            return "admin/edit-furniture";
-//        }
-//    }
-//
-//    @PostMapping("/furniture-management/edit")
-//    public String updateFurniture(Danhmucnoithat danhmucnoithat){
-//        furnitureService.updateFurniture(danhmucnoithat.getId(), danhmucnoithat);
-//        return "redirect:/furniture-management";
-//    }
+
+    @GetMapping("/furniture-management/{id}/edit")
+    public String editFur(@PathVariable("id") Integer idPhongNoiThat, Model model){
+        PhongNoithat editFur = phongNoiThatRepo.findById(idPhongNoiThat).orElse(null);
+        if(editFur == null){
+            System.out.println("Không có bất kỳ kết quả nào ===============");
+
+            return "redirect:/furniture-management";
+        }
+        else {
+            model.addAttribute("editFur",editFur);
+            return "admin/edit-furniture";
+        }
+    }
+
+    @PostMapping("/furniture-management/edit")
+    public String updateFurniture(PhongNoithat phongNoithat){
+        phongNoiThatService.updatePhongNoithat(phongNoithat.getId(),phongNoithat);
+        return "redirect:/furniture-management";
+    }
 //
 //    @GetMapping("/furniture-management/{id}/remove")
 //    public String removeFurniture(@PathVariable("id") Integer id){

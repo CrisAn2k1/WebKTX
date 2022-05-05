@@ -5,7 +5,7 @@ import com.WebKTX.model.User;
 
 import com.WebKTX.repository.*;
 import com.WebKTX.service.EmailSenderService;
-import com.WebKTX.service.FurnitureService;
+import com.WebKTX.service.PhongNoiThatService;
 import com.WebKTX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -37,10 +37,10 @@ public class UserController {
     private RoleRepository roleRepo;
 
     @Autowired
-    private FurnitureRepository furnitureRepo;
+    private PhongNoiThatRepository furnitureRepo;
 
     @Autowired
-    private FurnitureService furnitureService;
+    private PhongNoiThatService furnitureService;
 
 
     @Autowired

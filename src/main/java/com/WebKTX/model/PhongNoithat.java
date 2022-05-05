@@ -4,23 +4,24 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "phong_noithat", indexes = {
-        @Index(name = "id_phongnt_noithat_idx", columnList = "id_noithat")
+        @Index(name = "id_phong_nt_phong_idx", columnList = "id_phong"),
+        @Index(name = "id_phong_nt_noithat_idx", columnList = "id_noithat")
 })
 public class PhongNoithat {
-    @EmbeddedId
-    private PhongNoithatId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @MapsId("idPhong")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_phong", nullable = false)
     private Phong idPhong;
 
-    @MapsId("idNoithat")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_noithat", nullable = false)
     private Danhmucnoithat idNoithat;
 
-    @Column(name = "soluong", nullable = false)
+    @Column(name = "soluong")
     private Integer soluong;
 
     public Integer getSoluong() {
@@ -47,11 +48,11 @@ public class PhongNoithat {
         this.idPhong = idPhong;
     }
 
-    public PhongNoithatId getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(PhongNoithatId id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 }
