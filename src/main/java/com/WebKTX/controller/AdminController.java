@@ -127,13 +127,13 @@ public class AdminController {
     @PostMapping("/furniture-management/edit")
     public String updateFurniture(PhongNoithat phongNoithat){
         phongNoiThatService.updatePhongNoithat(phongNoithat.getId(),phongNoithat);
-        return "redirect:/furniture-management";
+        return "redirect:/admin/furniture-management";
     }
 
     @GetMapping("/furniture-management/{id}/remove")
     public String removeFurniture(@PathVariable("id") Integer idPhongNoiThat){
         phongNoiThatService.removeFurniture(idPhongNoiThat);
-        return "redirect:/furniture-management";
+        return "redirect:/admin/furniture-management";
     }
     //================================
 }
