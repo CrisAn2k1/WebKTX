@@ -88,16 +88,7 @@ public class AdminController {
         return "redirect:/quan-ly-sinh-vien";
     }
 
-    // Furniture Management
-
-//    @GetMapping("/furniture-management")
-//    public String listFur(Model model){
-//        List<Danhmucnoithat> listFur = (List<Danhmucnoithat>) furnitureRepo.findAll();
-//        model.addAttribute("listFur",listFur);
-//        return "admin/furniture-management";
-//    }
-
-    // test
+    // Quản lý nội thất
     @GetMapping("/furniture-management")
     public String listFur(Model model){
         List<PhongNoithat> listFur =  phongNoiThatRepo.findAll();
@@ -124,12 +115,11 @@ public class AdminController {
         phongNoiThatService.updatePhongNoithat(phongNoithat.getId(),phongNoithat);
         return "redirect:/furniture-management";
     }
-//
-//    @GetMapping("/furniture-management/{id}/remove")
-//    public String removeFurniture(@PathVariable("id") Integer id){
-//
-//        furnitureService.removeFurniture(id);
-//        return "redirect:/furniture-management";
-//    }
+
+    @GetMapping("/furniture-management/{id}/remove")
+    public String removeFurniture(@PathVariable("id") Integer idPhongNoiThat){
+        phongNoiThatService.removeFurniture(idPhongNoiThat);
+        return "redirect:/furniture-management";
+    }
     //================================
 }

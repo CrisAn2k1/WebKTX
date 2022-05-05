@@ -5,7 +5,8 @@
   <title>Chỉnh sửa thông tin nội thất</title>
   <style>
       a{
-      margin-top: 20px;
+        align-items: center;
+        margin-top: 20px;
         text-decoration: none;
        align-items: center;
        background-color: #0A66C2;
@@ -56,22 +57,26 @@
                   th:action="@{/furniture-management/edit}"
                   method="post"
                   novalidate="novalidate"
+                  style="
+                    padding: 40px 80px;
+                    border: 3px solid green;
+                    text-align: center;"
           >
             <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
             <label>Tên phòng: </label>
-            <input disabled type="text" th:placeholder="${editFur.getIdPhong().getId()}"/><br>
+            <input disabled type="text" th:placeholder="${editFur.getIdPhong().getId()}"/><br><br>
             <label>Tên nội thất: </label>
-            <input disabled type="text" th:placeholder="${editFur.getIdNoithat().getTen()}"/><br>
+            <input disabled type="text" th:placeholder="${editFur.getIdNoithat().getTen()}"/><br><br>
             <label for="soluongton">Số lượng tồn: </label>
             <input type="text" th:field="*{soluong}" id="soluongton" placeholder="soluongton" />
-            <span th:if="${#fields.hasErrors('soluong')}" th:errors="*{soluong}"></span>
-            <input  type="submit" value="Cập nhật" />
+            <span th:if="${#fields.hasErrors('soluong')}" th:errors="*{soluong}"></span><br><br>
+            <input  type="submit" value="Cập nhật" /><br>
+            <a th:href="@{/furniture-management}">Quay về</a>
           </form>
         </div>
       </div>
     </div>
   </div>
-  <a th:href="@{/furniture-management}">Quay về</a>
 
 </div>
 </body>
