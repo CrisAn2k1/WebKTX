@@ -95,7 +95,7 @@ public class AdminController {
     public String listFur(Model model){
         List<Danhmucnoithat> listFur = (List<Danhmucnoithat>) furnitureRepo.findAll();
         model.addAttribute("listFur",listFur);
-        return "admin/admin";
+        return "admin/furniture-management";
     }
 
     @GetMapping("/furniture-management/{id}/edit")
