@@ -12,17 +12,17 @@ public class FurnitureServiceImpl implements FurnitureService{
     FurnitureRepository furnitureRepo;
     @Override
     public void updateFurniture(Integer id, Danhmucnoithat danhmucnoithat) {
-        Danhmucnoithat furnitureEdit = furnitureRepo.findById(id).orElse(null);
-        furnitureEdit.setId(danhmucnoithat.getId());
-        furnitureEdit.setTen(danhmucnoithat.getTen());
-        furnitureEdit.setSoluongton(danhmucnoithat.getSoluongton());
-        furnitureRepo.save(furnitureEdit);
+//        Danhmucnoithat furnitureEdit = furnitureRepo.findById(id).orElse(null);
+//        furnitureEdit.setId(danhmucnoithat.getId());
+//        furnitureEdit.setTen(danhmucnoithat.getTen());
+//        furnitureEdit.setSoluongton(danhmucnoithat.getSoluongton());
+//        furnitureRepo.save(furnitureEdit);
 
     }
 
     @Override
     public void removeFurniture(Integer id) {
-        Danhmucnoithat furnitureRemove = furnitureRepo.findById(id).orElse(null);
-        furnitureRepo.delete(furnitureRemove);
+//        Danhmucnoithat furnitureRemove = furnitureRepo.findById(id).orElse(null);
+//        furnitureRepo.delete(furnitureRemove);
     }
 }

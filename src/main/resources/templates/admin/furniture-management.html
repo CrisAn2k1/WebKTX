@@ -45,22 +45,21 @@
           <table th:if="${listFur.size()!=0}">
             <thead>
             <tr>
-              <th>Mã nội thất</th>
+              <th>Mã phòng</th>
               <th>Tên nội thất</th>
-              <th>Số lượng tồn</th>
+              <th>Số lượng </th>
               <!--      <th>View</th>-->
             </tr>
             </thead>
-            <tbody th:each="danhmucnoithat : ${listFur}">
+            <tbody th:each="PhongNoiThat : ${listFur}">
             <tr>
-              <td th:text="${danhmucnoithat.id}"></td>
-              <td th:text="${danhmucnoithat.ten}"></td>
-              <td th:text="${danhmucnoithat.soluongton}"></td>
+              <td th:text="${PhongNoiThat.getId().idPhong}"></td>
+              <td th:text="${PhongNoiThat.getIdNoithat().ten}"></td>
+              <td th:text="${PhongNoiThat.soluong}"></td>
 
-              <!--      <td th:text="${user.diachicutru}"></td>-->
               <div class="btn-link">
-                <td><a th:href="@{furniture-management/{id}/edit(id=${danhmucnoithat.getId()})}">Chỉnh sửa</a></td>
-                <td><a th:href="@{furniture-management/{id}/remove(id=${danhmucnoithat.getId()})}">Xoá</a></td>
+<!--                <td><a th:href="@{furniture-management/{idPhong}/edit(idPhong=${PhongNoiThat.getId().idPhong})}">Chỉnh sửa</a></td>-->
+<!--                <td><a th:href="@{furniture-management/{idPhong}/remove(idPhong=${PhongNoiThat.getId().idPhong})}">Xoá</a></td>-->
               </div>
             </tr>
             </tbody>

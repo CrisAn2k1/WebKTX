@@ -1,7 +1,6 @@
 package com.WebKTX.controller;
 
-import com.WebKTX.model.Danhmucnoithat;
-import com.WebKTX.model.User;
+import com.WebKTX.model.*;
 import com.WebKTX.repository.ConfirmToken;
 import com.WebKTX.repository.FurnitureRepository;
 import com.WebKTX.repository.RoleRepository;
@@ -19,6 +18,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AdminController {
@@ -91,36 +91,44 @@ public class AdminController {
 
     // Furniture Management
 
+//    @GetMapping("/furniture-management")
+//    public String listFur(Model model){
+//        List<Danhmucnoithat> listFur = (List<Danhmucnoithat>) furnitureRepo.findAll();
+//        model.addAttribute("listFur",listFur);
+//        return "admin/furniture-management";
+//    }
+
+    // test
     @GetMapping("/furniture-management")
     public String listFur(Model model){
-        List<Danhmucnoithat> listFur = (List<Danhmucnoithat>) furnitureRepo.findAll();
+        List<PhongNoithat> listFur = (List<PhongNoithat>) furnitureRepo.findAll();
         model.addAttribute("listFur",listFur);
         return "admin/furniture-management";
     }
-
-    @GetMapping("/furniture-management/{id}/edit")
-    public String editFur(@PathVariable("id") Integer id, Model model){
-        Danhmucnoithat editFur = furnitureRepo.findById(id).orElse(null);
-        if(editFur == null){
-            return "redirect:/furniture-management";
-        }
-        else {
-            model.addAttribute("editFur",editFur);
-            return "admin/edit-furniture";
-        }
-    }
-
-    @PostMapping("/furniture-management/edit")
-    public String updateFurniture(Danhmucnoithat danhmucnoithat){
-        furnitureService.updateFurniture(danhmucnoithat.getId(), danhmucnoithat);
-        return "redirect:/furniture-management";
-    }
-
-    @GetMapping("/furniture-management/{id}/remove")
-    public String removeFurniture(@PathVariable("id") Integer id){
-
-        furnitureService.removeFurniture(id);
-        return "redirect:/furniture-management";
-    }
+//
+//    @GetMapping("/furniture-management/{idPhong}/edit")
+//    public String editFur(@PathVariable("idPhong") PhongNoithatId idPhong, Model model){
+//        Optional<PhongNoithat> editFur = furnitureRepo.findById(idPhong);
+//        if(editFur == null){
+//            return "redirect:/furniture-management";
+//        }
+//        else {
+//            model.addAttribute("editFur",editFur);
+//            return "admin/edit-furniture";
+//        }
+//    }
+//
+//    @PostMapping("/furniture-management/edit")
+//    public String updateFurniture(Danhmucnoithat danhmucnoithat){
+//        furnitureService.updateFurniture(danhmucnoithat.getId(), danhmucnoithat);
+//        return "redirect:/furniture-management";
+//    }
+//
+//    @GetMapping("/furniture-management/{id}/remove")
+//    public String removeFurniture(@PathVariable("id") Integer id){
+//
+//        furnitureService.removeFurniture(id);
+//        return "redirect:/furniture-management";
+//    }
     //================================
 }
