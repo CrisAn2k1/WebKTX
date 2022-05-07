@@ -51,6 +51,4 @@ public class Danhmucnoithat {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    //TODO Reverse Engineering! Migrate other columns to the entity
 }

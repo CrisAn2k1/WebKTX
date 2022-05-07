@@ -10,15 +10,15 @@
   <title>Website quản lý ký túc xá</title>
 
   <!-- Custom fonts for this template-->
-  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
   <link
           href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet"
   />
 
   <!-- Custom styles for this template-->
-  <link href="assets/css/sb-admin-2.min.css" rel="stylesheet" />
-  <link href="assets/css/furniture.css" rel="stylesheet" />
+  <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
+  <link href="/assets/css/furniture.css" rel="stylesheet" />
 
 </head>
 
@@ -37,38 +37,7 @@
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
       <div class="container-fluid">
-        <div >
-        <div style="text-align: center">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <h4 class="text-right">Thông tin nội thất</h4>
-          </div>
-          <table th:if="${listFur.size()!=0}">
-            <thead>
-            <tr>
-              <th>Mã nội thất</th>
-              <th>Tên nội thất</th>
-              <th>Số lượng tồn</th>
-              <!--      <th>View</th>-->
-            </tr>
-            </thead>
-            <tbody th:each="danhmucnoithat : ${listFur}">
-            <tr>
-              <td th:text="${danhmucnoithat.id}"></td>
-              <td th:text="${danhmucnoithat.ten}"></td>
-              <td th:text="${danhmucnoithat.soluongton}"></td>
 
-              <!--      <td th:text="${user.diachicutru}"></td>-->
-              <div class="btn-link">
-                <td><a th:href="@{furniture-management/{id}/edit(id=${danhmucnoithat.getId()})}">Chỉnh sửa</a></td>
-                <td><a th:href="@{furniture-management/{id}/remove(id=${danhmucnoithat.getId()})}">Xoá</a></td>
-              </div>
-            </tr>
-            </tbody>
-          </table>
-<!--          <a th:href="@{/admin}">Quay về</a>-->
-
-        </div>
-        </div>
       </div>
       <!-- /.container-fluid -->
     </div>

@@ -86,6 +86,28 @@ public class User {
     @Column(name = "xa", length = 50)
     private String xa;
 
+    @Column(name = "`cmnd/cccd`", length = 15)
+    private String cmndCccd;
+
+    @Column(name = "mssv", length = 15)
+    private String mssv;
+
+    public String getMssv() {
+        return mssv;
+    }
+
+    public void setMssv(String mssv) {
+        this.mssv = mssv;
+    }
+
+    public String getCmndCccd() {
+        return cmndCccd;
+    }
+
+    public void setCmndCccd(String cmndCccd) {
+        this.cmndCccd = cmndCccd;
+    }
+
     public ConfirmationToken getConfirmationTokens() {
         return confirmationTokens;
     }
