@@ -96,7 +96,7 @@
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
               <thead>
               <tr>
                 <th>MSSV</th>
@@ -110,7 +110,7 @@
                 <th>Xã/Phường</th>
                 <th>Quận/Huyện</th>
                 <th>Tỉnh/Thành phố</th>
-                <th>Thao tác</th>
+<!--                <th>Thao tác</th>-->
 
               </tr>
               </thead>
@@ -127,13 +127,12 @@
                 <td th:text="${user.xa}"></td>
                 <td th:text="${user.huyen}"></td>
                 <td th:text="${user.tinh}"></td>
-                <td><a th:href="@{{id}/edit(id=${user.getId()})}">Edit</a></td>
-                <td><a th:href="@{{id}/view(id=${user.getId()})}">View</a></td>
-                <td><a th:href="@{{id}/{idToken}/remove(id=${user.getId()},idToken=${user.getConfirmationTokens().getTokenid()})}">Delete</a></td>
+                <td><a th:href="@{{id}/edit(id=${user.getId()})}">Chỉnh sửa </a></td>
+<!--                <td><a th:href="@{{id}/view(id=${user.getId()})}">View</a></td>-->
+                <td><a th:href="@{{id}/{idToken}/remove(id=${user.getId()},idToken=${user.getConfirmationTokens().getTokenid()})}">Xóa</a></td>
               </tr>
               </tbody>
           </table>
-        </div>      </div>
       <!-- /.container-fluid -->
     </div>
     <!-- End of Main Content -->

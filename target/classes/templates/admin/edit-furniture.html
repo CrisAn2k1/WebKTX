@@ -117,26 +117,13 @@
                   <label for="soluongton">Số lượng tồn: </label>
                   <input type="text" th:field="*{soluong}" id="soluongton" placeholder="soluongton" />
                   <span th:if="${#fields.hasErrors('soluong')}" th:errors="*{soluong}"></span><br><br>
-                  <div class="btn-group" style="width: 100%">
-                    <p style="
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: center;
-                        margin: auto;
-                    ">
-                      <input  type="submit" value="Cập nhật" /><br>
-                      <p style="
-                          display: flex;
-                          flex-direction: row;
-                          align-items: center;
-                          justify-content: center;
-                          margin: auto;
-                      ">
-                          <button onclick="document.location='/admin/furniture-management'">Quay lại</button>
-                        </p>
-                    </p>
-
+                  <div class="btn-group" style="width: 90%">
+                    <span>
+                      <div class="inputbox">
+                        <input  type="submit" value="Cập nhật" /><br>
+                        <button type="button" onclick="document.location='/admin/furniture-management'">Quay lại</button>
+                      </div>
+                    </span>
                   </div>
                 </form>
               </div>
