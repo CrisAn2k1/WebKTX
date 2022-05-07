@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Website quản lý ký túc xá</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet"
+    />
+
+    <!-- Custom styles for this template-->
+    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="/assets/css/furniture.css" rel="stylesheet" />
+
+    <!-- Custom styles for table -->
+    <style>
+        table {
+            counter-reset: rowNumber;
+        }
+
+        table thead{
+            text-align: center;
+            vertical-align: center;
+        }
+        table tbody td.date{
+            text-align: center;
+            vertical-align: center;
+        }
+        table tbody tr td.stt:before {
+            display: table-cell;
+            counter-increment: rowNumber;
+            content: counter(rowNumber);
+            padding-right: 0.3em;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 auto;
+        }
+    </style>
+
+    <!-- Custom styles for button -->
+    <style>
+        .btn-group button {
+            background-color: #04AA6D; /* Green background */
+            border: 1px solid green; /* Green border */
+            color: white; /* White text */
+            padding: 10px 24px; /* Some padding */
+            cursor: pointer; /* Pointer/hand icon */
+            float: left; /* Float the buttons side by side */
+            margin-top: 10px;;
+            border-radius: 5px;;
+        }
+
+        /* Clear floats (clearfix hack) */
+        .btn-group:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .btn-group button:not(:last-child) {
+            border-right: none; /* Prevent double borders */
+        }
+
+        /* Add a background color on hover */
+        .btn-group button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div th:replace="fragments/nav :: sidebaradmin"></div>
+    <!-- End of Sidebar -->
+    <!-- Content Wrapper -->
+    <div th:if="${listHD.size()!=0}" id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <div th:replace="fragments/nav :: topnav"></div>
+            <!-- End of Topbar -->
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <h1 class="h3 mb-2 text-gray-800 text-center">Danh sách hóa đơn:  </h1>
+                <!-- DataTales Example -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div style="text-align: center">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4 class="text-right">Thông tin nội thất</h4>
+                            </div>
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${listHD.size()!=0}">
+                                <thead>
+                                <tr>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Tên phòng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Ngày xuất</th>
+                                    <th>Trạng thái</th>
+                                    <!--      <th>View</th>-->
+                                </tr>
+                                </thead>
+                                <tbody th:each="HoaDon, countHoaHon:${listHD}">
+                                <tr>
+                                    <td th:text="${countHoaHon.index+1}"></td>
+                                    <td th:text="${HoaDon.getIdPhong().getId()}"></td>
+                                    <td th:text="${#numbers.formatDecimal(HoaDon.getTongtien(), 0, 'COMMA',0, 'POINT')} +  ' VNĐ'"></td>
+                                    <td th:text="${#dates.format(HoaDon.getNgayxuatHD(),'dd-MM-yyyy')}"></td>
+
+                                    <td>
+                                    <span th:if="${HoaDon.getTrangthaithanhtoan() == false }" style="color: red; font-weight: bold">Chưa thanh toán</span>
+                                    <span th:unless="${HoaDon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán</span>
+                                    </td>
+                                      <div class="btn-link">
+                                        <td><a th:href="@{/admin/invoice-management/{id}/edit(id=${HoaDon.getId()})}">Chỉnh sửa</a></td>
+                                        <td><a th:href="@{/admin/invoice-management/{id}/remove(id=${HoaDon.getId()})}">Xoá</a></td>
+                                      </div>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!--          <a th:href="@{/admin}">Quay về</a>-->
+<!--                            <div class="btn-group" style="width: 100%">-->
+<!--                                <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">-->
+<!--                                    <button onclick="document.location='/admin/invoice-management'">Quay lại</button>-->
+<!--                                </p>-->
+<!--                            </div>-->
+                        </div>
+                    </div>      </div>
+                <!-- /.container-fluid -->
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <div th:replace="fragments/nav :: footer"></div>
+            <!-- End of Footer -->
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+
+    <div th:unless="${listHD.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
+        <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không nội thất nào trong phòng này! <br/>
+            <button onclick="document.location='/admin/furniture-management'">Quay lại</button>
+        </p>
+
+    </div>
+</div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div th:replace="fragments/nav :: logout"></div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/assets/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/assets/vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/assets/js/demo/chart-area-demo.js"></script>
+<script src="/assets/js/demo/chart-pie-demo.js"></script>
+</body>
+</html>
