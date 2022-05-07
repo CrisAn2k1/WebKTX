@@ -129,7 +129,7 @@
                 <td th:text="${user.tinh}"></td>
                 <td><a th:href="@{{id}/edit(id=${user.getId()})}">Chỉnh sửa </a></td>
 <!--                <td><a th:href="@{{id}/view(id=${user.getId()})}">View</a></td>-->
-                <td><a th:href="@{{id}/{idToken}/remove(id=${user.getId()},idToken=${user.getConfirmationTokens().getTokenid()})}">Xóa</a></td>
+                <td><a th:href="@{{id}/remove(id=${user.getId()})}">Xóa</a></td>
               </tr>
               </tbody>
           </table>
@@ -156,7 +156,9 @@
 </a>
 <!-- Logout Modal-->
 <div th:replace="fragments/nav :: logout"></div>
-
+    </div>
+  </div>
+  </div>
 <!-- Bootstrap core JavaScript-->
 <script src="/assets/vendor/jquery/jquery.min.js"></script>
 

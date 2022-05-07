@@ -17,8 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
-    @Autowired
-    private ConfirmToken confirmToken;
 
     @Autowired
     private UserRepository userRepo;
@@ -92,9 +90,8 @@ public class AdminController {
     }
 
     // Hàm dùng để xoá user
-    @GetMapping("/quan-ly-sinh-vien/{id}/{idToken}/remove")
-    public String removeUser(@PathVariable("id") Integer id, @PathVariable("idToken") Long idToken){
-        confirmToken.deleteById(idToken);
+    @GetMapping("/quan-ly-sinh-vien/{id}/remove")
+    public String removeUser(@PathVariable("id") Integer id){
         userService.removeUser(id);
         return "redirect:/admin/quan-ly-sinh-vien";
     }
