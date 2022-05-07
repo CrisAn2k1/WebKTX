@@ -109,6 +109,7 @@
                     border: 3px solid green;
                     text-align: center;"
               >
+                <div style="width: 100%">
                 <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
 
                 <label>Mã hóa đơn</label>
@@ -121,12 +122,18 @@
                 <input disabled type="text" th:placeholder="${#numbers.formatDecimal(editHD.getTongtien(), 0, 'COMMA',0, 'POINT')}"/><br><br>
 
                 <label >Ngày xuất hóa đơn</label>
-                <input type="text" th:field="*{ngayxuatHD}" id="ngayxuatHD" th:placeholder="ngayxuatHD" th:value="${#dates.format(editHD.ngayxuatHD, 'dd-MMM-yyyy')}"/>
+                <input disabled type="text" th:placeholder="${#dates.format(editHD.getNgayxuatHD(),'dd-MM-yyyy')}" id="ngayxuatHD" />
                 <span th:if="${#fields.hasErrors('ngayxuatHD')}" th:errors="*{ngayxuatHD}"></span><br><br>
 
-                <label for="trangthaithanhtoan">Trạng thái </label>
-                <input type="text" th:field="*{trangthaithanhtoan}" id="trangthaithanhtoan" placeholder="trangthaithanhtoan" />
-                <span th:if="${#fields.hasErrors('trangthaithanhtoan')}" th:errors="*{trangthaithanhtoan}"></span><br><br>
+                <label>Trạng thái </label>
+<!--                <input type="text" th:field="*{trangthaithanhtoan}" id="trangthaithanhtoan" placeholder="true/false" />-->
+<!--                <span th:if="${#fields.hasErrors('trangthaithanhtoan')}" th:errors="*{trangthaithanhtoan}"></span><br><br>-->
+
+                <select th:field="*{trangthaithanhtoan}">
+                  <option th:value="true" th:text="Đã_thanh_toán"></option>
+                  <option th:value="false" th:text="Chưa_thanh_toán"></option>
+                </select>
+
 
                 <div class="btn-group" style="width: 90%">
                     <span>
@@ -136,6 +143,9 @@
                       </div>
                     </span>
                 </div>
+
+                </div>
+
               </form>
             </div>
             <!--          <a th:href="@{/admin}">Quay về</a>-->
