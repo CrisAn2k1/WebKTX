@@ -51,15 +51,26 @@ public class User {
     @Column(name = "trangthai")
     private Boolean trangthai;
 
-    @Column(name = "is_enabled", nullable = false)
-    private Boolean isEnabled = false;
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_token")
-    private ConfirmationToken idToken;
+    private boolean enabled;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    private ConfirmationToken confirmationTokens;
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_phong")
@@ -106,30 +117,6 @@ public class User {
 
     public void setCmndCccd(String cmndCccd) {
         this.cmndCccd = cmndCccd;
-    }
-
-    public ConfirmationToken getConfirmationTokens() {
-        return confirmationTokens;
-    }
-
-    public void setConfirmationTokens(ConfirmationToken confirmationTokens) {
-        this.confirmationTokens = confirmationTokens;
-    }
-
-    public ConfirmationToken getIdToken() {
-        return idToken;
-    }
-
-    public void setIdToken(ConfirmationToken idToken) {
-        this.idToken = idToken;
-    }
-
-    public Boolean getIsEnabled() {
-        return isEnabled;
-    }
-
-    public void setIsEnabled(Boolean isEnabled) {
-        this.isEnabled = isEnabled;
     }
 
     public String getXa() {

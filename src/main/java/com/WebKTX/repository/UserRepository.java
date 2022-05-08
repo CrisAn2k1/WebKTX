@@ -22,6 +22,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT p FROM User p WHERE p.idPhong.id=?1")
     List<User> findByIdPhong(String idPhong);
 
+    @Query("SELECT u FROM User u WHERE u.verificationCode = ?1")
+    User findByVerificationCode(String code);
+
 }
 
 

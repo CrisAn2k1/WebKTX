@@ -2,6 +2,7 @@ package com.WebKTX.controller;
 
 import com.WebKTX.model.*;
 import com.WebKTX.repository.*;
+import com.WebKTX.service.InvoiceService;
 import com.WebKTX.service.PhongNoiThatService;
 import com.WebKTX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
-    @Autowired
-    private ConfirmToken confirmToken;
 
     @Autowired
     private UserRepository userRepo;
@@ -29,8 +28,13 @@ public class AdminController {
     private PhongNoiThatRepository phongNoiThatRepo;
 
     @Autowired
+    private HoaDonRepository hoaDonRepo;
+
+    @Autowired
     private PhongNoiThatService phongNoiThatService;
 
+    @Autowired
+    private InvoiceService invoiceService;
 
     @Autowired
     private UserService userService;
@@ -86,9 +90,8 @@ public class AdminController {
     }
 
     // Hàm dùng để xoá user
-    @GetMapping("/quan-ly-sinh-vien/{id}/{idToken}/remove")
-    public String removeUser(@PathVariable("id") Integer id, @PathVariable("idToken") Long idToken){
-        confirmToken.deleteById(idToken);
+    @GetMapping("/quan-ly-sinh-vien/{id}/remove")
+    public String removeUser(@PathVariable("id") Integer id){
         userService.removeUser(id);
         return "redirect:/admin/quan-ly-sinh-vien";
     }
@@ -135,5 +138,40 @@ public class AdminController {
         phongNoiThatService.removeFurniture(idPhongNoiThat);
         return "redirect:/admin/furniture-management";
     }
+    //================================
+    //================================
+    // Quan ly hoa don
+    @GetMapping("/invoice-management")
+    public String listHD(Model model){
+        List<Hoadon> listHD =  hoaDonRepo.findAll();
+        model.addAttribute("listHD",listHD);
+        return "admin/invoice-management";
+    }
+
+    @GetMapping("/invoice-management/{id}/edit")
+    public String editHD(@PathVariable("id") Integer id, Model model){
+        Hoadon editHD = hoaDonRepo.findById(id).orElse(null);
+        if(editHD == null){
+            System.out.println("Không có bất kỳ kết quả nào ===============");
+
+            return "redirect:/admin/invoice-management";
+        }
+        else {
+            model.addAttribute("editHD",editHD);
+            return "admin/edit-invoice";
+        }
+    }
+
+    @PostMapping("/invoice-management/edit")
+    public String updateInvoice(Hoadon hoadon){
+        invoiceService.updateInvoice(hoadon.getId(),hoadon);
+        return "redirect:/admin/invoice-management";
+    }
+    @GetMapping("/invoice-management/{id}/remove")
+    public String removeInvoice(@PathVariable("id") Integer id){
+        invoiceService.removeInvoice(id);
+        return "redirect:/admin/invoice-management";
+    }
+
     //================================
 }
