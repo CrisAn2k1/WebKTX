@@ -112,31 +112,31 @@
                 <input type="text" th:field="*{id}" id="phone" placeholder="phone" hidden />
                 <div class="inputbox">
                 <label for="hoten">Họ tên  </label>
-                <input type="text" th:field="*{hoten}" id="hoten" placeholder="hoten" />
+                <input type="text" th:field="*{hoten}" id="hoten" placeholder="Họ tên " />
                 <span th:if="${#fields.hasErrors('hoten')}" th:errors="*{hoten}"></span>
                 </div>
 
                 <div class="inputbox">
                 <label for="phone">Số điện thoại   </label>
-                <input type="text" th:field="*{phone}" id="phone" placeholder="phone" />
+                <input type="text" th:field="*{phone}" id="phone" placeholder="Số điện thoại" />
                 <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
                 </div>
 
                 <div class="inputbox">
                   <label for="ngaysinh">Ngày sinh </label>
-                  <input type="text" th:field="*{ngaysinh}" id="ngaysinh" placeholder="ngaysinh" />
+                  <input type="text" th:field="*{ngaysinh}" id="ngaysinh" placeholder="Ngày sinh: MM/DD/YY" />
                   <span th:if="${#fields.hasErrors('ngaysinh')}" th:errors="*{ngaysinh}"></span>
                 </div>
 
                 <div class="inputbox">
                   <label for="gioitinh">Giới tính</label>
-                  <input type="text" th:field="*{gioitinh}" id="gioitinh" placeholder="gioitinh" />
+                  <input type="text" th:field="*{gioitinh}" id="gioitinh" placeholder="Giới tính" />
                   <span th:if="${#fields.hasErrors('gioitinh')}" th:errors="*{gioitinh}"></span>
                 </div>
 
                 <div class="inputbox">
                 <label for="diachicutru">Địa chỉ</label>
-                <input type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="diachicutru" />
+                <input type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="Địa chỉ cư trú" />
                 <span th:if="${#fields.hasErrors('diachicutru')}" th:errors="*{diachicutru}"></span>
                 </div>
 
