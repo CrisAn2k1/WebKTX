@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Chỉnh sửa thông tin hồ sơ đăng ký</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"
+  />
+
+  <!-- Custom styles for this template-->
+  <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
+  <link href="/assets/css/furniture.css" rel="stylesheet" />
+
+  <!-- Custom styles for table -->
+  <style>
+    table {
+      counter-reset: rowNumber;
+    }
+
+    table thead{
+      text-align: center;
+      vertical-align: center;
+    }
+    table tbody td.date{
+      text-align: center;
+      vertical-align: center;
+    }
+    table tbody tr td.stt:before {
+      display: table-cell;
+      counter-increment: rowNumber;
+      content: counter(rowNumber);
+      padding-right: 0.3em;
+      text-align: center;
+      vertical-align: middle;
+      margin: 0 auto;
+    }
+  </style>
+
+  <!-- Custom styles for button -->
+  <style>
+    .btn-group button {
+      background-color: #04AA6D; /* Green background */
+      border: 1px solid green; /* Green border */
+      color: white; /* White text */
+      padding: 10px 24px; /* Some padding */
+      cursor: pointer; /* Pointer/hand icon */
+      float: left; /* Float the buttons side by side */
+      margin-top: 10px;;
+      border-radius: 5px;;
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .btn-group button:not(:last-child) {
+      border-right: none; /* Prevent double borders */
+    }
+
+    /* Add a background color on hover */
+    .btn-group button:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div th:replace="fragments/nav :: sidebaradmin"></div>
+  <!-- End of Sidebar -->
+  <!-- Content Wrapper -->
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      <div th:replace="fragments/nav :: topnav"></div>
+      <!-- End of Topbar -->
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card-body">
+          <div class="">
+            <div style="text-align: center">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">Chỉnh sửa thông tin hồ sơ đăng ký</h4>
+              </div>
+              <div class="row">
+                <form
+                        th:object="${editHSdangky}"
+                        th:action="@{/admin/hosodangky-management/edit}"
+                        method="post"
+                        novalidate="novalidate"
+                        style="
+                    padding: 55px 385px;
+                    border: 3px solid green;
+                    text-align: center;"
+                >
+                  <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
+                  <label>Mã hồ sơ đăng ký: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getId()}"/><br><br>
+                  <label>Mô tả: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getMota()}"/><br><br>
+                  <label>Ngày tạo: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaytao()}"/><br><br>
+                  <label>Ngày nhận phòng: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaynhanphong()}"/><br><br>
+                  <label>Ngày trả phòng: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaytraphong()}"/><br><br>
+                  <label>Họ tên: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHoten()}"/><br><br>
+                  <div class="btn-group" style="width: 100%">
+                    <p style="
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        margin: auto;
+                    ">
+                      <input  type="submit" value="Cập nhật" /><br>
+                      <p style="
+                          display: flex;
+                          flex-direction: row;
+                          align-items: center;
+                          justify-content: center;
+                          margin: auto;
+                      ">
+                          <button onclick="document.location='/admin/hosodangky-management'">Quay lại</button>
+                        </p>
+                    </p>
+
+                  </div>
+                </form>
+              </div>
+              <!--          <a th:href="@{/admin}">Quay về</a>-->
+
+            </div>
+          </div>
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- End of Main Content -->
+      <!-- Footer -->
+      <div th:replace="fragments/nav :: footer"></div>
+      <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+  </div>
+</div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div th:replace="fragments/nav :: logout"></div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/assets/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/assets/vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/assets/js/demo/chart-area-demo.js"></script>
+<script src="/assets/js/demo/chart-pie-demo.js"></script>
+</body>
+</html>
