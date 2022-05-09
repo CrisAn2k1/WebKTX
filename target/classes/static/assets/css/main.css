@@ -22,7 +22,7 @@ body {
 }
 
 .section-padding {
-  padding: 50px 0;
+  padding: 20px 0;
 }
 
 .typed-cursor {
@@ -606,9 +606,9 @@ nav.navbar.bootsnav.navbar-fixed .button-holder {
 
 #home {
   position: relative;
-  padding: 73px 0px 120px 0px;
+  padding: 180px 0px 120px 0px;
   background: url(../img/banner.jpg);
-  background-position: center;
+  background-position: revert;
   background-size: cover;
   background-repeat: no-repeat;
 }
