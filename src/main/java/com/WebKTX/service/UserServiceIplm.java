@@ -1,6 +1,7 @@
 package com.WebKTX.service;
 
 import com.WebKTX.model.User;
+import com.WebKTX.repository.RoleRepository;
 import com.WebKTX.repository.UserRepository;
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ import java.util.Optional;
 public class UserServiceIplm implements UserService {
     @Autowired
     UserRepository userRepository;
-
+    @Autowired
+    private RoleRepository roleRepo;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -52,7 +54,7 @@ public class UserServiceIplm implements UserService {
     public void register(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
-
+        user.setRoles(roleRepo.findByName("user"));
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
@@ -95,7 +97,7 @@ public class UserServiceIplm implements UserService {
     public boolean verify(String verificationCode) {
         User user = userRepository.findByVerificationCode(verificationCode);
 
-        if (user == null || user.isEnabled()) {
+        if (user == null || user.getEnabled()) {
             return false;
         } else {
             user.setVerificationCode(null);

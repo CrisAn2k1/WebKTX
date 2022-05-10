@@ -4,8 +4,11 @@ import com.WebKTX.model.*;
 import com.WebKTX.repository.*;
 import com.WebKTX.service.InvoiceService;
 import com.WebKTX.service.PhongNoiThatService;
+import com.WebKTX.service.HoSoDangKyService;
+import com.WebKTX.service.HoSoChuyenPhongService;
 import com.WebKTX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import java.util.Calendar;
 import java.util.List;
 @Controller
 @RequestMapping(value = "/admin")
@@ -34,8 +38,21 @@ public class AdminController {
     private PhongNoiThatService phongNoiThatService;
 
     @Autowired
+    private HoSoDangKyRepository hosoDangKyRepo;
+
+    @Autowired
     private InvoiceService invoiceService;
 
+    @Autowired
+    @Qualifier("hsdkService")
+    private HoSoDangKyService hosoDangKyService;
+
+    @Autowired
+    private HoSoChuyenPhongRepository hosoChuyenPhongRepo;
+
+    @Autowired
+    @Qualifier("hscpService")
+    private HoSoChuyenPhongService hosoChuyenPhongService;
     @Autowired
     private UserService userService;
     @Bean
@@ -63,6 +80,8 @@ public class AdminController {
     public String listUserPhong(@PathVariable("idPhong") String idPhong, Model model){
         System.out.println("Phòng :" + idPhong);
         List<User> listUser = userRepo.findByIdPhong(idPhong);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        model.addAttribute("currentYear",year);
         model.addAttribute("listUser",listUser);
         model.addAttribute("maphong",idPhong);
 
@@ -78,8 +97,9 @@ public class AdminController {
             return "redirect:/quan-ly-sinh-vien";
         }
         else {
+            model.addAttribute("maphong",editUser.getIdPhong().getId());
             model.addAttribute("editUser",editUser);
-            return "edit";
+            return "edit-user";
         }
     }
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
@@ -122,6 +142,7 @@ public class AdminController {
             return "redirect:/furniture-management";
         }
         else {
+            model.addAttribute("maphong",editFur.getIdPhong().getId());
             model.addAttribute("editFur",editFur);
             return "admin/edit-furniture";
         }
@@ -130,7 +151,8 @@ public class AdminController {
     @PostMapping("/furniture-management/edit")
     public String updateFurniture(PhongNoithat phongNoithat){
         phongNoiThatService.updatePhongNoithat(phongNoithat.getId(),phongNoithat);
-        return "redirect:/admin/furniture-management";
+        PhongNoithat getIdPhong = phongNoiThatRepo.findById(phongNoithat.getId()).orElse(null);
+        return "redirect:/admin/furniture-management/"+getIdPhong.getIdPhong().getId();
     }
 
     @GetMapping("/furniture-management/{id}/remove")
@@ -139,6 +161,73 @@ public class AdminController {
         return "redirect:/admin/furniture-management";
     }
     //================================
+
+    @GetMapping("/hosodangky-management")
+    public String listHosodangky(Model model){
+        List<Hosodangky> listHosodangky =  hosoDangKyRepo.findAll();
+        model.addAttribute("listHosodangky",listHosodangky);
+        return "admin/hosodangky-management";
+    }
+
+    @GetMapping("/hosodangky-management/{id}/edit")
+    public String editHSdangky(@PathVariable("id") Integer idHoSoDangKy, Model model){
+        Hosodangky editHSdangky = hosoDangKyRepo.findById(idHoSoDangKy).orElse(null);
+        if(editHSdangky == null){
+            System.out.println("Không có bất kỳ kết quả nào ===============");
+
+            return "redirect:/hosodangky-management";
+        }
+        else {
+            model.addAttribute("editHSdangky",editHSdangky);
+            return "admin/edit-hosodangky";
+        }
+    }
+
+    @PostMapping("/hosodangky-management/edit")
+    public String updateHSdangky(Hosodangky hosodangky){
+        hosoDangKyService.updateHosodangky(hosodangky.getId(),hosodangky);
+        return "redirect:/admin/hosodangky-management";
+    }
+
+    @GetMapping("/hosodangky-management/{id}/remove")
+    public String removeHosodangky(@PathVariable("id") Integer idHosodangky){
+        hosoDangKyService.removeHosodangky(idHosodangky);
+        return "redirect:/admin/hosodangky-management";
+    }
+    //================================
+
+    @GetMapping("/hosochuyenphong-management")
+    public String listHosochuyenphong(Model model){
+        List<Hosochuyenphong> listHosochuyenphong =  hosoChuyenPhongRepo.findAll();
+        model.addAttribute("listHosochuyenphong",listHosochuyenphong);
+        return "admin/hosochuyenphong-management";
+    }
+
+    @GetMapping("/hosochuyenphong-management/{id}/edit")
+    public String editHSchuyenphong(@PathVariable("id") Integer idHoSoChuyenPhong, Model model){
+        Hosochuyenphong editHSchuyenphong = hosoChuyenPhongRepo.findById(idHoSoChuyenPhong).orElse(null);
+        if(editHSchuyenphong == null){
+            System.out.println("Không có bất kỳ kết quả nào ===============");
+
+            return "redirect:/hosochuyenphong-management";
+        }
+        else {
+            model.addAttribute("editHSchuyenphong",editHSchuyenphong);
+            return "admin/edit-hosochuyenphong";
+        }
+    }
+
+    @PostMapping("/hosochuyenphong-management/edit")
+    public String updateHSchuyenphong(Hosochuyenphong hosochuyenphong){
+        hosoChuyenPhongService.updateHosochuyenphong(hosochuyenphong.getId(),hosochuyenphong);
+        return "redirect:/admin/hosochuyenphong-management";
+    }
+
+    @GetMapping("/hosochuyenphong-management/{id}/remove")
+    public String removeHosochuyenphong(@PathVariable("id") Integer idHosochuyenphong){
+        hosoChuyenPhongService.removeHosochuyenphong(idHosochuyenphong);
+        return "redirect:/admin/hosochuyenphong-management";
+    }
     //================================
     // Quan ly hoa don
     @GetMapping("/invoice-management")

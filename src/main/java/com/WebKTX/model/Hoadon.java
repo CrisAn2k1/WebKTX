@@ -1,7 +1,5 @@
 package com.WebKTX.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.LinkedHashSet;
@@ -45,7 +43,6 @@ public class Hoadon {
         this.trangthaithanhtoan = trangthaithanhtoan;
     }
 
-    @DateTimeFormat(pattern="dd-MMM-YYYY")
     public Instant getNgayxuatHD() {
         return ngayxuatHD;
     }

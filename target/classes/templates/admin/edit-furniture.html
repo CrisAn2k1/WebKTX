@@ -121,7 +121,9 @@
                     <span>
                       <div class="inputbox">
                         <input  type="submit" value="Cập nhật" /><br>
-                        <button type="button" onclick="document.location='/admin/furniture-management'">Quay lại</button>
+                        <button type="button"
+                                th:data-url="@{/admin/furniture-management/{idPhong}(idPhong=${maphong})}"
+                                onclick="document.location=(this.getAttribute('data-url'))">Quay lại</button>
                       </div>
                     </span>
                   </div>

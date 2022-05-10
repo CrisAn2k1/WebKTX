@@ -7,7 +7,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Chỉnh sửa thông tin hóa đơn</title>
+  <title>Chỉnh sửa thông tin hồ sơ đăng ký</title>
 
   <!-- Custom fonts for this template-->
   <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -84,84 +84,81 @@
   <div th:replace="fragments/nav :: sidebaradmin"></div>
   <!-- End of Sidebar -->
   <!-- Content Wrapper -->
-  <!-- Main Content -->
-  <div id="content">
-    <!-- Topbar -->
-    <div th:replace="fragments/nav :: topnav"></div>
-    <!-- End of Topbar -->
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
-      <!-- DataTales Example -->
-      <div class="card-body">
-        <div class="">
-          <div style="text-align: center">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h4 class="text-right">Chỉnh sửa thông tin hóa đơn</h4>
-            </div>
-            <div class="row">
-              <form
-                      th:object="${editHD}"
-                      th:action="@{/admin/invoice-management/edit}"
-                      method="post"
-                      novalidate="novalidate"
-                      style="
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      <div th:replace="fragments/nav :: topnav"></div>
+      <!-- End of Topbar -->
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card-body">
+          <div class="">
+            <div style="text-align: center">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">Chỉnh sửa thông tin hồ sơ đăng ký</h4>
+              </div>
+              <div class="row">
+                <form
+                        th:object="${editHSdangky}"
+                        th:action="@{/admin/hosodangky-management/edit}"
+                        method="post"
+                        novalidate="novalidate"
+                        style="
                     padding: 55px 385px;
                     border: 3px solid green;
                     text-align: center;"
-              >
-                <div style="width: 100%">
-                <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
+                >
+                  <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
+                  <label>Mã hồ sơ đăng ký: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getId()}"/><br><br>
+                  <label>Mô tả: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getMota()}"/><br><br>
+                  <label>Ngày tạo: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaytao()}"/><br><br>
+                  <label>Ngày nhận phòng: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaynhanphong()}"/><br><br>
+                  <label>Ngày trả phòng: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaytraphong()}"/><br><br>
+                  <label>Họ tên: </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHoten()}"/><br><br>
+                  <div class="btn-group" style="width: 100%">
+                    <p style="
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        margin: auto;
+                    ">
+                      <input  type="submit" value="Cập nhật" /><br>
+                      <p style="
+                          display: flex;
+                          flex-direction: row;
+                          align-items: center;
+                          justify-content: center;
+                          margin: auto;
+                      ">
+                          <button onclick="document.location='/admin/hosodangky-management'">Quay lại</button>
+                        </p>
+                    </p>
 
-                <label>Mã hóa đơn</label>
-                <input disabled type="text" th:placeholder="${editHD.getId()}"/><br><br>
+                  </div>
+                </form>
+              </div>
+              <!--          <a th:href="@{/admin}">Quay về</a>-->
 
-                <label>Mã phòng</label>
-                <input disabled type="text" th:placeholder="${editHD.getIdPhong().getId()}"/><br><br>
-
-                <label>Tổng tiền</label>
-                <input disabled type="text" th:placeholder="${#numbers.formatDecimal(editHD.getTongtien(), 0, 'COMMA',0, 'POINT')}"/><br><br>
-
-                <label >Ngày xuất hóa đơn</label>
-                <input disabled type="text" th:placeholder="${#dates.format(editHD.getNgayxuatHD(),'dd-MM-yyyy')}" id="ngayxuatHD" />
-                <span th:if="${#fields.hasErrors('ngayxuatHD')}" th:errors="*{ngayxuatHD}"></span><br><br>
-
-                <label>Trạng thái </label>
-<!--                <input type="text" th:field="*{trangthaithanhtoan}" id="trangthaithanhtoan" placeholder="true/false" />-->
-<!--                <span th:if="${#fields.hasErrors('trangthaithanhtoan')}" th:errors="*{trangthaithanhtoan}"></span><br><br>-->
-
-                <select th:field="*{trangthaithanhtoan}">
-                  <option th:value="true"> Đã thanh toán</option>
-                  <option th:value="false">Chưa thanh toán</option>
-                </select>
-
-
-                <div class="btn-group" style="width: 90%">
-                    <span>
-                      <div class="inputbox">
-                        <input  type="submit" value="Cập nhật" /><br>
-                        <button type="button" onclick="document.location='/admin/invoice-management'">Quay lại</button>
-                      </div>
-                    </span>
-                </div>
-
-                </div>
-
-              </form>
             </div>
-            <!--          <a th:href="@{/admin}">Quay về</a>-->
-
           </div>
         </div>
+        <!-- /.container-fluid -->
       </div>
-      <!-- /.container-fluid -->
+      <!-- End of Main Content -->
+      <!-- Footer -->
+      <div th:replace="fragments/nav :: footer"></div>
+      <!-- End of Footer -->
     </div>
-    <!-- End of Main Content -->
-    <!-- Footer -->
-    <div th:replace="fragments/nav :: footer"></div>
-    <!-- End of Footer -->
+    <!-- End of Content Wrapper -->
   </div>
-  <!-- End of Content Wrapper -->
-</div>
 </div>
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->

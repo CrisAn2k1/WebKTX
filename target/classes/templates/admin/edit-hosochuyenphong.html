@@ -7,7 +7,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Chỉnh sửa thông tin nội thất</title>
+  <title>Chỉnh sửa thông tin hồ sơ chuyển phòng</title>
 
   <!-- Custom fonts for this template-->
   <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -84,80 +84,77 @@
   <div th:replace="fragments/nav :: sidebaradmin"></div>
   <!-- End of Sidebar -->
   <!-- Content Wrapper -->
-  <!-- Main Content -->
-  <div id="content">
-    <!-- Topbar -->
-    <div th:replace="fragments/nav :: topnav"></div>
-    <!-- End of Topbar -->
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
-      <!-- DataTales Example -->
-      <div class="card-body">
-        <div class="">
-          <div style="text-align: center">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <h4 class="text-right">Chỉnh sửa thông tin sinh viên</h4>
-            </div>
-            <div class="row">
-              <form
-                      th:object="${editUser}"
-                      th:action="@{/admin/quan-ly-sinh-vien/edit}"
-                      method="post"
-                      novalidate="novalidate"
-                      style="
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      <div th:replace="fragments/nav :: topnav"></div>
+      <!-- End of Topbar -->
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+        <!-- DataTales Example -->
+        <div class="card-body">
+          <div class="">
+            <div style="text-align: center">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="text-right">Chỉnh sửa thông tin hồ sơ chuyển phòng</h4>
+              </div>
+              <div class="row">
+                <form
+                        th:object="${editHSchuyenphong}"
+                        th:action="@{/admin/hosochuyenphong-management/edit}"
+                        method="post"
+                        novalidate="novalidate"
+                        style="
                     padding: 55px 385px;
                     border: 3px solid green;
                     text-align: center;"
-              >
-                <input type="text" th:field="*{id}" id="phone" placeholder="phone" hidden />
-                <div class="inputbox">
-                <label for="hoten">Họ tên  </label>
-                <input type="text" th:field="*{hoten}" id="hoten" placeholder="Họ tên " />
-                <span th:if="${#fields.hasErrors('hoten')}" th:errors="*{hoten}"></span>
-                </div>
+                >
+                  <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
+                  <label>Mã hồ sơ chuyển phòng: </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getId()}"/><br><br>
+                  <label>Mô tả: </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getMota()}"/><br><br>
+                  <label>Ngày tạo: </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getNgaytao()}"/><br><br>
+                  <label>Họ tên: </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getIdUser().getHoten()}"/><br><br>
+                  <div class="btn-group" style="width: 100%">
+                    <p style="
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: center;
+                        margin: auto;
+                    ">
+                      <input  type="submit" value="Cập nhật" /><br>
+                      <p style="
+                          display: flex;
+                          flex-direction: row;
+                          align-items: center;
+                          justify-content: center;
+                          margin: auto;
+                      ">
+                          <button onclick="document.location='/admin/hosochuyenphong-management'">Quay lại</button>
+                        </p>
+                    </p>
 
-                <div class="inputbox">
-                <label for="phone">Số điện thoại   </label>
-                <input type="text" th:field="*{phone}" id="phone" placeholder="Số điện thoại" />
-                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
-                </div>
+                  </div>
+                </form>
+              </div>
+              <!--          <a th:href="@{/admin}">Quay về</a>-->
 
-                <div class="inputbox">
-                  <label for="ngaysinh">Ngày sinh </label>
-                  <input type="text" th:field="*{ngaysinh}" id="ngaysinh" placeholder="Ngày sinh: MM/DD/YY" />
-                  <span th:if="${#fields.hasErrors('ngaysinh')}" th:errors="*{ngaysinh}"></span>
-                </div>
-
-                <div class="inputbox">
-                  <label for="gioitinh">Giới tính</label>
-                  <input type="text" th:field="*{gioitinh}" id="gioitinh" placeholder="Giới tính" />
-                  <span th:if="${#fields.hasErrors('gioitinh')}" th:errors="*{gioitinh}"></span>
-                </div>
-
-                <div class="inputbox">
-                <label for="diachicutru">Địa chỉ</label>
-                <input type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="Địa chỉ cư trú" />
-                <span th:if="${#fields.hasErrors('diachicutru')}" th:errors="*{diachicutru}"></span>
-                </div>
-
-                <div class="inputbox" style="justify-content: center">
-                <input type="submit" value="Cập nhật" />
-                  <button type="button" onclick="document.location='/admin/quan-ly-sinh-vien'">Quay lại</button>
-                </div>
-              </form>
             </div>
           </div>
         </div>
+        <!-- /.container-fluid -->
       </div>
-      <!-- /.container-fluid -->
+      <!-- End of Main Content -->
+      <!-- Footer -->
+      <div th:replace="fragments/nav :: footer"></div>
+      <!-- End of Footer -->
     </div>
-    <!-- End of Main Content -->
-    <!-- Footer -->
-    <div th:replace="fragments/nav :: footer"></div>
-    <!-- End of Footer -->
+    <!-- End of Content Wrapper -->
   </div>
-  <!-- End of Content Wrapper -->
-</div>
 </div>
 <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->

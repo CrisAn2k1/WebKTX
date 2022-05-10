@@ -7,7 +7,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Chỉnh sửa thông tin hóa đơn</title>
+  <title>Chỉnh sửa thông tin nội thất</title>
 
   <!-- Custom fonts for this template-->
   <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -96,12 +96,12 @@
         <div class="">
           <div style="text-align: center">
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h4 class="text-right">Chỉnh sửa thông tin hóa đơn</h4>
+              <h4 class="text-right">Chỉnh sửa thông tin sinh viên</h4>
             </div>
             <div class="row">
               <form
-                      th:object="${editHD}"
-                      th:action="@{/admin/invoice-management/edit}"
+                      th:object="${editUser}"
+                      th:action="@{/admin/quan-ly-sinh-vien/edit}"
                       method="post"
                       novalidate="novalidate"
                       style="
@@ -109,47 +109,45 @@
                     border: 3px solid green;
                     text-align: center;"
               >
-                <div style="width: 100%">
-                <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
-
-                <label>Mã hóa đơn</label>
-                <input disabled type="text" th:placeholder="${editHD.getId()}"/><br><br>
-
-                <label>Mã phòng</label>
-                <input disabled type="text" th:placeholder="${editHD.getIdPhong().getId()}"/><br><br>
-
-                <label>Tổng tiền</label>
-                <input disabled type="text" th:placeholder="${#numbers.formatDecimal(editHD.getTongtien(), 0, 'COMMA',0, 'POINT')}"/><br><br>
-
-                <label >Ngày xuất hóa đơn</label>
-                <input disabled type="text" th:placeholder="${#dates.format(editHD.getNgayxuatHD(),'dd-MM-yyyy')}" id="ngayxuatHD" />
-                <span th:if="${#fields.hasErrors('ngayxuatHD')}" th:errors="*{ngayxuatHD}"></span><br><br>
-
-                <label>Trạng thái </label>
-<!--                <input type="text" th:field="*{trangthaithanhtoan}" id="trangthaithanhtoan" placeholder="true/false" />-->
-<!--                <span th:if="${#fields.hasErrors('trangthaithanhtoan')}" th:errors="*{trangthaithanhtoan}"></span><br><br>-->
-
-                <select th:field="*{trangthaithanhtoan}">
-                  <option th:value="true"> Đã thanh toán</option>
-                  <option th:value="false">Chưa thanh toán</option>
-                </select>
-
-
-                <div class="btn-group" style="width: 90%">
-                    <span>
-                      <div class="inputbox">
-                        <input  type="submit" value="Cập nhật" /><br>
-                        <button type="button" onclick="document.location='/admin/invoice-management'">Quay lại</button>
-                      </div>
-                    </span>
+                <input type="text" th:field="*{id}" id="phone" placeholder="phone" hidden />
+                <div class="inputbox">
+                <label for="hoten">Họ tên  </label>
+                <input type="text" th:field="*{hoten}" id="hoten" placeholder="Họ tên " />
+                <span th:if="${#fields.hasErrors('hoten')}" th:errors="*{hoten}"></span>
                 </div>
 
+                <div class="inputbox">
+                <label for="phone">Số điện thoại   </label>
+                <input type="text" th:field="*{phone}" id="phone" placeholder="Số điện thoại" />
+                <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
                 </div>
 
+                <div class="inputbox">
+                  <label for="ngaysinh">Ngày sinh </label>
+                  <input type="text" th:field="*{ngaysinh}" id="ngaysinh" placeholder="Ngày sinh: MM/DD/YY" />
+                  <span th:if="${#fields.hasErrors('ngaysinh')}" th:errors="*{ngaysinh}"></span>
+                </div>
+
+                <div class="inputbox">
+                  <label for="gioitinh">Giới tính</label>
+                  <input type="text" th:field="*{gioitinh}" id="gioitinh" placeholder="Giới tính" />
+                  <span th:if="${#fields.hasErrors('gioitinh')}" th:errors="*{gioitinh}"></span>
+                </div>
+
+                <div class="inputbox">
+                <label for="diachicutru">Địa chỉ</label>
+                <input type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="Địa chỉ cư trú" />
+                <span th:if="${#fields.hasErrors('diachicutru')}" th:errors="*{diachicutru}"></span>
+                </div>
+
+                <div class="inputbox" style="justify-content: center">
+                <input type="submit" value="Cập nhật" />
+                  <button type="button"
+                          th:data-url="@{/admin/quan-ly-sinh-vien/{idPhong}(idPhong=${maphong})}"
+                          onclick="document.location=(this.getAttribute('data-url'))">Quay lại</button>
+                </div>
               </form>
             </div>
-            <!--          <a th:href="@{/admin}">Quay về</a>-->
-
           </div>
         </div>
       </div>
