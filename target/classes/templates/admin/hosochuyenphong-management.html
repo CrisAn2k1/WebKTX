@@ -109,19 +109,23 @@
                 <thead>
                 <tr>
                   <th>Mã hồ sơ</th>
-                  <th>Lý do</th>
                   <th>Ngày tạo</th>
                   <th>Họ tên</th>
+                  <th>Mã số sinh viên</th>
+                  <th>Trạng thái</th>
                   <!--      <th>View</th>-->
                 </tr>
                 </thead>
                 <tbody th:each="HoSoChuyenPhong : ${listHosochuyenphong}">
                 <tr>
                   <td th:text="${HoSoChuyenPhong.getId()}"></td>
-                  <td id="lydo" th:text="${HoSoChuyenPhong.getMota()}"></td>
-                  <td th:text="${#temporals.format(HoSoChuyenPhong.getNgaytao(),'dd-MM-yyy hh:MM:ss')}"></td>
+                  <td th:text="${#dates.format(HoSoChuyenPhong.getNgaytao(),'dd-MM-yyyy')}"></td>
                   <td th:text="${HoSoChuyenPhong.getIdUser().getHoten()}"></td>
-
+                  <td th:text="${HoSoChuyenPhong.getIdUser().getMssv()}"></td>
+                  <td>
+                    <span th:if="${HoSoChuyenPhong.getTrangthai() == false }" style="color: red; font-weight: bold">Chưa duyệt</span>
+                    <span th:unless="${HoSoChuyenPhong.getTrangthai() == false}" style="color: limegreen; font-weight: bold">Đã duyệt</span>
+                  </td>
                   <div class="btn-link">
                     <td><a th:href="@{hosochuyenphong-management/{id}/edit(id=${HoSoChuyenPhong.getId()})}">Chỉnh sửa</a></td>
                     <td><a th:href="@{hosochuyenphong-management/{id}/remove(id=${HoSoChuyenPhong.getId()})}">Xoá</a></td>
