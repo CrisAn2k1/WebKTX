@@ -20,6 +20,17 @@ public class Hosochuyenphong {
     @Column(name = "ngaytao")
     private Instant ngaytao;
 
+    @Column(name = "trangthai")
+    private Boolean trangthai;
+
+    public Boolean getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(Boolean trangthai) {
+        this.trangthai = trangthai;
+    }
+
     public Instant getNgaytao() {
         return ngaytao;
     }

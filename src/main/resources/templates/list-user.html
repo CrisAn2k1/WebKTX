@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Website quản lý ký túc xá</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"
+  />
+
+  <!-- Custom styles for this template-->
+  <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
+  <link href="/assets/css/furniture.css" rel="stylesheet" />
+
+  <!-- Custom styles for table -->
+  <style>
+    table {
+      counter-reset: rowNumber;
+    }
+
+    table thead th{
+      text-align: center;
+      vertical-align: middle !important;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    table tbody td{
+      text-align: center;
+      vertical-align: center;
+    }
+  </style>
+
+  <!-- Custom styles for button -->
+  <style>
+    .btn-group button {
+      background-color: #04AA6D; /* Green background */
+      border: 1px solid green; /* Green border */
+      color: white; /* White text */
+      padding: 10px 24px; /* Some padding */
+      cursor: pointer; /* Pointer/hand icon */
+      float: left; /* Float the buttons side by side */
+      margin-top: 10px;;
+      border-radius: 5px;;
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .btn-group button:not(:last-child) {
+      border-right: none; /* Prevent double borders */
+    }
+
+    /* Add a background color on hover */
+    .btn-group button:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+  <div id="wrapper">
+  <!-- Sidebar -->
+  <div th:replace="fragments/nav :: sidebaradmin"></div>
+  <!-- End of Sidebar -->
+  <!-- Content Wrapper -->
+  <div th:if="${listUser.size()!=0}" id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      <div th:replace="fragments/nav :: topnav"></div>
+      <!-- End of Topbar -->
+      <!-- Begin Page Content -->
+      <div class="container-fluid">
+        <h1 class="h3 mb-2 text-gray-800 text-center">Danh sách sinh viên - Phòng: <maphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></maphong> </h1>
+        <!-- DataTales Example -->
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
+              <thead>
+              <tr>
+                <th>STT</th>
+                <th>MSSV</th>
+                <th>Họ tên</th>
+                <th>CCCD/CMND</th>
+                <th>Ngày sinh</th>
+                <th>Giới tính</th>
+                <th>SĐT</th>
+                <th>Năm thứ</th>
+              </tr>
+              </thead>
+              <tbody th:each="user,sttUser : ${listUser}">
+              <tr>
+                <td th:text="${sttUser.index+1}"></td>
+                <td th:text="${user.mssv}"></td>
+                <td th:text="${user.hoten}"></td>
+                <td th:text="${user.cmndCccd}"></td>
+                <td th:text="${#temporals.format(user.ngaysinh,'dd-MM-yyy')}"></td>
+                <td th:text="${user.gioitinh}"></td>
+                <td th:text="${user.phone}"></td>
+                <td th:text="${currentYear - user.nienkhoa}"></td>
+
+                <td><a th:href="@{{id}/edit(id=${user.getId()})}">Chỉnh sửa </a></td>
+<!--                <td><a th:href="@{{id}/view(id=${user.getId()})}">View</a></td>-->
+                <td><a th:href="@{{id}/remove(id=${user.getId()})}">Xóa</a></td>
+              </tr>
+              </tbody>
+          </table>
+            <!-- /.container-fluid -->
+          </div>
+    <!-- End of Main Content -->
+        </div>
+        <!-- Footer -->
+        <div class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
+          <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">
+            <button onclick="document.location='/admin/quan-ly-sinh-vien'">Quay lại</button>
+          </p>
+        </div>
+        <div th:replace="fragments/nav :: footer"></div>
+        <!-- End of Footer -->
+      </div>
+        <!-- End of Content Wrapper -->
+      </div>
+  </div>
+  <div th:unless="${listUser.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
+    <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không sinh viên nào trong phòng này! <br/>
+      <button onclick="document.location='/admin/quan-ly-sinh-vien'">Quay lại</button>
+    </p>
+  </div>
+
+
+    <!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div th:replace="fragments/nav :: logout"></div>
+
+</div>
+<!-- Bootstrap core JavaScript-->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/assets/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/assets/vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/assets/js/demo/chart-area-demo.js"></script>
+<script src="/assets/js/demo/chart-pie-demo.js"></script>
+</body>
+</html>

@@ -51,32 +51,6 @@ public class User {
     @Column(name = "trangthai")
     private Boolean trangthai;
 
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
-
-    private boolean isEnabled;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_phong")
-    private Phong idPhong;
-
-    @OneToMany(mappedBy = "idUser")
-    private Set<Hosochuyenphong> hosochuyenphongs = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "idUser")
-    private Set<Hosodangky> hosodangkies = new LinkedHashSet<>();
-
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "roles_users",
-            joinColumns = @JoinColumn(name = "id_user"),
-            inverseJoinColumns = @JoinColumn(name = "id_role"))
-    private Set<Role> roles = new LinkedHashSet<>();
-
     @Column(name = "tinh", length = 50)
     private String tinh;
 
@@ -85,6 +59,98 @@ public class User {
 
     @Column(name = "xa", length = 50)
     private String xa;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_phong")
+    private Phong idPhong;
+
+    @Column(name = "`cmnd/cccd`", length = 15)
+    private String cmndCccd;
+
+    @Column(name = "mssv", length = 15)
+    private String mssv;
+
+    @Column(name = "enabled", nullable = false)
+    private Boolean enabled = false;
+
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_users",
+            joinColumns = @JoinColumn(name = "id_user"),
+            inverseJoinColumns = @JoinColumn(name = "id_role"))
+    private Set<Role> roles = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "idUser")
+    private Set<Hosochuyenphong> hosochuyenphongs = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "idUser")
+    private Set<Hosodangky> hosodangkies = new LinkedHashSet<>();
+
+    public Set<Hosodangky> getHosodangkies() {
+        return hosodangkies;
+    }
+
+    public void setHosodangkies(Set<Hosodangky> hosodangkies) {
+        this.hosodangkies = hosodangkies;
+    }
+
+    public Set<Hosochuyenphong> getHosochuyenphongs() {
+        return hosochuyenphongs;
+    }
+
+    public void setHosochuyenphongs(Set<Hosochuyenphong> hosochuyenphongs) {
+        this.hosochuyenphongs = hosochuyenphongs;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getMssv() {
+        return mssv;
+    }
+
+    public void setMssv(String mssv) {
+        this.mssv = mssv;
+    }
+
+    public String getCmndCccd() {
+        return cmndCccd;
+    }
+
+    public void setCmndCccd(String cmndCccd) {
+        this.cmndCccd = cmndCccd;
+    }
+
+    public Phong getIdPhong() {
+        return idPhong;
+    }
+
+    public void setIdPhong(Phong idPhong) {
+        this.idPhong = idPhong;
+    }
 
     public String getXa() {
         return xa;
@@ -108,38 +174,6 @@ public class User {
 
     public void setTinh(String tinh) {
         this.tinh = tinh;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Set<Hosodangky> getHosodangkies() {
-        return hosodangkies;
-    }
-
-    public void setHosodangkies(Set<Hosodangky> hosodangkies) {
-        this.hosodangkies = hosodangkies;
-    }
-
-    public Set<Hosochuyenphong> getHosochuyenphongs() {
-        return hosochuyenphongs;
-    }
-
-    public void setHosochuyenphongs(Set<Hosochuyenphong> hosochuyenphongs) {
-        this.hosochuyenphongs = hosochuyenphongs;
-    }
-
-    public Phong getIdPhong() {
-        return idPhong;
-    }
-
-    public void setIdPhong(Phong idPhong) {
-        this.idPhong = idPhong;
     }
 
     public Boolean getTrangthai() {

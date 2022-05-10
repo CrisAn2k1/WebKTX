@@ -1,82 +1,41 @@
 package com.WebKTX.controller;
 
-import com.WebKTX.model.ConfirmationToken;
 import com.WebKTX.model.User;
-
-import com.WebKTX.repository.ConfirmToken;
-import com.WebKTX.repository.ConfirmationTokenRepository;
+import com.WebKTX.repository.PhongNoiThatRepository;
+import com.WebKTX.repository.RoleRepository;
 import com.WebKTX.repository.UserRepository;
-import com.WebKTX.service.EmailSenderService;
 import com.WebKTX.service.UserService;
-import com.WebKTX.service.UserServiceIplm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Role;
-import org.springframework.mail.SimpleMailMessage;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 @Service
 @Controller
 public class UserController {
 
     @Autowired
-    private ConfirmationTokenRepository confirmationTokenRepository;
+    private UserRepository userRepo;
 
     @Autowired
-    private EmailSenderService emailSenderService;
-
-    @Autowired
-    private ConfirmToken confirmToken;
-
-    @Autowired
-    private UserRepository repo;
+    private RoleRepository roleRepo;
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/testUser")
-    public String listUser(Model model){
-        List<User> listUser = (List<User>) repo.findAll();
-        model.addAttribute("listUser",listUser);
-
-
-        return "testUser";
-    }
-    // Hàm chỉnh sửa thông tin user
-    // (GET: Truyền và hiển thị vào dữ liệu người dùng trước khi chỉnh sửa)
-    @GetMapping("/testUser/{id}/edit")
-    public String editUser(@PathVariable("id") Integer id, Model model){
-        User editUser = repo.findById(id).orElse(null);
-        if(editUser == null){
-            return "redirect:/testUser";
-        }
-        else {
-            model.addAttribute("editUser",editUser);
-            return "edit";
-        }
-    }
-    // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
-    @PostMapping("/testUser/edit")
-    public String updateUser(User user){
-        userService.updateInfo(user.getId(), user);
-        return "redirect:/testUser";
-    }
-
-    // Hàm dùng để xoá user
-    @GetMapping("/testUser/{id}/{idToken}/remove")
-    public String removeUser(@PathVariable("id") Integer id, @PathVariable("idToken") Long idToken){
-        confirmToken.deleteById(idToken);
-        userService.removeUser(id);
-        return "redirect:/testUser";
-    }
-
+//    //================================
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("newUser", new User());
@@ -84,10 +43,31 @@ public class UserController {
         return "signup-form";
     }
 
+    @PostMapping("/process_register")
+    public String processRegister(User user, HttpServletRequest request)
+            throws UnsupportedEncodingException, MessagingException {
+        userService.register(user, getSiteURL(request));
+        return "/signup-success";
+    }
+
+    private String getSiteURL(HttpServletRequest request) {
+        String siteURL = request.getRequestURL().toString();
+        return siteURL.replace(request.getServletPath(), "");
+    }
+
+    @GetMapping("/verify")
+    public String verifyUser(@Param("code") String code) {
+        if (userService.verify(code)) {
+            return "verify-success";
+        } else {
+            return "verify-fail";
+        }
+    }
+
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView registerUser(ModelAndView modelAndView, User user){
 
-        User existingUser = repo.findByEmail(user.getEmail());
+        User existingUser = userRepo.findByEmail(user.getEmail());
         if(existingUser != null)
         {
             modelAndView.addObject("message","This email already exists!");
@@ -98,20 +78,9 @@ public class UserController {
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(encodedPassword);
-            repo.save(user);
 
-            ConfirmationToken confirmationToken = new ConfirmationToken(user);
-
-            confirmationTokenRepository.save(confirmationToken);
-
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setTo(user.getEmail());
-            mailMessage.setSubject("Complete Registration!");
-            mailMessage.setFrom("nhbtoan1503@gmail.com");
-            mailMessage.setText("To confirm your account, please click here : "
-                    +"http://localhost:8081/confirm-account?token="+confirmationToken.getConfirmationToken());
-
-            emailSenderService.sendEmail(mailMessage);
+            user.setRoles(roleRepo.findByName("user"));
+            userRepo.save(user);
 
             modelAndView.addObject("emailId", user.getEmail());
 
@@ -121,25 +90,6 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/confirm-account", method= {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token")String confirmationToken){
-        ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
-
-        if(token != null)
-        {
-            User user = repo.findByEmail(token.getUser().getEmail());
-            user.setEnabled(true);
-            repo.save(user);
-            modelAndView.setViewName("login");
-        }
-        else
-        {
-            modelAndView.addObject("message","The link is invalid or broken!");
-            modelAndView.setViewName("error");
-        }
-
-        return modelAndView;
-    }
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
@@ -172,6 +122,12 @@ public class UserController {
     public String welcome() {
         return "login";
     }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin";
+    }
+
 
 }
 

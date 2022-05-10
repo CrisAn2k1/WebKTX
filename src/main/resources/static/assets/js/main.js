@@ -17,7 +17,7 @@ $(document).ready(function () {
 
   $('.animated-text').typed({
     strings: ['lành mạnh', 'tiến bộ', 'xanh sạch đẹp', 'rèn luyện ý thức'],
-    typeSpeed: 40,
+    typeSpeed: 50,
     loop: true,
   });
 
