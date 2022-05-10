@@ -142,7 +142,9 @@
 
                 <div class="inputbox" style="justify-content: center">
                 <input type="submit" value="Cập nhật" />
-                  <button type="button" onclick="document.location='/admin/quan-ly-sinh-vien'">Quay lại</button>
+                  <button type="button"
+                          th:data-url="@{/admin/quan-ly-sinh-vien/{idPhong}(idPhong=${maphong})}"
+                          onclick="document.location=(this.getAttribute('data-url'))">Quay lại</button>
                 </div>
               </form>
             </div>

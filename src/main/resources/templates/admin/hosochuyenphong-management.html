@@ -23,26 +23,31 @@
   <!-- Custom styles for table -->
   <style>
     table {
-      counter-reset: rowNumber;
+      font-size: 14px;
     }
-
-    table thead{
-      text-align: center;
-      vertical-align: center;
-    }
-    table tbody td.date{
-      text-align: center;
-      vertical-align: center;
-    }
-    table tbody tr td.stt:before {
-      display: table-cell;
-      counter-increment: rowNumber;
-      content: counter(rowNumber);
-      padding-right: 0.3em;
+    table thead th{
       text-align: center;
       vertical-align: middle;
-      margin: 0 auto;
     }
+    tr th {
+      padding: 10px;
+    }
+    table thead{
+      font-size: 16px;
+      text-align: center;
+      vertical-align: center;
+    }
+    table tbody tr td{
+      text-align: center;
+      padding: 10px;
+    }
+
+    tr td#lydo{
+      max-width: 150px;
+      text-align: left;
+    }
+
+
   </style>
 
   <!-- Custom styles for button -->
@@ -103,8 +108,8 @@
               <table th:if="${listHosochuyenphong.size()!=0}">
                 <thead>
                 <tr>
-                  <th>Mã hồ sơ chuyển phòng</th>
-                  <th>Mô tả</th>
+                  <th>Mã hồ sơ</th>
+                  <th>Lý do</th>
                   <th>Ngày tạo</th>
                   <th>Họ tên</th>
                   <!--      <th>View</th>-->
@@ -113,8 +118,8 @@
                 <tbody th:each="HoSoChuyenPhong : ${listHosochuyenphong}">
                 <tr>
                   <td th:text="${HoSoChuyenPhong.getId()}"></td>
-                  <td th:text="${HoSoChuyenPhong.getMota()}"></td>
-                  <td th:text="${HoSoChuyenPhong.getNgaytao()}"></td>
+                  <td id="lydo" th:text="${HoSoChuyenPhong.getMota()}"></td>
+                  <td th:text="${#temporals.format(HoSoChuyenPhong.getNgaytao(),'dd-MM-yyy hh:MM:ss')}"></td>
                   <td th:text="${HoSoChuyenPhong.getIdUser().getHoten()}"></td>
 
                   <div class="btn-link">

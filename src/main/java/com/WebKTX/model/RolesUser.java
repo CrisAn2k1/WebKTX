@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "roles_users", indexes = {
+        @Index(name = "id_roles_user_idx", columnList = "id_user"),
         @Index(name = "id_role_roles_idx", columnList = "id_role")
 })
 public class RolesUser {

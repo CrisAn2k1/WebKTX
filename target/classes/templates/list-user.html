@@ -26,22 +26,16 @@
       counter-reset: rowNumber;
     }
 
-    table thead{
+    table thead th{
+      text-align: center;
+      vertical-align: middle !important;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    table tbody td{
       text-align: center;
       vertical-align: center;
-    }
-    table tbody td.date{
-      text-align: center;
-      vertical-align: center;
-    }
-    table tbody tr td.stt:before {
-      display: table-cell;
-      counter-increment: rowNumber;
-      content: counter(rowNumber);
-      padding-right: 0.3em;
-      text-align: center;
-      vertical-align: middle;
-      margin: 0 auto;
     }
   </style>
 
@@ -99,55 +93,55 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
               <thead>
               <tr>
+                <th>STT</th>
                 <th>MSSV</th>
                 <th>Họ tên</th>
                 <th>CCCD/CMND</th>
                 <th>Ngày sinh</th>
                 <th>Giới tính</th>
                 <th>SĐT</th>
-                <th>Email</th>
-                <th>Địa chỉ cư trú</th>
-                <th>Xã/Phường</th>
-                <th>Quận/Huyện</th>
-                <th>Tỉnh/Thành phố</th>
-<!--                <th>Thao tác</th>-->
-
+                <th>Năm thứ</th>
               </tr>
               </thead>
-              <tbody th:each="user : ${listUser}">
+              <tbody th:each="user,sttUser : ${listUser}">
               <tr>
+                <td th:text="${sttUser.index+1}"></td>
                 <td th:text="${user.mssv}"></td>
                 <td th:text="${user.hoten}"></td>
                 <td th:text="${user.cmndCccd}"></td>
-                <td th:text="${user.ngaysinh}"></td>
+                <td th:text="${#temporals.format(user.ngaysinh,'dd-MM-yyy')}"></td>
                 <td th:text="${user.gioitinh}"></td>
                 <td th:text="${user.phone}"></td>
-                <td th:text="${user.email}"></td>
-                <td th:text="${user.diachicutru}"></td>
-                <td th:text="${user.xa}"></td>
-                <td th:text="${user.huyen}"></td>
-                <td th:text="${user.tinh}"></td>
+                <td th:text="${currentYear - user.nienkhoa}"></td>
+
                 <td><a th:href="@{{id}/edit(id=${user.getId()})}">Chỉnh sửa </a></td>
 <!--                <td><a th:href="@{{id}/view(id=${user.getId()})}">View</a></td>-->
                 <td><a th:href="@{{id}/remove(id=${user.getId()})}">Xóa</a></td>
               </tr>
               </tbody>
           </table>
-      <!-- /.container-fluid -->
-    </div>
+            <!-- /.container-fluid -->
+          </div>
     <!-- End of Main Content -->
-    <!-- Footer -->
-    <div th:replace="fragments/nav :: footer"></div>
-    <!-- End of Footer -->
+        </div>
+        <!-- Footer -->
+        <div class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
+          <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">
+            <button onclick="document.location='/admin/quan-ly-sinh-vien'">Quay lại</button>
+          </p>
+        </div>
+        <div th:replace="fragments/nav :: footer"></div>
+        <!-- End of Footer -->
+      </div>
+        <!-- End of Content Wrapper -->
+      </div>
   </div>
-  <!-- End of Content Wrapper -->
-</div>
   <div th:unless="${listUser.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
     <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không sinh viên nào trong phòng này! <br/>
       <button onclick="document.location='/admin/quan-ly-sinh-vien'">Quay lại</button>
     </p>
-
   </div>
+
 
     <!-- End of Page Wrapper -->
 <!-- Scroll to Top Button-->
@@ -156,9 +150,8 @@
 </a>
 <!-- Logout Modal-->
 <div th:replace="fragments/nav :: logout"></div>
-    </div>
-  </div>
-  </div>
+
+</div>
 <!-- Bootstrap core JavaScript-->
 <script src="/assets/vendor/jquery/jquery.min.js"></script>
 

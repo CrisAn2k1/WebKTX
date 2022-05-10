@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import java.util.Calendar;
 import java.util.List;
 @Controller
 @RequestMapping(value = "/admin")
@@ -37,11 +38,10 @@ public class AdminController {
     private PhongNoiThatService phongNoiThatService;
 
     @Autowired
-<<<<<<< HEAD
     private HoSoDangKyRepository hosoDangKyRepo;
-=======
+
+    @Autowired
     private InvoiceService invoiceService;
->>>>>>> 54ff5c6ef5ef5c62be3c01d900e22a964d4c2d37
 
     @Autowired
     @Qualifier("hsdkService")
@@ -80,6 +80,8 @@ public class AdminController {
     public String listUserPhong(@PathVariable("idPhong") String idPhong, Model model){
         System.out.println("Phòng :" + idPhong);
         List<User> listUser = userRepo.findByIdPhong(idPhong);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        model.addAttribute("currentYear",year);
         model.addAttribute("listUser",listUser);
         model.addAttribute("maphong",idPhong);
 
@@ -95,8 +97,9 @@ public class AdminController {
             return "redirect:/quan-ly-sinh-vien";
         }
         else {
+            model.addAttribute("maphong",editUser.getIdPhong().getId());
             model.addAttribute("editUser",editUser);
-            return "edit";
+            return "edit-user";
         }
     }
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
@@ -139,6 +142,7 @@ public class AdminController {
             return "redirect:/furniture-management";
         }
         else {
+            model.addAttribute("maphong",editFur.getIdPhong().getId());
             model.addAttribute("editFur",editFur);
             return "admin/edit-furniture";
         }
@@ -147,7 +151,8 @@ public class AdminController {
     @PostMapping("/furniture-management/edit")
     public String updateFurniture(PhongNoithat phongNoithat){
         phongNoiThatService.updatePhongNoithat(phongNoithat.getId(),phongNoithat);
-        return "redirect:/admin/furniture-management";
+        PhongNoithat getIdPhong = phongNoiThatRepo.findById(phongNoithat.getId()).orElse(null);
+        return "redirect:/admin/furniture-management/"+getIdPhong.getIdPhong().getId();
     }
 
     @GetMapping("/furniture-management/{id}/remove")
