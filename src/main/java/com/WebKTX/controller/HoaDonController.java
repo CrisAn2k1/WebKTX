@@ -32,10 +32,14 @@ public class HoaDonController {
         UserDetail currentUser = (UserDetail) auth.getPrincipal();
         Integer userId = currentUser.id();
         User user = repo.findById(userId).orElse(null);
-        if(user != null)
+        if(user != null && user.getIdPhong() != null)
         {
             Set<Hoadon> listHoaDon = user.getIdPhong().getHoadons();
             model.addAttribute("listHoadon",listHoaDon);
+            model.addAttribute("error",false);
+        }
+        if (user.getIdPhong()==null){
+            model.addAttribute("error",true);
         }
 
         return "hoadon";

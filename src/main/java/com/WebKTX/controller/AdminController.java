@@ -68,6 +68,11 @@ public class AdminController {
         return secondaryTemplateResolver;
     }
 
+    @GetMapping("/")
+    public  String adminPage(){
+        return "list-user";
+    }
+
     @GetMapping("/quan-ly-sinh-vien")
     public String listUser(Model model){
         List<Phong> listPhong = phongRepo.findAll();
@@ -105,8 +110,9 @@ public class AdminController {
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
     @PostMapping("/quan-ly-sinh-vien/edit")
     public String updateUser(User user){
+        User user_IDPhong = userRepo.findById(user.getId()).orElse(null);
         userService.updateInfo(user.getId(), user);
-        return "redirect:/admin/quan-ly-sinh-vien";
+        return "redirect:/admin/quan-ly-sinh-vien/"+user_IDPhong.getIdPhong().getId();
     }
 
     // Hàm dùng để xoá user

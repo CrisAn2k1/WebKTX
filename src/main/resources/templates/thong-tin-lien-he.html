@@ -43,25 +43,35 @@
             </div>
 
             <!-- Content Row -->
-            <div class="row">
+            <div class="row" style="margin: 30px">
               <!-- Earnings (Monthly) Card Example -->
-              <div class="col-xl-3 col-md-6 mb-4">
+              <div class="col-xl-5 col-md-10 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-header py-4">
                     <h6 class="m-0 font-weight-bold text-primary">Thông tin cư trú, liên hệ</h6>
                   </div>
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <h4 class="small font-weight-bold">
-                          Điện thoại: [[${#request.userPrincipal.principal.dienThoai}]]
-                        </h4>
-                        <h4 class="small font-weight-bold">
-                          Địa chỉ: [[${#request.userPrincipal.principal.diaChi}]]
-                        </h4>
-                        <h4 class="small font-weight-bold">
-                          Email: [[${#request.userPrincipal.principal.email}]]
-                        </h4>
+                      <div class="row" style="width: 100%">
+                        <div
+                          class="col-md-4"
+                          style="text-align: left; font-size: 15px; font-weight: 600"
+                        >
+                          <div>Điện thoại:</div>
+                          <div>Email:</div>
+                          <div>Địa chỉ cư trú:</div>
+                          <div>Xã/Phường:</div>
+                          <div>Quận/Huyện</div>
+                          <div>Tỉnh/Thành phố:</div>
+                        </div>
+                        <div class="col-md-8" style="font-size: 15px; font-weight: bold">
+                          <div>[[${#request.userPrincipal.principal.dienThoai}]]</div>
+                          <div>[[${#request.userPrincipal.principal.email}]]</div>
+                          <div>[[${#request.userPrincipal.principal.diaChi}]]</div>
+                          <div>[[${#request.userPrincipal.principal.xa}]]</div>
+                          <div>[[${#request.userPrincipal.principal.huyen}]]</div>
+                          <div>[[${#request.userPrincipal.principal.tinh}]]</div>
+                        </div>
                       </div>
                       <!-- <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>

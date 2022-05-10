@@ -323,30 +323,11 @@
       <hr class="sidebar-divider" />
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item">
-        <a
-                class="nav-link collapsed"
-                href="#"
-                data-toggle="collapse"
-                data-target="#collapseTwo"
-                aria-expanded="true"
-                aria-controls="collapseTwo"
-        >
+        <a th:href="@{/admin/quan-ly-sinh-vien}" class="nav-link collapsed">
+
           <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Quản lý sinh viên</span>
+          <span >Quản lý sinh viên</span>
         </a>
-        <div
-                id="collapseTwo"
-                class="collapse"
-                aria-labelledby="headingTwo"
-                data-parent="#accordionSidebar"
-        >
-          <div class="bg-white py-2 collapse-inner rounded">
-            <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-            <a class="collapse-item" th:href="@{/admin/quan-ly-sinh-vien}">Danh sách sinh viên</a>
-            <a class="collapse-item" th:href="@{/admin/thong-tin-lien-he}">Thông tin liên hệ</a>
-          </div>
-        </div>
-      </li>
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link" th:href="@{/admin/furniture-management}">

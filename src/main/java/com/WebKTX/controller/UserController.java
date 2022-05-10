@@ -64,31 +64,31 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(ModelAndView modelAndView, User user){
-
-        User existingUser = userRepo.findByEmail(user.getEmail());
-        if(existingUser != null)
-        {
-            modelAndView.addObject("message","This email already exists!");
-            modelAndView.setViewName("error");
-        }
-        else
-        {
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
-
-            user.setRoles(roleRepo.findByName("user"));
-            userRepo.save(user);
-
-            modelAndView.addObject("emailId", user.getEmail());
-
-            modelAndView.setViewName("signup-success");
-        }
-
-        return modelAndView;
-    }
+//    @RequestMapping(value="/register", method = RequestMethod.POST)
+//    public ModelAndView registerUser(ModelAndView modelAndView, User user){
+//
+//        User existingUser = userRepo.findByEmail(user.getEmail());
+//        if(existingUser != null)
+//        {
+//            modelAndView.addObject("message","This email already exists!");
+//            modelAndView.setViewName("error");
+//        }
+//        else
+//        {
+//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//            String encodedPassword = passwordEncoder.encode(user.getPassword());
+//            user.setPassword(encodedPassword);
+//
+//            user.setRoles(roleRepo.findByName("user"));
+//            userRepo.save(user);
+//
+//            modelAndView.addObject("emailId", user.getEmail());
+//
+//            modelAndView.setViewName("signup-success");
+//        }
+//
+//        return modelAndView;
+//    }
 
 
     @GetMapping("/login")

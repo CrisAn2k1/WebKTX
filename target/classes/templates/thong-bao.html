@@ -1,123 +1,148 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
     <title>Website quản lý ký túc xá</title>
 
     <!-- Custom fonts for this template-->
-    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
+    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
 
     <!-- Custom styles for this template-->
-    <link href="assets/css/sb-admin-2.min.css" rel="stylesheet" >
+    <link href="assets/css/sb-admin-2.min.css" rel="stylesheet" />
     <!-- Custom styles for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
     <style>
-        table {
-            counter-reset: rowNumber;
-        }
+      table {
+        counter-reset: rowNumber;
+      }
 
-        table thead{
-            text-align: center;
-            vertical-align: center;
-        }
-        table tbody td.date{
-            text-align: center;
-            vertical-align: center;
-        }
-        table tbody tr td.stt:before {
-            display: table-cell;
-            counter-increment: rowNumber;
-            content: counter(rowNumber);
-            padding-right: 0.3em;
-            text-align: center;
-            vertical-align: middle;
-            margin: 0 auto;
-        }
+      table thead {
+        text-align: center;
+        vertical-align: center;
+      }
+      table tbody td.date {
+        text-align: center;
+        vertical-align: center;
+      }
+      table tbody tr td.stt:before {
+        display: table-cell;
+        counter-increment: rowNumber;
+        content: counter(rowNumber);
+        padding-right: 0.3em;
+        text-align: center;
+        vertical-align: middle;
+        margin: 0 auto;
+      }
     </style>
-</head>
+  </head>
 
-<body id="page-top">
+  <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-        <!-- Sidebar -->
-        <div th:replace="fragments/nav :: sidebar"></div>
-        <!-- End of Sidebar -->
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-            <!-- Main Content -->
-            <div id="content">
-                <!-- Topbar -->
-                <div th:replace="fragments/nav :: topnav"></div>
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Thông báo</h1>
-                    <!-- DataTales Example -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Tên bài</th>
-                                    <th>Ngày đăng</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td class="stt"></td>
-                                    <td><a href="http://ktx.vnuhcm.edu.vn/thong-bao/tb-v-v-phan-luong-xe-may-ra-vao-cong-so-2-ky-tuc-xa-khu-b.html">TB v/v phân luồng xe máy ra vào cổng số 2 Ký túc xá khu B</a></td>
-                                    <td class="date">08/04/2022</td>
-                                </tr>
-                                <tr>
-                                    <td class="stt"></td>
-                                    <td><a href="http://ktx.vnuhcm.edu.vn/thong-bao/tb-vv-dang-ky-thong-tin-lam-can-cuoc-cong-dan-gan-chip.html">TB vv đăng ký thông tin làm căn cước công dân gắn chíp</a></td>
-                                    <td class="date">31/03/2022</td>
-                                </tr>
-                                <tr>
-                                    <td class="stt"></td>
-                                    <td><a href="http://ktx.vnuhcm.edu.vn/thong-bao/tb-v-v-do-hang-rao-tam-va-dong-cac-cong-phu-tai-ktx-khu-a-va-khu-b.html">TB v/v dỡ hàng rào tạm và đóng các cổng phụ tại KTX khu A và Khu B</a></td>
-                                    <td class="date">26/03/2022</td>
-                                </tr>
-                                <tr>
-                                    <td class="stt"></td>
-                                    <td><a href="http://ktx.vnuhcm.edu.vn/thong-bao/thong-tin-ve-viec-lien-quan-den-tinh-hinh-an-ninh,-trat-tu-ktx.html">Thông tin về việc liên quan đến tình hình an ninh, trật tự KTX</a></td>
-                                    <td class="date">24/02/2022</td>
-                                </tr>
-                                <tr>
-                                    <td class="stt"></td>
-                                    <td><a href="http://ktx.vnuhcm.edu.vn/thong-bao/tb-v-v-tang-cuong-cong-tac-phong-dich-covid-19.html">TB v/v tăng cường công tác phòng dịch Covid-19</a></td>
-                                    <td class="date">22/02/2022</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+      <!-- Sidebar -->
+      <div th:replace="fragments/nav :: sidebar"></div>
+      <!-- End of Sidebar -->
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <div th:replace="fragments/nav :: topnav"></div>
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Thông báo</h1>
+            <!-- DataTales Example -->
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>STT</th>
+                      <th>Tên bài</th>
+                      <th>Ngày đăng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="stt"></td>
+                      <td>
+                        <a
+                          href="http://ktx.vnuhcm.edu.vn/thong-bao/tb-v-v-phan-luong-xe-may-ra-vao-cong-so-2-ky-tuc-xa-khu-b.html"
+                          >TB v/v phân luồng xe máy ra vào cổng số 2 Ký túc xá khu B</a
+                        >
+                      </td>
+                      <td class="date">08/04/2022</td>
+                    </tr>
+                    <tr>
+                      <td class="stt"></td>
+                      <td>
+                        <a
+                          href="http://ktx.vnuhcm.edu.vn/thong-bao/tb-vv-dang-ky-thong-tin-lam-can-cuoc-cong-dan-gan-chip.html"
+                          >TB vv đăng ký thông tin làm căn cước công dân gắn chíp</a
+                        >
+                      </td>
+                      <td class="date">31/03/2022</td>
+                    </tr>
+                    <tr>
+                      <td class="stt"></td>
+                      <td>
+                        <a
+                          href="http://ktx.vnuhcm.edu.vn/thong-bao/tb-v-v-do-hang-rao-tam-va-dong-cac-cong-phu-tai-ktx-khu-a-va-khu-b.html"
+                          >TB v/v dỡ hàng rào tạm và đóng các cổng phụ tại KTX khu A và Khu B</a
+                        >
+                      </td>
+                      <td class="date">26/03/2022</td>
+                    </tr>
+                    <tr>
+                      <td class="stt"></td>
+                      <td>
+                        <a
+                          href="http://ktx.vnuhcm.edu.vn/thong-bao/thong-tin-ve-viec-lien-quan-den-tinh-hinh-an-ninh,-trat-tu-ktx.html"
+                          >Thông tin về việc liên quan đến tình hình an ninh, trật tự KTX</a
+                        >
+                      </td>
+                      <td class="date">24/02/2022</td>
+                    </tr>
+                    <tr>
+                      <td class="stt"></td>
+                      <td>
+                        <a
+                          href="http://ktx.vnuhcm.edu.vn/thong-bao/tb-v-v-tang-cuong-cong-tac-phong-dich-covid-19.html"
+                          >TB v/v tăng cường công tác phòng dịch Covid-19</a
+                        >
+                      </td>
+                      <td class="date">22/02/2022</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-                <!-- /.container-fluid -->
-            </div>
-            <!-- End of Main Content -->
-            <!-- Footer -->
-            <div th:replace="fragments/nav :: footer"></div>
-            <!-- End of Footer -->
+          </div>
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- /.container-fluid -->
+        <div th:replace="fragments/nav :: footer"></div>
+      </div>
+      <!-- End of Main Content -->
+      <!-- Footer -->
+
+      <!-- End of Footer -->
     </div>
+    <!-- End of Content Wrapper -->
     <!-- End of Page Wrapper -->
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
+      <i class="fas fa-angle-up"></i>
     </a>
     <!-- Logout Modal-->
     <div th:replace="fragments/nav :: logout"></div>
@@ -138,7 +163,5 @@
 
     <!-- Page level custom scripts -->
     <script src="assets/js/demo/datatables-demo.js"></script>
-
-</body>
-
+  </body>
 </html>

@@ -40,9 +40,9 @@
               <h1 class="h3 mb-0 text-gray-800">Thông tin sinh viên</h1>
             </div>
             <!-- Content Row -->
-            <div class="row row-cols-2">
+            <div class="row row-cols-2" style="justify-content: center">
               <!-- Pending Requests Card Example -->
-              <div class="col-xl-3 col-md-6 mb-4">
+              <div class="col-xl-3 col-md-6 mb-4" style="margin-right: 15px">
                 <div class="card border-left-warning shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -56,27 +56,32 @@
                 </div>
               </div>
               <!-- Content Column -->
-              <div class="col-lg-6 mb-4">
+              <div class="col-lg-5 mb-4">
                 <!-- Project Card Example -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">
+                    <h4 class="m-0 font-weight-bold text-primary">
                       [[${#request.userPrincipal.principal.fullName}]]
-                    </h6>
+                      <strong> [[${#request.userPrincipal.principal.idphong}]]</strong>
+                    </h4>
                   </div>
                   <div class="card-body">
-                    <h4 class="small font-weight-bold">
-                      <strong>Ngày sinh: </strong>[[${#request.userPrincipal.principal.ngaySinh}]]
-                    </h4>
-                    <h4 class="small font-weight-bold">
-                      <strong>Giới tính:</strong> [[${#request.userPrincipal.principal.gioiTinh}]]
-                    </h4>
-                    <h4 class="small font-weight-bold">
-                      <strong>Trường:</strong> [[${#request.userPrincipal.principal.truongHoc}]]
-                    </h4>
-                    <h4 class="small font-weight-bold">
-                      <strong> Năm thứ:</strong> [[${#request.userPrincipal.principal.nienKhoa}]]
-                    </h4>
+                    <div class="row">
+                      <div class="col-md-3" style="text-align: left;font-size: 15px;">
+                        <div><strong>MSSV: </strong></div>
+                        <div><strong>Ngày sinh: </strong></div>
+                        <div><strong>Giới tính:</strong></div>
+                        <div><strong>Trường:</strong></div>
+                        <div><strong> Năm thứ:</strong></div>
+                      </div>
+                      <div class="col-md-8" style="font-size: 15px; font-weight: bold">
+                        <div>[[${#request.userPrincipal.principal.mssv}]]</div>
+                        <div>[[${#request.userPrincipal.principal.ngaySinh}]]</div>
+                        <div>[[${#request.userPrincipal.principal.gioiTinh}]]</div>
+                        <div>[[${#request.userPrincipal.principal.truongHoc}]]</div>
+                        <div>[[${#request.userPrincipal.principal.nienKhoa}]]</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

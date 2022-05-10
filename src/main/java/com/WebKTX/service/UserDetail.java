@@ -67,6 +67,10 @@ public class UserDetail implements UserDetails {
     }
 
     public String email(){
+        if(user.getEmail()==null)
+        {
+            return "Đang cập nhật";
+        }
         return  user.getEmail();
     }
 
@@ -103,6 +107,46 @@ public class UserDetail implements UserDetails {
             return "Đang cập nhật";
         }
         return user.getDiachicutru();
+    }
+
+    public String tinh(){
+        if (user.getTinh()==null){
+            return "Đang cập nhật";
+        }
+        return user.getTinh();
+    }
+
+    public String huyen(){
+        if (user.getHuyen()==null){
+            return "Đang cập nhật";
+        }
+        return user.getHuyen();
+    }
+
+    public String xa(){
+        if (user.getXa()==null){
+            return "Đang cập nhật";
+        }
+        return user.getXa();
+    }
+
+    public String mssv(){
+        if (user.getMssv()==null){
+            return "Đang cập nhật";
+        }
+        return user.getMssv();
+    }
+    public String cmndCccd(){
+        if (user.getCmndCccd()==null){
+            return "Đang cập nhật";
+        }
+        return user.getCmndCccd();
+    }
+    public String idphong(){
+        if (user.getIdPhong()==null || user.getIdPhong().getId()==null){
+            return "";
+        }
+        return " - " + user.getIdPhong().getId();
     }
 
     public String truongHoc(){
