@@ -110,38 +110,38 @@
                     text-align: center;"
                 >
                   <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
-                  <label>Mã hồ sơ đăng ký: </label>
-                  <input disabled type="text" th:placeholder="${editHSdangky.getId()}"/><br><br>
-                  <label>Mô tả: </label>
-                  <input disabled type="text" th:placeholder="${editHSdangky.getMota()}"/><br><br>
-                  <label>Ngày tạo: </label>
-                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaytao()}"/><br><br>
-                  <label>Ngày nhận phòng: </label>
-                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaynhanphong()}"/><br><br>
-                  <label>Ngày trả phòng: </label>
-                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaytraphong()}"/><br><br>
-                  <label>Họ tên: </label>
-                  <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHoten()}"/><br><br>
-                  <div class="btn-group" style="width: 100%">
-                    <p style="
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: center;
-                        margin: auto;
-                    ">
-                      <input  type="submit" value="Cập nhật" /><br>
-                      <p style="
-                          display: flex;
-                          flex-direction: row;
-                          align-items: center;
-                          justify-content: center;
-                          margin: auto;
-                      ">
-                          <button onclick="document.location='/admin/hosodangky-management'">Quay lại</button>
-                        </p>
-                    </p>
 
+                  <label>Mã hồ sơ </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getId()}"/><br><br>
+
+                  <label>Ngày tạo </label>
+                  <input disabled type="text" th:placeholder="${#dates.format(editHSdangky.getNgaytao(),'dd-MM-yyyy')}"/><br><br>
+
+                  <label>Ngày nhận phòng</label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaynhanphong()}"/><br><br>
+
+                  <label>Ngày trả phòng</label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getNgaytraphong()}"/><br><br>
+
+                  <label>Họ tên sinh viên </label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHoten()}"/><br><br>
+
+                  <label>MSSV</label>
+                  <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getMssv()}"/><br><br>
+
+                  <label>Trạng thái </label>
+                  <select th:field="*{trangthai}">
+                    <option th:value="true"> Đã duyệt</option>
+                    <option th:value="false">Chưa duyệt</option>
+                  </select>
+
+                  <div class="btn-group" style="width: 90%">
+                    <span>
+                      <div class="inputbox">
+                        <input  type="submit" value="Cập nhật" /><br>
+                        <button type="button" onclick="document.location='/admin/hosodangky-management'">Quay lại</button>
+                      </div>
+                    </span>
                   </div>
                 </form>
               </div>

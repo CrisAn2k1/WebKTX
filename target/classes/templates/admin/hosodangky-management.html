@@ -103,23 +103,28 @@
                 <thead>
                 <tr>
                   <th>Mã hồ sơ</th>
-                  <th>Mô tả</th>
                   <th>Ngày tạo</th>
                   <th>Ngày nhận phòng</th>
                   <th>Ngày trả phòng</th>
-                  <th>Họ tên</th>
+                  <th>Họ tên sinh viên</th>
+                  <th>Mã sinh viên</th>
+                  <th>Trạng thái</th>
+
                   <!--      <th>View</th>-->
                 </tr>
                 </thead>
                 <tbody th:each="HoSoDangKy : ${listHosodangky}">
                 <tr>
                   <td th:text="${HoSoDangKy.getId()}"></td>
-                  <td th:text="${HoSoDangKy.getMota()}"></td>
-                  <td th:text="${#temporals.format(HoSoDangKy.getNgaytao(),'dd-MM-yyy hh:MM:ss')}"></td>
+                  <td th:text="${#dates.format(HoSoDangKy.getNgaytao(),'dd-MM-yyyy')}"></td>
                   <td th:text="${HoSoDangKy.getNgaynhanphong()}"></td>
                   <td th:text="${HoSoDangKy.getNgaytraphong()}"></td>
                   <td th:text="${HoSoDangKy.getIdUser().getHoten()}"></td>
-
+                  <td th:text="${HoSoDangKy.getIdUser().getMssv()}"></td>
+                  <td>
+                    <span th:if="${HoSoDangKy.getTrangthai() == false }" style="color: red; font-weight: bold">Chưa duyệt</span>
+                    <span th:unless="${HoSoDangKy.getTrangthai() == false}" style="color: limegreen; font-weight: bold">Đã duyệt</span>
+                  </td>
                   <div class="btn-link">
                     <td><a th:href="@{hosodangky-management/{id}/edit(id=${HoSoDangKy.getId()})}">Chỉnh sửa</a></td>
                     <td><a th:href="@{hosodangky-management/{id}/remove(id=${HoSoDangKy.getId()})}">Xoá</a></td>

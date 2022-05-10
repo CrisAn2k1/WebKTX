@@ -110,34 +110,34 @@
                     text-align: center;"
                 >
                   <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
-                  <label>Mã hồ sơ chuyển phòng: </label>
+                  <label>Mã hồ sơ  </label>
                   <input disabled type="text" th:placeholder="${editHSchuyenphong.getId()}"/><br><br>
-                  <label>Mô tả: </label>
-                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getMota()}"/><br><br>
-                  <label>Ngày tạo: </label>
-                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getNgaytao()}"/><br><br>
-                  <label>Họ tên: </label>
-                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getIdUser().getHoten()}"/><br><br>
-                  <div class="btn-group" style="width: 100%">
-                    <p style="
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        justify-content: center;
-                        margin: auto;
-                    ">
-                      <input  type="submit" value="Cập nhật" /><br>
-                      <p style="
-                          display: flex;
-                          flex-direction: row;
-                          align-items: center;
-                          justify-content: center;
-                          margin: auto;
-                      ">
-                          <button onclick="document.location='/admin/hosochuyenphong-management'">Quay lại</button>
-                        </p>
-                    </p>
 
+                  <label>Mô tả </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getMota()}"/><br><br>
+
+                  <label>Ngày tạo </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getNgaytao()}"/><br><br>
+
+                  <label>Họ tên </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getIdUser().getHoten()}"/><br><br>
+
+                  <label>MSSV </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getIdUser().getMssv()}"/><br><br>
+
+                  <label>Trạng thái </label>
+                  <select th:field="*{trangthai}">
+                    <option th:value="true"> Đã duyệt</option>
+                    <option th:value="false">Chưa duyệt</option>
+                  </select>
+
+                  <div class="btn-group" style="width: 90%">
+                    <span>
+                      <div class="inputbox">
+                        <input  type="submit" value="Cập nhật" /><br>
+                        <button type="button" onclick="document.location='/admin/hosochuyenphong-management'">Quay lại</button>
+                      </div>
+                    </span>
                   </div>
                 </form>
               </div>

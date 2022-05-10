@@ -27,6 +27,17 @@ public class Hosodangky {
     @Column(name = "ngaytraphong")
     private LocalDate ngaytraphong;
 
+    @Column(name = "trangthai")
+    private Boolean trangthai;
+
+    public Boolean getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(Boolean trangthai) {
+        this.trangthai = trangthai;
+    }
+
     public LocalDate getNgaytraphong() {
         return ngaytraphong;
     }
