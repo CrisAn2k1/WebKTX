@@ -86,7 +86,11 @@
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
       <div class="container-fluid">
-        <h1 class="h3 mb-2 text-gray-800 text-center">Danh sách sinh viên - Phòng: <maphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></maphong> </h1>
+        <h1 class="h3 mb-2 text-gray-800 text-center">
+          Danh sách sinh viên
+          <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
+          </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
+        </h1>
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="table-responsive">
@@ -113,10 +117,9 @@
                 <td th:text="${user.gioitinh}"></td>
                 <td th:text="${user.phone}"></td>
                 <td th:text="${currentYear - user.nienkhoa}"></td>
+                <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chỉnh sửa</a></td>
+                <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Xoá</a></td>
 
-                <td><a th:href="@{{id}/edit(id=${user.getId()})}">Chỉnh sửa </a></td>
-<!--                <td><a th:href="@{{id}/view(id=${user.getId()})}">View</a></td>-->
-                <td><a th:href="@{{id}/remove(id=${user.getId()})}">Xóa</a></td>
               </tr>
               </tbody>
           </table>

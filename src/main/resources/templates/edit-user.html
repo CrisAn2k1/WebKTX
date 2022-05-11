@@ -148,7 +148,7 @@
                 <div class="inputbox" style="justify-content: center">
                 <input type="submit" value="Cập nhật" />
                   <button type="button"
-                          th:data-url="@{/admin/quan-ly-sinh-vien/{idPhong}(idPhong=${maphong})}"
+                          th:data-url="@{/admin/quan-ly-sinh-vien/{idToa}/{idPhong}( idToa=${matoa} ,idPhong=${maphong})}"
                           onclick="document.location=(this.getAttribute('data-url'))">Quay lại</button>
                 </div>
               </form>
