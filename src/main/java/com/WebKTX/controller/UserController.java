@@ -1,41 +1,25 @@
 package com.WebKTX.controller;
 
 import com.WebKTX.model.User;
-import com.WebKTX.repository.PhongNoiThatRepository;
-import com.WebKTX.repository.RoleRepository;
-import com.WebKTX.repository.UserRepository;
 import com.WebKTX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-
 @Service
 @Controller
 public class UserController {
 
     @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
-    private RoleRepository roleRepo;
-
-    @Autowired
     private UserService userService;
 
-//    //================================
+    //================================
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("newUser", new User());

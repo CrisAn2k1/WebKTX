@@ -22,10 +22,6 @@
 
     <!-- Custom styles for table  -->
     <style>
-      table {
-        counter-reset: rowNumber;
-      }
-
       table thead {
         text-align: center;
         vertical-align: middle;
@@ -34,20 +30,22 @@
       }
       table tbody td {
         text-align: center;
-        vertical-align: middle;
+        vertical-align: middle !important;
       }
     </style>
     <!-- Custom styles for button  -->
     <style>
       .btn-group button {
-        background-color: #04AA6D; /* Green background */
-        border: 1px solid green; /* Green border */
-        color: white; /* White text */
-        padding: 10px 24px; /* Some padding */
-        cursor: pointer; /* Pointer/hand icon */
-        float: left; /* Float the buttons side by side */
-        margin-top: 10px;;
-        border-radius: 5px;;
+        background-color: #134594c9;
+        border: 1px solid green;
+        color: white;
+        padding: 2px 8px;
+        cursor: pointer;
+        margin-top: 10px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
       /* Clear floats (clearfix hack) */
@@ -63,7 +61,7 @@
 
       /* Add a background color on hover */
       .btn-group button:hover {
-        background-color: #3e8e41;
+        background-color: #bf6f1dc9;
       }
     </style>
 
@@ -93,7 +91,7 @@
 
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Danh sách hoá đơn</h6>
+                <h4 class="m-0 font-weight-bold text-primary text-center">Danh sách hoá đơn</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -103,10 +101,11 @@
                         <th>STT</th>
                         <th>Số tiền</th>
                         <th>Ngày xuất HD</th>
-                        <th>Trạng thái:</th>
+                        <th>Trạng thái</th>
+                        <th></th>
                       </tr>
                     </thead>
-                    <tbody th:each="hoadon,countHoaHon:${listHoadon}">
+                    <tbody th:each="hoadon,countHoaHon:${listHoaDon}">
                       <tr>
                         <td th:text="${countHoaHon.index+1}"></td>
                         <td th:text="${#numbers.formatDecimal(hoadon.tongtien, 0, 'COMMA',0, 'POINT')} +  ' VNĐ'"></td>
@@ -114,7 +113,14 @@
                         <td>
                             <span th:if="${hoadon.getTrangthaithanhtoan() == false }" style="color: red; font-weight: bold">Chưa thanh toán</span>
                             <span th:unless="${hoadon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán </span>
-
+                        </td>
+                        <td >
+                          <span class="btn-group">
+                            <button
+                                  th:data-url="@{/hoadon/{idHD}(idHD=${hoadon.id})}"
+                                  onclick="document.location=(this.getAttribute('data-url'))">Chi tiết
+                            </button>
+                          </span>
                         </td>
                       </tr>
                     </tbody>

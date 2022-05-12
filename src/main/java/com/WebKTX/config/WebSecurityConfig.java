@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/homepage","/login-success","/login"
                         ,"/thong-tin-sinh-vien","/thong-tin-lien-he","/thong-bao"
                         ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon","/admin/**").authenticated()  // các URL bắt buộc đăng nhập
-                .antMatchers("/**","/register","/confirm").permitAll().// các URL không bắt buộc đăng nhập
+                .antMatchers("/**","/register","/confirm","/uploadImg").permitAll().// các URL không bắt buộc đăng nhập
                  antMatchers("/homepage" ,"/thong-tin-sinh-vien","/thong-tin-lien-he","/thong-bao"
                     ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon").hasAnyAuthority("user","admin")
                 .antMatchers("/admin/**").hasAnyAuthority("admin").
