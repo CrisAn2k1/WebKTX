@@ -21,6 +21,17 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Transient
+    private String confirmPassowrd;
+
+    public String getConfirmPassowrd() {
+        return confirmPassowrd;
+    }
+
+    public void setConfirmPassowrd(String confirmPassowrd) {
+        this.confirmPassowrd = confirmPassowrd;
+    }
+
     @Column(name = "email")
     private String email;
 
