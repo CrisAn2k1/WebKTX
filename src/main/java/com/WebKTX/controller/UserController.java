@@ -3,15 +3,16 @@ package com.WebKTX.controller;
 import com.WebKTX.model.Hosochuyenphong;
 import com.WebKTX.model.User;
 import com.WebKTX.repository.HoSoChuyenPhongRepository;
-import com.WebKTX.repository.PhongNoiThatRepository;
-import com.WebKTX.repository.RoleRepository;
 import com.WebKTX.repository.UserRepository;
 import com.WebKTX.service.HoSoChuyenPhongService;
+import com.WebKTX.service.UserDetail;
 import com.WebKTX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -19,9 +20,13 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+
 @Service
 @Controller
 public class UserController {
+
+    @Autowired
+    private UserRepository userRepo;
 
     @Autowired
     private UserService userService;
@@ -32,7 +37,8 @@ public class UserController {
     @Autowired
     @Qualifier("hscpService")
     private HoSoChuyenPhongService hosoChuyenPhongService;
-//    //================================
+
+   //================================
 
     @GetMapping("/register")
     public String registration(Model model) {
@@ -61,33 +67,6 @@ public class UserController {
             return "verify-fail";
         }
     }
-
-//    @RequestMapping(value="/register", method = RequestMethod.POST)
-//    public ModelAndView registerUser(ModelAndView modelAndView, User user){
-//
-//        User existingUser = userRepo.findByEmail(user.getEmail());
-//        if(existingUser != null)
-//        {
-//            modelAndView.addObject("message","This email already exists!");
-//            modelAndView.setViewName("error");
-//        }
-//        else
-//        {
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//            String encodedPassword = passwordEncoder.encode(user.getPassword());
-//            user.setPassword(encodedPassword);
-//
-//            user.setRoles(roleRepo.findByName("user"));
-//            userRepo.save(user);
-//
-//            modelAndView.addObject("emailId", user.getEmail());
-//
-//            modelAndView.setViewName("signup-success");
-//        }
-//
-//        return modelAndView;
-//    }
-
 
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
@@ -126,16 +105,32 @@ public class UserController {
         return "admin";
     }
 
+    public User getCurrentUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetail currentUser = (UserDetail) auth.getPrincipal();
+        Integer userId = currentUser.id();
+        User user = userRepo.findById(userId).orElse(null);
+        return user;
+    }
+
+
     @GetMapping("/dang-ky-chuyen-phong")
     public String registerChuyenPhong(Model model) {
-        model.addAttribute("newCP", new Hosochuyenphong());
-        return "form-chuyen-phong";
+        if(getCurrentUser() != null) {
+            model.addAttribute("user", getCurrentUser());
+            model.addAttribute("newCP", new Hosochuyenphong());
+            return "form-chuyen-phong";
+        }
+        return "redirect:/login";
     }
 
     @PostMapping("/process_chuyenphong")
     public String processChuyenPhong(Hosochuyenphong hosochuyenphong) {
-        hosoChuyenPhongService.processChuyenPhong(hosochuyenphong.getId(), hosochuyenphong);
-        return "dangkychuyenphong-success";
+        if(getCurrentUser() != null) {
+            hosoChuyenPhongService.addChuyenPhong(getCurrentUser().getId(), hosochuyenphong);
+            return "dangkychuyenphong-success";
+        }
+        return "redirect:/login";
     }
 }
 
