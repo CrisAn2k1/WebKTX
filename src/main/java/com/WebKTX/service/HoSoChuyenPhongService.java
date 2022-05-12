@@ -9,4 +9,6 @@ public interface HoSoChuyenPhongService {
     void updateHosochuyenphong(Integer id, Hosochuyenphong hosochuyenphong);
 
     void removeHosochuyenphong(Integer id);
+
+    void processChuyenPhong(Integer id, Hosochuyenphong hosochuyenphong);
 }
