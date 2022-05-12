@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Biểu mẫu đăng ký</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
-    <link rel="stylesheet" href="assets/css/bootstrap.min.ktx.css" />
-    <link rel="stylesheet" href="assets/css/ace.min.css" />
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.ktx.css" />
+    <link rel="stylesheet" href="/assets/css/ace.min.css" />
   </head>
   <body>
     <div class="main-content-inner">
@@ -69,12 +69,13 @@
         </style>
 
         <form
-          action="/Register/CheckInfo"
-          class="form-horizontal clearfix"
-          id="form_register"
-          method="post"
-          novalidate="novalidate"
+            class="form-horizontal clearfix"
+            method="post"
+            novalidate="novalidate"
+            th:action="@{/form-dang-ky-o-ktx/update}"
+            th:object="${newUserKTX}"
         >
+          <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
           <div class="row" id="StudentInfo">
             <div class="col-sm-12">
               <div class="header clearfix">
@@ -126,13 +127,14 @@
                             <div class="control-value col-sm-8 col-xs-12">
                               <div class="clearfix">
                                 <input
-                                  class="col-sm-6"
-                                  id="IdCardNumber"
-                                  name="IdCardNumber"
-                                  placeholder=""
-                                  type="text"
-                                  value=""
-                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                                    th:field="*{cmndCccd}"
+                                    class="col-sm-6"
+                                    id="IdCardNumber"
+                                    name="IdCardNumber"
+                                    placeholder=""
+                                    type="text"
+                                    value=""
+                                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                 />
                               </div>
                             </div>
@@ -155,6 +157,7 @@
                                   placeholder="Nguyễn Văn A"
                                   type="text"
                                   value=""
+                                  th:field="*{hoten}"
                                 />
                               </div>
                               <div class="clearfix">
@@ -168,22 +171,20 @@
                           </div>
                           <div class="control-group form-group">
                             <label
-                              class="control-label no-padding-right col-sm-4 col-xs-12"
-                              for="Gender"
-                              >Giới tính <span class="text-danger">(*)</span></label
+                                    class="control-label no-padding-right col-sm-4 col-xs-12"
+                                    for="gioitinh"
+                            >Giới tính <span class="text-danger">(*)</span></label
                             >
                             <div class="control-value col-sm-8 col-xs-12">
                               <div class="clearfix">
-                                <select
-                                  class="col-sm-6"
-                                  data-val="true"
-                                  data-val-required="Bắt buộc nhập"
-                                  id="Gender"
-                                  name="Gender"
-                                >
-                                  <option selected th:value="Nam">Nam</option>
-                                  <option th:value="Nữ">Nữ</option>
-                                </select>
+                                <input
+                                        class="col-sm-6"
+                                        data-val="true"
+                                        data-val-required="Bắt buộc nhập"
+                                        id="gioitinh"
+                                        name="gioitinh"
+                                        th:field="*{gioitinh}"
+                                />
                               </div>
                               <div class="clearfix">
                                 <span
@@ -206,16 +207,18 @@
                                 <div class="input-append">
                                   <input
                                     class="date-input col-sm-12"
-                                    data-date-format="01/01/2000"
+                                    data-date-format="03/15/2001"
                                     data-val="true"
                                     data-val-date="The field Ngày sinh must be a date."
                                     data-val-required="Bắt buộc nhập"
                                     id="Birthday"
                                     name="Birthday"
-                                    placeholder="01/01/2000"
+                                    placeholder="MM/DD/YY"
                                     style="width: 100px"
                                     type="text"
                                     value=""
+                                    th:field="*{ngaysinh}"
+
                                   />
                                 </div>
                               </div>
@@ -260,6 +263,7 @@
                                   placeholder="SĐT của sinh viên"
                                   type="text"
                                   value=""
+                                  th:field="*{phone}"
                                 />
                               </div>
                               <div class="clearfix">
@@ -287,6 +291,7 @@
                                   placeholder="Nếu chưa có mã thì bỏ trống"
                                   type="text"
                                   value=""
+                                  th:field="*{mssv}"
                                 />
                               </div>
                               <div class="clearfix">
@@ -313,6 +318,7 @@
                                   placeholder="vd: ĐH Công Nghệ Thông Tin"
                                   type="text"
                                   value=""
+                                  th:field="*{truonghoc}"
                                 />
                               </div>
                               <div class="clearfix">
@@ -345,6 +351,7 @@
                                   style="text-align: right"
                                   type="number"
                                   value="2022"
+                                  th:field="*{nienkhoa}"
                                 />
                               </div>
                               <div class="clearfix">
@@ -376,90 +383,26 @@
                           <div class="edit-view">
                             <div class="control-group form-group">
                               <label
-                                class="control-label no-padding-right col-sm-4 col-xs-12"
-                                for="ProvineId"
-                                >Tỉnh/Thành phố <span class="text-danger">(*)</span></label
+                                      class="control-label no-padding-right col-sm-4 col-xs-12"
+                                      for="ProvineId"
+                              >Tỉnh/Thành phố <span class="text-danger">(*)</span></label
                               >
                               <div class="control-value col-sm-8 col-xs-12">
                                 <div class="clearfix">
-                                  <select
-                                    class="col-sm-6"
-                                    data-val="true"
-                                    data-val-required="Bắt buộc nhập"
-                                    id="ProvineId"
-                                    name="ProvineId"
-                                  >
-                                    <option value="">- Rỗng -</option>
-                                    <option value="89">An Giang</option>
-                                    <option value="77">Bà Rịa - Vũng Tàu</option>
-                                    <option value="24">Bắc Giang</option>
-                                    <option value="06">Bắc Kạn</option>
-                                    <option value="95">Bạc Liêu</option>
-                                    <option value="27">Bắc Ninh</option>
-                                    <option value="83">Bến Tre</option>
-                                    <option value="52">Bình Định</option>
-                                    <option value="74">Bình Dương</option>
-                                    <option value="70">Bình Phước</option>
-                                    <option value="60">Bình Thuận</option>
-                                    <option value="96">Cà Mau</option>
-                                    <option value="92">Cần Thơ</option>
-                                    <option value="04">Cao Bằng</option>
-                                    <option value="48">Đà Nẵng</option>
-                                    <option value="66">Đắk Lắk</option>
-                                    <option value="67">Đắk Nông</option>
-                                    <option value="11">Điện Biên</option>
-                                    <option value="75">Đồng Nai</option>
-                                    <option value="87">Đồng Tháp</option>
-                                    <option value="64">Gia Lai</option>
-                                    <option value="02">Hà Giang</option>
-                                    <option value="35">Hà Nam</option>
-                                    <option value="01">Hà Nội</option>
-                                    <option value="42">Hà Tĩnh</option>
-                                    <option value="30">Hải Dương</option>
-                                    <option value="31">Hải Phòng</option>
-                                    <option value="93">Hậu Giang</option>
-                                    <option value="79">Hồ Chí Minh</option>
-                                    <option value="17">Hòa Bình</option>
-                                    <option value="33">Hưng Yên</option>
-                                    <option value="56">Khánh Hòa</option>
-                                    <option value="91">Kiên Giang</option>
-                                    <option value="62">Kon Tum</option>
-                                    <option value="12">Lai Châu</option>
-                                    <option value="68">Lâm Đồng</option>
-                                    <option value="20">Lạng Sơn</option>
-                                    <option value="10">Lào Cai</option>
-                                    <option value="80">Long An</option>
-                                    <option value="36">Nam Định</option>
-                                    <option value="40">Nghệ An</option>
-                                    <option value="37">Ninh Bình</option>
-                                    <option value="58">Ninh Thuận</option>
-                                    <option value="25">Phú Thọ</option>
-                                    <option value="54">Phú Yên</option>
-                                    <option value="44">Quảng Bình</option>
-                                    <option value="49">Quảng Nam</option>
-                                    <option value="51">Quảng Ngãi</option>
-                                    <option value="22">Quảng Ninh</option>
-                                    <option value="45">Quảng Trị</option>
-                                    <option value="94">Sóc Trăng</option>
-                                    <option value="14">Sơn La</option>
-                                    <option value="72">Tây Ninh</option>
-                                    <option value="34">Thái Bình</option>
-                                    <option value="19">Thái Nguyên</option>
-                                    <option value="38">Thanh Hóa</option>
-                                    <option value="46">Thừa Thiên Huế</option>
-                                    <option value="82">Tiền Giang</option>
-                                    <option value="84">Trà Vinh</option>
-                                    <option value="08">Tuyên Quang</option>
-                                    <option value="86">Vĩnh Long</option>
-                                    <option value="26">Vĩnh Phúc</option>
-                                    <option value="15">Yên Bái</option>
-                                  </select>
+                                  <input
+                                          class="col-sm-6"
+                                          data-val="true"
+                                          data-val-required="Bắt buộc nhập"
+                                          id="ProvineId"
+                                          name="ProvineId"
+                                          th:field="*{tinh}"
+                                  />
                                 </div>
                                 <div class="clearfix">
                                   <span
-                                    class="field-validation-valid help-inline"
-                                    data-valmsg-for="ProvineId"
-                                    data-valmsg-replace="true"
+                                          class="field-validation-valid help-inline"
+                                          data-valmsg-for="ProvineId"
+                                          data-valmsg-replace="true"
                                   ></span>
                                 </div>
                               </div>
@@ -467,27 +410,26 @@
 
                             <div class="control-group form-group">
                               <label
-                                class="control-label no-padding-right col-sm-4 col-xs-12"
-                                for="DistrictId"
-                                >Quận/Huyện <span class="text-danger">(*)</span></label
+                                      class="control-label no-padding-right col-sm-4 col-xs-12"
+                                      for="DistrictId"
+                              >Quận/Huyện <span class="text-danger">(*)</span></label
                               >
                               <div class="control-value col-sm-8 col-xs-12">
                                 <div class="clearfix">
-                                  <select
-                                    class="col-sm-6"
-                                    data-val="true"
-                                    data-val-required="Bắt buộc nhập"
-                                    id="DistrictId"
-                                    name="DistrictId"
-                                  >
-                                    <option value="">- Rỗng -</option>
-                                  </select>
+                                  <input
+                                          class="col-sm-6"
+                                          data-val="true"
+                                          data-val-required="Bắt buộc nhập"
+                                          id="DistrictId"
+                                          name="DistrictId"
+                                          th:field="*{huyen}"
+                                  />
                                 </div>
                                 <div class="clearfix">
                                   <span
-                                    class="field-validation-valid help-inline"
-                                    data-valmsg-for="DistrictId"
-                                    data-valmsg-replace="true"
+                                          class="field-validation-valid help-inline"
+                                          data-valmsg-for="DistrictId"
+                                          data-valmsg-replace="true"
                                   ></span>
                                 </div>
                               </div>
@@ -495,27 +437,26 @@
 
                             <div class="control-group form-group">
                               <label
-                                class="control-label no-padding-right col-sm-4 col-xs-12"
-                                for="WardsId"
-                                >Phường/Xã <span class="text-danger">(*)</span></label
+                                      class="control-label no-padding-right col-sm-4 col-xs-12"
+                                      for="WardsId"
+                              >Phường/Xã <span class="text-danger">(*)</span></label
                               >
                               <div class="control-value col-sm-8 col-xs-12">
                                 <div class="clearfix">
-                                  <select
-                                    class="col-sm-6"
-                                    data-val="true"
-                                    data-val-required="Bắt buộc nhập"
-                                    id="WardsId"
-                                    name="WardsId"
-                                  >
-                                    <option value="">- Rỗng -</option>
-                                  </select>
+                                  <input
+                                          class="col-sm-6"
+                                          data-val="true"
+                                          data-val-required="Bắt buộc nhập"
+                                          id="WardsId"
+                                          name="WardsId"
+                                          th:field="*{xa}"
+                                  />
                                 </div>
                                 <div class="clearfix">
                                   <span
-                                    class="field-validation-valid help-inline"
-                                    data-valmsg-for="WardsId"
-                                    data-valmsg-replace="true"
+                                          class="field-validation-valid help-inline"
+                                          data-valmsg-for="WardsId"
+                                          data-valmsg-replace="true"
                                   ></span>
                                 </div>
                               </div>
@@ -523,29 +464,30 @@
 
                             <div id="" class="control-group form-group">
                               <label class="control-label col-sm-4 col-xs-12" for="Address"
-                                >Số nhà, tên đường, tổ/xóm, khu phố/thôn/ấp
+                              >Số nhà, tên đường, tổ/xóm, khu phố/thôn/ấp
                                 <span class="text-danger">(*)</span></label
                               >
                               <div class="control-value col-sm-8 col-xs-12">
                                 <div class="clearfix">
                                   <input
-                                    autocomplete="off"
-                                    class="col-sm-6"
-                                    data-val="true"
-                                    data-val-required="Bắt buộc nhập"
-                                    id="Address"
-                                    maskformat=""
-                                    name="Address"
-                                    placeholder=""
-                                    type="text"
-                                    value=""
+                                          autocomplete="off"
+                                          class="col-sm-6"
+                                          data-val="true"
+                                          data-val-required="Bắt buộc nhập"
+                                          id="Address"
+                                          maskformat=""
+                                          name="Address"
+                                          placeholder="Địa chỉ cư trú"
+                                          type="text"
+                                          value=""
+                                          th:field="*{diachicutru}"
                                   />
                                 </div>
                                 <div class="clearfix">
                                   <span
-                                    class="field-validation-valid help-inline"
-                                    data-valmsg-for="Address"
-                                    data-valmsg-replace="true"
+                                          class="field-validation-valid help-inline"
+                                          data-valmsg-for="Address"
+                                          data-valmsg-replace="true"
                                   ></span>
                                 </div>
                               </div>
@@ -600,135 +542,135 @@
                             </div>
                           </div>
 
-                          <div>
-                            <h5 class="green inline">
-                              <b style="text-transform: uppercase">
-                                <span>Ảnh thẻ 4x6 </span> <span class="text-danger">(*)</span><br />
-                              </b>
-                              <br />
-                              <span style="color: red"
-                                >* Lưu ý: yêu cầu nền xanh, áo sơ mi, chụp rõ khuôn mặt, chỉnh bằng
-                                khung hình theo mẫu</span
-                              >
-                            </h5>
-                          </div>
-                          <div class="edit-view">
-                            <img
-                              id="ImageAvatarimg"
-                              style="width: 100px"
-                              src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="
-                              alt="Image preview..."
-                            />
-                            <input
-                              type="file"
-                              name="image"
-                              id="FileUploadImageAvatar"
-                              class="image"
-                            />
-                            <input id="ImageAvatar" name="ImageAvatar" type="hidden" value="" />
+<!--                          <div>-->
+<!--                            <h5 class="green inline">-->
+<!--                              <b style="text-transform: uppercase">-->
+<!--                                <span>Ảnh thẻ 4x6 </span> <span class="text-danger">(*)</span><br />-->
+<!--                              </b>-->
+<!--                              <br />-->
+<!--                              <span style="color: red"-->
+<!--                                >* Lưu ý: yêu cầu nền xanh, áo sơ mi, chụp rõ khuôn mặt, chỉnh bằng-->
+<!--                                khung hình theo mẫu</span-->
+<!--                              >-->
+<!--                            </h5>-->
+<!--                          </div>-->
+<!--                          <div class="edit-view">-->
+<!--                            <img-->
+<!--                              id="ImageAvatarimg"-->
+<!--                              style="width: 100px"-->
+<!--                              src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="-->
+<!--                              alt="Image preview..."-->
+<!--                            />-->
+<!--                            <input-->
+<!--                              type="file"-->
+<!--                              name="image"-->
+<!--                              id="FileUploadImageAvatar"-->
+<!--                              class="image"-->
+<!--                            />-->
+<!--                            <input id="ImageAvatar" name="ImageAvatar" type="hidden" value="" />-->
 
-                            <div
-                              class="modal fade"
-                              id="modal"
-                              tabindex="-1"
-                              role="dialog"
-                              aria-labelledby="modalLabel"
-                              aria-hidden="true"
-                            >
-                              <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title" id="modalLabel">Điều chỉnh ảnh</h5>
-                                    <button
-                                      type="button"
-                                      class="close"
-                                      data-dismiss="modal"
-                                      aria-label="Close"
-                                    >
-                                      <span aria-hidden="true">×</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    <div class="img-container">
-                                      <div class="row">
-                                        <div class="col-md-8">
-                                          <!--  default image where we will set the src via jquery-->
-                                          <img id="image" />
-                                        </div>
-                                        <div class="col-md-4">
-                                          <div class="preview"></div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" id="crop">
-                                      Xác nhận
-                                    </button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+<!--                            <div-->
+<!--                              class="modal fade"-->
+<!--                              id="modal"-->
+<!--                              tabindex="-1"-->
+<!--                              role="dialog"-->
+<!--                              aria-labelledby="modalLabel"-->
+<!--                              aria-hidden="true"-->
+<!--                            >-->
+<!--                              <div class="modal-dialog modal-lg" role="document">-->
+<!--                                <div class="modal-content">-->
+<!--                                  <div class="modal-header">-->
+<!--                                    <h5 class="modal-title" id="modalLabel">Điều chỉnh ảnh</h5>-->
+<!--                                    <button-->
+<!--                                      type="button"-->
+<!--                                      class="close"-->
+<!--                                      data-dismiss="modal"-->
+<!--                                      aria-label="Close"-->
+<!--                                    >-->
+<!--                                      <span aria-hidden="true">×</span>-->
+<!--                                    </button>-->
+<!--                                  </div>-->
+<!--                                  <div class="modal-body">-->
+<!--                                    <div class="img-container">-->
+<!--                                      <div class="row">-->
+<!--                                        <div class="col-md-8">-->
+<!--                                          &lt;!&ndash;  default image where we will set the src via jquery&ndash;&gt;-->
+<!--                                          <img id="image" />-->
+<!--                                        </div>-->
+<!--                                        <div class="col-md-4">-->
+<!--                                          <div class="preview"></div>-->
+<!--                                        </div>-->
+<!--                                      </div>-->
+<!--                                    </div>-->
+<!--                                  </div>-->
+<!--                                  <div class="modal-footer">-->
+<!--                                    <button type="button" class="btn btn-primary" id="crop">-->
+<!--                                      Xác nhận-->
+<!--                                    </button>-->
+<!--                                  </div>-->
+<!--                                </div>-->
+<!--                              </div>-->
+<!--                            </div>-->
+<!--                          </div>-->
 
-                          <div class="inline">
-                            <div class="edit-view col-sm-6 col-xs-12" style="padding-left: 0px">
-                              <h5 class="green inline">
-                                <b>Ảnh CMND mặt trước <span class="text-danger">(*)</span></b>
-                              </h5>
-                              <p>
-                                <span style="color: red"
-                                  >* Sv vui lòng xoay ngang hình ảnh trước khi upload</span
-                                >
-                                <img
-                                  id="ImageCMNDBeforeimg"
-                                  style="width: 100px"
-                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="
-                                  alt="Image preview..."
-                                />
-                                <input
-                                  class="image_upload"
-                                  type="file"
-                                  id="FileUploadImageCMNDBefore"
-                                  onchange="encodeImageAsURL('ImageCMNDBefore');"
-                                />
-                                <input
-                                  id="ImageCMNDBefore"
-                                  name="ImageCMNDBefore"
-                                  type="hidden"
-                                  value=""
-                                />
-                              </p>
-                            </div>
-                            <div class="edit-view col-sm-6 col-xs-12" style="padding-left: 0px">
-                              <h5 class="green inline">
-                                <b>Ảnh CMND mặt sau <span class="text-danger">(*)</span></b>
-                              </h5>
-                              <p>
-                                <span style="color: red"
-                                  >* Sv vui lòng xoay ngang hình ảnh trước khi upload</span
-                                >
-                                <img
-                                  id="ImageCMNDAfterimg"
-                                  style="width: 100px"
-                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="
-                                  alt="Image preview..."
-                                />
-                                <input
-                                  class="image_upload"
-                                  type="file"
-                                  id="FileUploadImageCMNDAfter"
-                                  onchange="encodeImageAsURL('ImageCMNDAfter');"
-                                />
-                                <input
-                                  id="ImageCMNDAfter"
-                                  name="ImageCMNDAfter"
-                                  type="hidden"
-                                  value=""
-                                />
-                              </p>
-                            </div>
-                          </div>
+<!--                          <div class="inline">-->
+<!--                            <div class="edit-view col-sm-6 col-xs-12" style="padding-left: 0px">-->
+<!--                              <h5 class="green inline">-->
+<!--                                <b>Ảnh CMND mặt trước <span class="text-danger">(*)</span></b>-->
+<!--                              </h5>-->
+<!--                              <p>-->
+<!--                                <span style="color: red"-->
+<!--                                  >* Sv vui lòng xoay ngang hình ảnh trước khi upload</span-->
+<!--                                >-->
+<!--                                <img-->
+<!--                                  id="ImageCMNDBeforeimg"-->
+<!--                                  style="width: 100px"-->
+<!--                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="-->
+<!--                                  alt="Image preview..."-->
+<!--                                />-->
+<!--                                <input-->
+<!--                                  class="image_upload"-->
+<!--                                  type="file"-->
+<!--                                  id="FileUploadImageCMNDBefore"-->
+<!--                                  onchange="encodeImageAsURL('ImageCMNDBefore');"-->
+<!--                                />-->
+<!--                                <input-->
+<!--                                  id="ImageCMNDBefore"-->
+<!--                                  name="ImageCMNDBefore"-->
+<!--                                  type="hidden"-->
+<!--                                  value=""-->
+<!--                                />-->
+<!--                              </p>-->
+<!--                            </div>-->
+<!--                            <div class="edit-view col-sm-6 col-xs-12" style="padding-left: 0px">-->
+<!--                              <h5 class="green inline">-->
+<!--                                <b>Ảnh CMND mặt sau <span class="text-danger">(*)</span></b>-->
+<!--                              </h5>-->
+<!--                              <p>-->
+<!--                                <span style="color: red"-->
+<!--                                  >* Sv vui lòng xoay ngang hình ảnh trước khi upload</span-->
+<!--                                >-->
+<!--                                <img-->
+<!--                                  id="ImageCMNDAfterimg"-->
+<!--                                  style="width: 100px"-->
+<!--                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="-->
+<!--                                  alt="Image preview..."-->
+<!--                                />-->
+<!--                                <input-->
+<!--                                  class="image_upload"-->
+<!--                                  type="file"-->
+<!--                                  id="FileUploadImageCMNDAfter"-->
+<!--                                  onchange="encodeImageAsURL('ImageCMNDAfter');"-->
+<!--                                />-->
+<!--                                <input-->
+<!--                                  id="ImageCMNDAfter"-->
+<!--                                  name="ImageCMNDAfter"-->
+<!--                                  type="hidden"-->
+<!--                                  value=""-->
+<!--                                />-->
+<!--                              </p>-->
+<!--                            </div>-->
+<!--                          </div>-->
 
 
 
@@ -746,7 +688,7 @@
                             > </label
                           ><br />
                           <div style="text-align: center">
-                            <button
+                            <button type="submit"
                               style="
                                 border-radius: 10px;
                                 background-color: #0db545;

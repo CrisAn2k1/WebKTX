@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 
 @Service
 @Controller
@@ -79,9 +80,19 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/thong-tin-sinh-vien")
+    @GetMapping({"/thong-tin-sinh-vien","/homepage"})
     @PreAuthorize("hasAnyAuthority('user')")
-    public String indexPage(){
+    public String indexPage(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetail currentUser = (UserDetail) auth.getPrincipal();
+        Integer userId = currentUser.id();
+        User user = userRepo.findById(userId).orElse(null);
+        if(user != null && user.getIdPhong() != null)
+        {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            model.addAttribute("currentYear",year);
+            model.addAttribute("infoUser",user);
+        }
         return "thong-tin-sinh-vien";
     }
 
