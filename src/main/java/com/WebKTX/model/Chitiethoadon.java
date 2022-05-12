@@ -20,10 +20,7 @@ public class Chitiethoadon {
     @Column(name = "chisotieuthu")
     private Integer chisotieuthu;
 
-    @Column(name = "dongia")
-    private Double dongia;
-
-    @Column(name = "thanhtien")
+       @Column(name = "thanhtien")
     private Double thanhtien;
 
     public Double getThanhtien() {
@@ -32,14 +29,6 @@ public class Chitiethoadon {
 
     public void setThanhtien(Double thanhtien) {
         this.thanhtien = thanhtien;
-    }
-
-    public Double getDongia() {
-        return dongia;
-    }
-
-    public void setDongia(Double dongia) {
-        this.dongia = dongia;
     }
 
     public Integer getChisotieuthu() {
