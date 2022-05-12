@@ -10,5 +10,5 @@ public interface HoSoChuyenPhongService {
 
     void removeHosochuyenphong(Integer id);
 
-    void processChuyenPhong(Integer id, Hosochuyenphong hosochuyenphong);
+    void addChuyenPhong(Integer idUser, Hosochuyenphong hosochuyenphong);
 }

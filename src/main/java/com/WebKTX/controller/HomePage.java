@@ -24,12 +24,4 @@ class HomePage {
 		return "form-register-ktx";
 	}
 
-	@GetMapping("/form-chuyen-phong")
-	public String formChuyenphong(){
-		return "form-chuyen-phong";
-	}
-
-
-
-
 }

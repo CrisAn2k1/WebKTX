@@ -1,283 +1,248 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Biểu mẫu chuyển phòng</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
-    <link rel="stylesheet" href="assets/css/bootstrap.min.ktx.css" />
-    <link rel="stylesheet" href="assets/css/ace.min.css" />
-  </head>
-  <body>
-    <div class="main-content-inner">
-      <!-- breadcrumb -->
-      <div
-        class="breadcrumbs"
-        id="breadcrumbs"
-        style="background-color: #438eb9; justify-content: left"
-      >
-        <button onclick="document.location='/homepage'">
-          << Quay lại trang thông tin
-        </button>
-      </div>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biểu mẫu chuyển phòng</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.ktx.css" />
+  <link rel="stylesheet" href="/assets/css/ace.min.css" />
+  <link href="/assets/cropper/cropper.min.css" rel="stylesheet" />
 
-      <!-- /breadcrumb -->
+  <style>
+    #minutes,
+    #seconds,
+    #chamcham {
+      font-size: 90px;
+      color: #ff0000;
+    }
 
-      <div class="page-content">
-        <!--PAGE CONTENT BEGINS HERE-->
+    .img-container img {
+      max-width: 100%;
+    }
 
-        <link href="/assets/cropper/cropper.min.css" rel="stylesheet" />
+    .progress {
+      display: none;
+      margin-bottom: 1rem;
+    }
 
-        <style>
-          #minutes,
-          #seconds,
-          #chamcham {
-            font-size: 90px;
-            color: #ff0000;
-          }
+    img {
+      display: block;
+      max-width: 100%;
+    }
 
-          .img-container img {
-            max-width: 100%;
-          }
+    .preview {
+      overflow: hidden;
+      width: 152px;
+      height: 227px;
+      margin-left: 20px;
+      border: 1px solid red;
+    }
 
-          .progress {
-            display: none;
-            margin-bottom: 1rem;
-          }
+    .familyinfo {
+      background-color: #fcf8e3 !important;
+    }
 
-          img {
-            display: block;
-            max-width: 100%;
-          }
+    ::placeholder {
+      color: #c9c8c7;
+    }
+  </style>
+</head>
+<body>
+<div class="main-content-inner">
+  <!-- breadcrumb -->
+  <div
+          class="breadcrumbs"
+          id="breadcrumbs"
+          style="background-color: #438eb9; justify-content: left"
+  >
+    <button onclick="document.location='/homepage'"><< Quay lại trang thông tin</button>
+  </div>
 
-          .preview {
-            overflow: hidden;
-            width: 152px;
-            height: 227px;
-            margin-left: 20px;
-            border: 1px solid red;
-          }
+  <!-- /breadcrumb -->
 
-          .familyinfo {
-            background-color: #fcf8e3 !important;
-          }
+  <div class="page-content">
+    <!--PAGE CONTENT BEGINS HERE-->
 
-          ::placeholder {
-            color: #c9c8c7;
-          }
-        </style>
+    <form
+            th:action="@{/process_chuyenphong}"
+            th:object="${newCP}"
+            class="form-horizontal clearfix"
+            id="form_chuyenphong"
+            method="post"
+            novalidate="novalidate"
+    >
+      <div class="row" id="StudentInfo">
+        <div class="col-sm-12">
+          <div class="header clearfix">
+            <div class="text-center">
+              <h1 class="site-name" style="font-weight: 500">
+                TRANG CHUYỂN PHÒNG CHO SINH VIÊN
+              </h1>
+            </div>
+          </div>
+          <div class="widget-box">
+            <div class="widget-header">
+              <h4 class="smaller">Biểu mẫu chuyển phòng</h4>
+            </div>
+            <div class="widget-body">
+              <div class="widget-main clearfix">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="alert alert-block alert-warning">
+                      <i class="ace-icon fa fa-sign"></i>
+                      <b class="red">LƯU Ý:</b>
 
-        <form
-          th:action="@{/process_chuyenphong}"
-          th:object="${newCP}"
-          class="form-horizontal clearfix"
-          id="form_chuyenphong"
-          method="post"
-          novalidate="novalidate"
-        >
-          <div class="row" id="StudentInfo">
-            <div class="col-sm-12">
-              <div class="header clearfix">
-                <div class="text-center">
-                  <h1 class="site-name" style="font-weight: 500">
-                    TRANG CHUYỂN PHÒNG CHO SINH VIÊN
-                  </h1>
-                </div>
-              </div>
-              <div class="widget-box">
-                <div class="widget-header">
-                  <h4 class="smaller">Biểu mẫu chuyển phòng</h4>
-                </div>
-                <div class="widget-body">
-                  <div class="widget-main clearfix">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="alert alert-block alert-warning">
-                          <i class="ace-icon fa fa-sign"></i>
-                          <b class="red">LƯU Ý:</b>
+                      <p>
+                        <b class="red">*</b> Sinh viên vui lòng nhập chính xác thông tin của
+                        mình.
+                        <b
+                        >Các dòng có dấu <span class="text-danger">(*)</span> là bắt buộc
+                          nhập</b
+                        >. Trường hợp thiếu và sai sót thì đăng ký sẽ bị huỷ.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-sm-12">
+                    <div
+                            class="edit-view"
+                            style="border: solid 1px #cccccc; border-radius: 3px; padding: 10px"
+                    >
+                      <h5 class="green text-center"><b>THÔNG TIN SINH VIÊN</b></h5>
 
-                          <p>
-                            <b class="red">*</b> Sinh viên vui lòng nhập chính xác thông tin của mình.
-                            <b
-                              >Các dòng có dấu <span class="text-danger">(*)</span> là bắt buộc
-                              nhập</b
-                            >. Trường hợp thiếu và sai sót thì đăng ký sẽ bị huỷ.
-                          </p>
+                      <div id="" class="control-group form-group">
+                        <label class="control-label col-sm-4 col-xs-12"
+                        >Họ &amp; tên: <span class="text-danger"></span
+                        ></label>
+                        <div class="control-value col-sm-8 col-xs-12">
+                          <div class="clearfix">
+                            <input
+                                    style="font-weight: 600; font-size: 15px"
+                                    disabled
+                                    class="col-sm-6"
+                                    type="text"
+                                    th:placeholder="${user.hoten}"
+                            />
+                          </div>
+                          <div class="clearfix">
+                                <span
+                                        class="field-validation-valid help-inline"
+                                        data-valmsg-for="FirstName"
+                                        data-valmsg-replace="true"
+                                ></span>
+                          </div>
                         </div>
                       </div>
-                      <div class="col-sm-12">
-                        <div
-                          class="edit-view"
-                          style="border: solid 1px #cccccc; border-radius: 3px; padding: 10px"
+
+                      <div id="" class="control-group form-group">
+                        <label class="control-label col-sm-4 col-xs-12"
+                        >Mã số sinh viên:</label
                         >
-                          <h5 class="green"><b>THÔNG TIN SINH VIÊN</b></h5>
-                          <div id="" class="control-group form-group">
-                            <label class="control-label col-sm-4 col-xs-12" for="StudentCode"
-                            >Mã số sinh viên</label
-                            >
-                            <div class="control-value col-sm-8 col-xs-12">
-                              <div class="clearfix">
-                                <input
-                                        autocomplete="off"
-                                        class="col-sm-6"
-                                        id="StudentCode"
-                                        maskformat=""
-                                        name="StudentCode"
-                                        placeholder="Nếu chưa có mã thì bỏ trống"
-                                        type="text"
-                                        value=""
-                                />
-                              </div>
-                              <div class="clearfix">
+                        <div class="control-value col-sm-8 col-xs-12">
+                          <div class="clearfix">
+                            <input
+                                    style="font-weight: 600; font-size: 15px"
+                                    disabled
+                                    class="col-sm-6"
+                                    type="text"
+                                    th:placeholder="${user.mssv}"
+                            />
+                          </div>
+                          <div class="clearfix">
                                 <span
                                         class="field-validation-valid help-inline"
                                         data-valmsg-for="StudentCode"
                                         data-valmsg-replace="true"
                                 ></span>
-                              </div>
-                            </div>
                           </div>
+                        </div>
+                      </div>
+                      <div id="" class="control-group form-group">
+                        <label class="control-label col-sm-4 col-xs-12"
+                        >Phòng hiện tại: <span class="text-danger"></span
+                        ></label>
+                        <div class="control-value col-sm-8 col-xs-12">
+                          <div class="clearfix">
+                            <input
+                                    style="font-weight: 600; font-size: 15px"
+                                    disabled
+                                    class="col-sm-6"
+                                    type="text"
+                                    th:placeHolder="${user.getIdPhong().getId()}"
+                            />
+                          </div>
+                          <div class="clearfix">
+                                <span
+                                        class="field-validation-valid help-inline"
+                                        data-valmsg-for="idPhong"
+                                        data-valmsg-replace="true"
+                                ></span>
+                          </div>
+                        </div>
+                      </div>
 
+                      <div id="" class="control-group form-group">
+                        <div class="edit-view">
+                          <h5 class="green text-center"><b>MỤC CHUYỂN PHÒNG</b></h5>
                           <div id="" class="control-group form-group">
-                            <label class="control-label col-sm-4 col-xs-12" for="FirstName"
-                              >Họ &amp; tên <span class="text-danger">(*)</span></label
+                            <label class="control-label col-sm-4 col-xs-12"
+                            >Lý do chuyển phòng <span class="text-danger">(*)</span></label
                             >
                             <div class="control-value col-sm-8 col-xs-12">
                               <div class="clearfix">
                                 <input
-                                  autocomplete="off"
-                                  class="col-sm-6"
-                                  data-val="true"
-                                  data-val-required="Bắt buộc nhập"
-                                  id="FirstName"
-                                  maskformat=""
-                                  name="FirstName"
-                                  placeholder="Nguyễn Văn A"
-                                  type="text"
-                                  value=""
+                                        class="col-sm-6"
+                                        placeholder="vd: Muốn chuyển do vấn đề về vệ sinh, thiết bị, ồn ào,..."
+                                        type="text"
+                                        th:field="*{mota}"
                                 />
+
                               </div>
                               <div class="clearfix">
-                                <span
-                                  class="field-validation-valid help-inline"
-                                  data-valmsg-for="FirstName"
-                                  data-valmsg-replace="true"
-                                ></span>
+                                      <span
+                                              class="field-validation-valid help-inline"
+                                              data-valmsg-for="moTa"
+                                              data-valmsg-replace="true"
+                                      ></span>
                               </div>
                             </div>
                           </div>
-
-                          <h5 class="green"><b>MỤC CHUYỂN PHÒNG</b></h5>
-                          <div class="edit-view">
-                            <div id="" class="control-group form-group">
-                              <label class="control-label col-sm-4 col-xs-12" for="idPhong"
-                              >Phòng muốn chuyển
-                                <span class="text-danger">(*)</span></label
-                              >
-                              <div class="control-value col-sm-8 col-xs-12">
-                                <div class="clearfix">
-                                  <input
-                                          autocomplete="off"
-                                          class="col-sm-6"
-                                          data-val="true"
-                                          data-val-required="Bắt buộc nhập"
-                                          id="idPhong"
-                                          maskformat=""
-                                          name="idPhong"
-                                          placeholder="vd: P1001"
-                                          type="text"
-                                          value=""
-                                  />
-                                </div>
-                                <div class="clearfix">
-                                  <span
-                                          class="field-validation-valid help-inline"
-                                          data-valmsg-for="idPhong"
-                                          data-valmsg-replace="true"
-                                  ></span>
-                                </div>
-                              </div>
-
-                              <div id="" class="control-group form-group">
-                              <label class="control-label col-sm-4 col-xs-12" for="moTa"
-                              >Lý do chuyển phòng
-                                <span class="text-danger">(*)</span></label
-                              >
-                              <div class="control-value col-sm-8 col-xs-12">
-                                <div class="clearfix">
-                                  <input
-                                          autocomplete="off"
-                                          class="col-sm-6"
-                                          data-val="true"
-                                          data-val-required="Bắt buộc nhập"
-                                          id="moTa"
-                                          maskformat=""
-                                          name="moTa"
-                                          placeholder="vd: Muốn chuyển do vấn đề về vệ sinh, thiết bị, ồn ào,..."
-                                          type="text"
-                                          value=""
-                                  />
-                                </div>
-                                <div class="clearfix">
-                                  <span
-                                          class="field-validation-valid help-inline"
-                                          data-valmsg-for="moTa"
-                                          data-valmsg-replace="true"
-                                  ></span>
-                                </div>
-                              </div>
-                              </div>
-                          </div>
                         </div>
-
-                          <label
-                                  style="margin-top: 20px; color: red; font-size: 16px; font-weight: bold"
-                          >
-                            <input
-                                    name="form-field-checkbox"
-                                    id="isCheck"
-                                    type="checkbox"
-                                    style="width: 17px; height: 17px"
-                            />
-                            <span class="lbl">
-                              Tôi xin cam kết tất cả nội dung khai báo trên là đúng sự thật.</span
-                            > </label
-                          ><br />
-                        </div>
-                        <div style="text-align: center">
-                          <button
-                                  style="
+                      </div>
+                      <div style="text-align: center">
+                        <button
+                                style="
                                 border-radius: 10px;
                                 background-color: #0db545;
                                 color: white;
                                 padding: 5px;
                                 font-size: large;
                               "
-                          >
-                            Xác nhận và gửi
-                          </button>
-                      </div>
+                        >
+                          Xác nhận và gửi
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-sm-12">
-              <ul class="pager" style="float: right !important"></ul>
-            </div>
           </div>
-        </form>
-        <!--PAGE CONTENT ENDS HERE-->
+        </div>
+        <div class="col-sm-12">
+          <ul class="pager" style="float: right !important"></ul>
+        </div>
       </div>
-      <!--/.page-content-->
-    </div>
-    <div
-      class="breadcrumbs"
-      id="breadcrumbs"
-      style="background-color: #438eb9; justify-content: center"
-    >
-    </div>
-  </body>
+    </form>
+    <!--PAGE CONTENT ENDS HERE-->
+  </div>
+  <!--/.page-content-->
+</div>
+<div
+        class="breadcrumbs"
+        id="breadcrumbs"
+        style="background-color: #438eb9; justify-content: center"
+></div>
+</body>
 </html>
