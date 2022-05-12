@@ -1,11 +1,15 @@
 package com.WebKTX.controller;
 
+import com.WebKTX.model.Hosochuyenphong;
 import com.WebKTX.model.User;
+import com.WebKTX.repository.HoSoChuyenPhongRepository;
 import com.WebKTX.repository.PhongNoiThatRepository;
 import com.WebKTX.repository.RoleRepository;
 import com.WebKTX.repository.UserRepository;
+import com.WebKTX.service.HoSoChuyenPhongService;
 import com.WebKTX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,6 +39,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HoSoChuyenPhongRepository hosoChuyenPhongRepo;
+
+    @Autowired
+    @Qualifier("hscpService")
+    private HoSoChuyenPhongService hosoChuyenPhongService;
 //    //================================
     @GetMapping("/register")
     public String registration(Model model) {
@@ -128,6 +138,16 @@ public class UserController {
         return "admin";
     }
 
+    @GetMapping("/dang-ky-chuyen-phong")
+    public String registerChuyenPhong(Model model) {
+        model.addAttribute("newCP", new Hosochuyenphong());
+        return "form-chuyen-phong";
+    }
 
+    @PostMapping("/process_chuyenphong")
+    public String processChuyenPhong(Hosochuyenphong hosochuyenphong) {
+        hosoChuyenPhongService.processChuyenPhong(hosochuyenphong.getId(), hosochuyenphong);
+        return "dangkychuyenphong-success";
+    }
 }
 

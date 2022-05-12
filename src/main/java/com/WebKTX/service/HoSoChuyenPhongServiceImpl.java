@@ -23,4 +23,13 @@ public class HoSoChuyenPhongServiceImpl implements HoSoChuyenPhongService {
         Hosochuyenphong hosochuyenphongRemove = hosoChuyenPhongRepo.findById(id).orElse(null);
         hosoChuyenPhongRepo.delete(hosochuyenphongRemove);
     }
+
+    @Override
+    public void processChuyenPhong(Integer id, Hosochuyenphong hosochuyenphong){
+        hosochuyenphong.setMota(hosochuyenphong.getMota());
+        hosochuyenphong.setNgaytao(hosochuyenphong.getNgaytao());
+        hosochuyenphong.setIdUser(hosochuyenphong.getIdUser());
+        hosochuyenphong.setTrangthai(hosochuyenphong.getTrangthai());
+        hosoChuyenPhongRepo.save(hosochuyenphong);
+    }
 }
