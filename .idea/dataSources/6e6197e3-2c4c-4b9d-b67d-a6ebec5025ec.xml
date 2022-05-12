@@ -977,8 +977,6 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Host>localhost</Host>
       <Plugin>caching_sha2_password</Plugin>
     </user>
-<<<<<<< HEAD
-=======
     <table id="283" parent="274" name="chitiethoadon">
       <Engine>InnoDB</Engine>
       <CollationName>utf8_unicode_ci</CollationName>
@@ -1552,6 +1550,5 @@ id_role</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
     </key>
->>>>>>> 26023b5deb06a6dfe1f2be3b42f0a6b8b5777e73
   </database-model>
 </dataSource>
