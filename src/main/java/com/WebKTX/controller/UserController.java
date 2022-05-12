@@ -1,41 +1,39 @@
 package com.WebKTX.controller;
 
+import com.WebKTX.model.Hosochuyenphong;
 import com.WebKTX.model.User;
+import com.WebKTX.repository.HoSoChuyenPhongRepository;
 import com.WebKTX.repository.PhongNoiThatRepository;
 import com.WebKTX.repository.RoleRepository;
 import com.WebKTX.repository.UserRepository;
+import com.WebKTX.service.HoSoChuyenPhongService;
 import com.WebKTX.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-
 @Service
 @Controller
 public class UserController {
 
     @Autowired
-    private UserRepository userRepo;
-
-    @Autowired
-    private RoleRepository roleRepo;
-
-    @Autowired
     private UserService userService;
 
+    @Autowired
+    private HoSoChuyenPhongRepository hosoChuyenPhongRepo;
+
+    @Autowired
+    @Qualifier("hscpService")
+    private HoSoChuyenPhongService hosoChuyenPhongService;
 //    //================================
+
     @GetMapping("/register")
     public String registration(Model model) {
         model.addAttribute("newUser", new User());
@@ -64,31 +62,31 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView registerUser(ModelAndView modelAndView, User user){
-
-        User existingUser = userRepo.findByEmail(user.getEmail());
-        if(existingUser != null)
-        {
-            modelAndView.addObject("message","This email already exists!");
-            modelAndView.setViewName("error");
-        }
-        else
-        {
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encodedPassword);
-
-            user.setRoles(roleRepo.findByName("user"));
-            userRepo.save(user);
-
-            modelAndView.addObject("emailId", user.getEmail());
-
-            modelAndView.setViewName("signup-success");
-        }
-
-        return modelAndView;
-    }
+//    @RequestMapping(value="/register", method = RequestMethod.POST)
+//    public ModelAndView registerUser(ModelAndView modelAndView, User user){
+//
+//        User existingUser = userRepo.findByEmail(user.getEmail());
+//        if(existingUser != null)
+//        {
+//            modelAndView.addObject("message","This email already exists!");
+//            modelAndView.setViewName("error");
+//        }
+//        else
+//        {
+//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//            String encodedPassword = passwordEncoder.encode(user.getPassword());
+//            user.setPassword(encodedPassword);
+//
+//            user.setRoles(roleRepo.findByName("user"));
+//            userRepo.save(user);
+//
+//            modelAndView.addObject("emailId", user.getEmail());
+//
+//            modelAndView.setViewName("signup-success");
+//        }
+//
+//        return modelAndView;
+//    }
 
 
     @GetMapping("/login")
@@ -128,6 +126,16 @@ public class UserController {
         return "admin";
     }
 
+    @GetMapping("/dang-ky-chuyen-phong")
+    public String registerChuyenPhong(Model model) {
+        model.addAttribute("newCP", new Hosochuyenphong());
+        return "form-chuyen-phong";
+    }
 
+    @PostMapping("/process_chuyenphong")
+    public String processChuyenPhong(Hosochuyenphong hosochuyenphong) {
+        hosoChuyenPhongService.processChuyenPhong(hosochuyenphong.getId(), hosochuyenphong);
+        return "dangkychuyenphong-success";
+    }
 }
 

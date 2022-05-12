@@ -123,7 +123,7 @@
                   <td th:text="${HoSoChuyenPhong.getIdUser().getHoten()}"></td>
                   <td th:text="${HoSoChuyenPhong.getIdUser().getMssv()}"></td>
                   <td>
-                    <span th:if="${HoSoChuyenPhong.getTrangthai() == false }" style="color: red; font-weight: bold">Chưa duyệt</span>
+                    <span th:if="${HoSoChuyenPhong.getTrangthai() == false }" style="color: orange; font-weight: bold">Đang chờ duyệt</span>
                     <span th:unless="${HoSoChuyenPhong.getTrangthai() == false}" style="color: limegreen; font-weight: bold">Đã duyệt</span>
                   </td>
                   <div class="btn-link">

@@ -19,11 +19,9 @@
 
     <!-- Custom styles for this template-->
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
-    <style>
-      table {
-        counter-reset: rowNumber;
-      }
 
+    <!-- Custom styles for table  -->
+    <style>
       table thead {
         text-align: center;
         vertical-align: middle;
@@ -32,9 +30,41 @@
       }
       table tbody td {
         text-align: center;
-        vertical-align: middle;
+        vertical-align: middle !important;
       }
     </style>
+    <!-- Custom styles for button  -->
+    <style>
+      .btn-group button {
+        background-color: #134594c9;
+        border: 1px solid green;
+        color: white;
+        padding: 2px 8px;
+        cursor: pointer;
+        margin-top: 10px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Clear floats (clearfix hack) */
+      .btn-group:after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      .btn-group button:not(:last-child) {
+        border-right: none; /* Prevent double borders */
+      }
+
+      /* Add a background color on hover */
+      .btn-group button:hover {
+        background-color: #bf6f1dc9;
+      }
+    </style>
+
   </head>
 
   <body id="page-top">
@@ -45,7 +75,7 @@
       <!-- End of Sidebar -->
 
       <!-- Content Wrapper -->
-      <div id="content-wrapper" class="d-flex flex-column">
+      <div th:if="${error==false}" id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
           <!-- Topbar -->
@@ -53,7 +83,7 @@
           <!-- End of Topbar -->
 
           <!-- Begin Page Content -->
-          <div class="container-fluid">
+          <div class="container-fluid" >
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4 text-center">
               <h1 class="h3 mb-0 text-gray-800" style="color: red !important;font-weight: bold;height: 100%;width: 100%;">Hoá Đơn</h1>
@@ -61,7 +91,7 @@
 
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Danh sách hoá đơn</h6>
+                <h4 class="m-0 font-weight-bold text-primary text-center">Danh sách hoá đơn</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -71,18 +101,26 @@
                         <th>STT</th>
                         <th>Số tiền</th>
                         <th>Ngày xuất HD</th>
-                        <th>Trạng thái:</th>
+                        <th>Trạng thái</th>
+                        <th></th>
                       </tr>
                     </thead>
-                    <tbody th:each="hoadon,countHoaHon:${listHoadon}">
+                    <tbody th:each="hoadon,countHoaHon:${listHoaDon}">
                       <tr>
                         <td th:text="${countHoaHon.index+1}"></td>
                         <td th:text="${#numbers.formatDecimal(hoadon.tongtien, 0, 'COMMA',0, 'POINT')} +  ' VNĐ'"></td>
                         <td th:text="${#dates.format(hoadon.ngayxuatHD,'dd-MM-yyyy')}"></td>
                         <td>
                             <span th:if="${hoadon.getTrangthaithanhtoan() == false }" style="color: red; font-weight: bold">Chưa thanh toán</span>
-                            <span th:unless="${hoadon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán toán</span>
-
+                            <span th:unless="${hoadon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán </span>
+                        </td>
+                        <td >
+                          <span class="btn-group">
+                            <button
+                                  th:data-url="@{/hoadon/{idHD}(idHD=${hoadon.id})}"
+                                  onclick="document.location=(this.getAttribute('data-url'))">Chi tiết
+                            </button>
+                          </span>
                         </td>
                       </tr>
                     </tbody>
@@ -91,12 +129,18 @@
               </div>
             </div>
           </div>
+
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
         <!-- Footer -->
         <div th:replace="fragments/nav :: footer"></div>
         <!-- End of Footer -->
+      </div>
+      <div th:if="${error==true}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
+        <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Hiện tại chưa có hoá đơn nào! <br/>
+          <button onclick="document.location='/thong-tin-sinh-vien'">Quay lại</button>
+        </p>
       </div>
       <!-- End of Content Wrapper -->
     </div>
@@ -118,7 +162,9 @@
     <!-- Core plugin JavaScript-->
     <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
+       <!-- Custom scripts for all pages-->
     <script src="assets/js/sb-admin-2.min.js"></script>
+<!--    <script src="assets/js/demo/datatables-demo.js"></script>-->
+
   </body>
 </html>

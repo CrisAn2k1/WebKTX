@@ -22,28 +22,18 @@
 
     <!-- Custom styles for table -->
     <style>
-        table {
-            counter-reset: rowNumber;
-        }
-
-        table thead{
+        table thead th{
             text-align: center;
-            vertical-align: center;
+            vertical-align: middle !important;
+            font-weight: bold;
+            color: darkblue;
         }
-        table tbody td.date{
+        table tbody td {
             text-align: center;
-            vertical-align: center;
-        }
-        table tbody tr td.stt:before {
-            display: table-cell;
-            counter-increment: rowNumber;
-            content: counter(rowNumber);
-            padding-right: 0.3em;
-            text-align: center;
-            vertical-align: middle;
-            margin: 0 auto;
+            vertical-align: middle !important;
         }
     </style>
+
 
     <!-- Custom styles for button -->
     <style>
@@ -92,14 +82,15 @@
             <!-- End of Topbar -->
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <h1 class="h3 mb-2 text-gray-800 text-center">Danh sách hóa đơn:  </h1>
+                <h1 class="h3 mb-2 text-gray-800 text-center">
+                    Danh sách hóa đơn
+                    <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
+                    </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
+                </h1>
                 <!-- DataTales Example -->
                 <div class="card-body">
                     <div class="table-responsive">
                         <div style="text-align: center">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="text-right">Thông tin nội thất</h4>
-                            </div>
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${listHD.size()!=0}">
                                 <thead>
                                 <tr>
@@ -123,20 +114,20 @@
                                     <span th:unless="${HoaDon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán</span>
                                     </td>
                                       <div class="btn-link">
-                                        <td><a th:href="@{/admin/invoice-management/{id}/edit(id=${HoaDon.getId()})}">Chỉnh sửa</a></td>
-                                        <td><a th:href="@{/admin/invoice-management/{id}/remove(id=${HoaDon.getId()})}">Xoá</a></td>
+                                        <td><a th:href="@{/admin/invoice-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${HoaDon.getId()} )}">Chỉnh sửa</a></td>
+                                        <td><a th:href="@{/admin/invoice-management/{idtoa}/{idphong}/{id}/remove( idtoa=${matoa}, idphong=${maphong}, id=${HoaDon.getId()})}">Xoá</a></td>
                                       </div>
                                 </tr>
                                 </tbody>
                             </table>
-                            <!--          <a th:href="@{/admin}">Quay về</a>-->
-<!--                            <div class="btn-group" style="width: 100%">-->
-<!--                                <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">-->
-<!--                                    <button onclick="document.location='/admin/invoice-management'">Quay lại</button>-->
-<!--                                </p>-->
-<!--                            </div>-->
+                            <div class="btn-group" style="width: 100%">
+                                <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">
+                                    <button onclick="document.location='/admin/invoice-management'">Quay lại</button>
+                                </p>
+                            </div>
                         </div>
-                    </div>      </div>
+                    </div>
+                </div>
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
@@ -148,8 +139,8 @@
     </div>
 
     <div th:unless="${listHD.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
-        <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không nội thất nào trong phòng này! <br/>
-            <button onclick="document.location='/admin/furniture-management'">Quay lại</button>
+        <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không hoá đơn nào trong phòng này! <br/>
+            <button onclick="document.location='/admin/invoice-management'">Quay lại</button>
         </p>
 
     </div>

@@ -92,7 +92,11 @@
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
       <div class="container-fluid">
-        <h1 class="h3 mb-2 text-gray-800 text-center">Danh sách Nội thất - Phòng: <maphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></maphong> </h1>
+        <h1 class="h3 mb-2 text-gray-800 text-center">
+          Danh sách nội thất
+          <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
+          </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
+        </h1>
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="table-responsive">
@@ -100,7 +104,7 @@
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="text-right">Thông tin nội thất</h4>
               </div>
-              <table th:if="${listFur.size()!=0}">
+              <table>
                 <thead>
                 <tr>
                   <th>Mã phòng</th>
@@ -116,8 +120,8 @@
                   <td th:text="${PhongNoiThat.soluong}"></td>
 
                   <div class="btn-link">
-                    <td><a th:href="@{{id}/edit(id=${PhongNoiThat.getId()})}">Chỉnh sửa</a></td>
-                    <td><a th:href="@{{id}/remove(id=${PhongNoiThat.getId()})}">Xoá</a></td>
+                    <td><a th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
+                    <td><a th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Xoá</a></td>
                   </div>
                 </tr>
                 </tbody>
@@ -129,7 +133,8 @@
                  </p>
                </div>
             </div>
-          </div>      </div>
+          </div>
+        </div>
         <!-- /.container-fluid -->
       </div>
       <!-- End of Main Content -->
@@ -139,7 +144,6 @@
     </div>
     <!-- End of Content Wrapper -->
   </div>
-
   <div th:unless="${listFur.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
     <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không nội thất nào trong phòng này! <br/>
       <button onclick="document.location='/admin/furniture-management'">Quay lại</button>

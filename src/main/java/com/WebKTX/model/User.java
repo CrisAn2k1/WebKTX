@@ -39,7 +39,7 @@ public class User {
     @Column(name = "diachicutru")
     private String diachicutru;
 
-    @Column(name = "avatar", length = 50)
+    @Column(name = "avatar")
     private String avatar;
 
     @Column(name = "truonghoc", length = 150)
@@ -66,6 +66,12 @@ public class User {
 
     @Column(name = "`cmnd/cccd`", length = 15)
     private String cmndCccd;
+
+    @Column(name = "`cmnd/cccd_mattruoc`")
+    private String cmndCccdMattruoc;
+
+    @Column(name = "`cmnd/cccd_matsau`")
+    private String cmndCccdMatsau;
 
     @Column(name = "mssv", length = 15)
     private String mssv;
@@ -134,6 +140,22 @@ public class User {
 
     public void setMssv(String mssv) {
         this.mssv = mssv;
+    }
+
+    public String getCmndCccdMatsau() {
+        return cmndCccdMatsau;
+    }
+
+    public void setCmndCccdMatsau(String cmndCccdMatsau) {
+        this.cmndCccdMatsau = cmndCccdMatsau;
+    }
+
+    public String getCmndCccdMattruoc() {
+        return cmndCccdMattruoc;
+    }
+
+    public void setCmndCccdMattruoc(String cmndCccdMattruoc) {
+        this.cmndCccdMattruoc = cmndCccdMattruoc;
     }
 
     public String getCmndCccd() {
