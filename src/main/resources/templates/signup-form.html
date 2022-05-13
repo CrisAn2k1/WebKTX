@@ -13,7 +13,7 @@
 
     <meta name="author" content="Made By GN DESIGNS" />
 
-    <title>Trang chủ - Ký Túc Xá TP.HCM</title>
+    <title>Đăng Ký - Ký Túc Xá TP.HCM</title>
 
     <!-- // PLUGINS (css files) // -->
 
@@ -67,12 +67,14 @@
   <body>
     <section id="home">
       <div class="container">
-        <div class="row">
-          <div class="col-md-5 col-md-offset-1">
+        <div class="row" style="display: flex;justify-content: center">
+          <div class="col-md-5">
             <form th:action="@{/process_register}" th:object="${newUser}" method="post" class="signup-form">
               <h2 class="text-center">Đăng ký</h2>
               <hr />
-              <div class="form-group">
+<!--              <div class = "alert alert-primary" role = "alert" th:text = "${success}" th:if = "$ {success}" > </div >-->
+            <div class="alert alert-danger" role="alert" th:if = "${error}"> Error: <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${error}"  ></error> </div >
+          <div class="form-group">
                 <input
                   type="text"
                   class="form-control"
@@ -114,6 +116,7 @@
               </div>
               <div class="form-group">
                 <input
+                  th:field="*{confirmPassowrd}"
                   type="password"
                   class="form-control"
                   placeholder="Xác nhận mật khẩu"
@@ -124,7 +127,8 @@
               <div class="form-group text-center">
                 <button type="submit" class="btn btn-blue btn-block">Đăng ký</button>
                 <div>
-                  <a th:href="@{/homepage}">Đã có tài khoản?Đăng Nhập</a>
+                  <br>
+                  <a th:href="@{/homepage}">Đã có tài khoản? Đăng Nhập</a>
                 </div>
               </div>
             </form>

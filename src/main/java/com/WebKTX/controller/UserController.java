@@ -17,6 +17,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
@@ -49,11 +51,26 @@ public class UserController {
     }
 
     @PostMapping("/process_register")
-    public String processRegister(User user, HttpServletRequest request)
+    public String processRegister(User user, HttpServletRequest request, RedirectAttributes redirect)
             throws UnsupportedEncodingException, MessagingException {
-        userService.register(user, getSiteURL(request));
-        return "/signup-success";
+        if(!user.getPassword().equals(user.getConfirmPassowrd()))
+        {
+            redirect.addFlashAttribute("error","Mật khẩu không trùng khớp!");
+            return "redirect:/register";
+
+        }else if(userRepo.findByEmail(user.getEmail()) != null) {
+            redirect.addFlashAttribute("error","Email đã tồn tại!");
+            System.out.println("mail đã tồn tại ");
+            return "redirect:/register";
+
+        }else if(userRepo.findByUsername(user.getUsername()) != null){
+            redirect.addFlashAttribute("error","Username đã tồn tại!!");
+            return "redirect:/register";
+        }
+            userService.register(user, getSiteURL(request));
+            return "/signup-success";
     }
+
 
     private String getSiteURL(HttpServletRequest request) {
         String siteURL = request.getRequestURL().toString();

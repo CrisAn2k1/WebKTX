@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.List;
+
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
@@ -45,6 +47,12 @@ public class AdminController {
 
     @Autowired
     private InvoiceService invoiceService;
+
+    @Autowired
+    private DichVuRepository dichVuRepo;
+
+    @Autowired
+    private CTHDRepository cthdRepo;
 
     @Autowired
     @Qualifier("hsdkService")
@@ -214,8 +222,53 @@ public class AdminController {
     @GetMapping("/invoice-management/{idtoa}/{idphong}/{id}/remove")
     public String removeInvoice(@PathVariable("id") Integer id){
         invoiceService.removeInvoice(id);
-        return "redirect:/admin/invoice-management";
+
+        Hoadon hoaDon_Phong = hoaDonRepo.findById(id).orElse(null);
+        return "redirect:/admin/invoice-management/"+hoaDon_Phong.getIdPhong().getIdToanha().getId()+"/"+hoaDon_Phong.getIdPhong().getId();
     }
+
+
+    @GetMapping("/invoice-management/{idtoa}/{idphong}/new")
+    public String formAddHd(@PathVariable("idphong") String idPhong,Model model){
+        Phong phongHD = phongRepo.findById(idPhong).orElse(null);
+        Hoadon newHD= new Hoadon();
+        newHD.setIdPhong(phongHD);
+        System.out.println(phongHD.getId());
+        model.addAttribute("hoaDon",newHD);
+        return "admin/addInvoice";
+    }
+
+
+    public void addCTHD(Hoadon item, Integer chiso, Double money, Dichvudiennuoc dv){
+        Chitiethoadon cthd = new Chitiethoadon();
+        cthd.setIdHoadon(item);
+        cthd.setChisotieuthu(chiso);
+        cthd.setThanhtien(money);
+        cthd.setIdDichvu(dv);
+        cthdRepo.save(cthd);
+    }
+
+
+    @PostMapping("/invoice-management/new")
+    public String addHD(Hoadon hoadon){
+        Dichvudiennuoc dichVuDien = dichVuRepo.findByTendichvu("Điện");
+        Dichvudiennuoc dichVuNuoc = dichVuRepo.findByTendichvu("Nước");
+
+        Double tienDien = hoadon.getChisodien()*dichVuDien.getDongia();
+        Double tienNuoc = hoadon.getChisonuoc()*dichVuNuoc.getDongia();
+
+        hoadon.setNgayxuatHD(Instant.now());
+        hoadon.setTrangthaithanhtoan(false);
+        hoadon.setTongtien(tienDien+tienNuoc);
+
+        hoaDonRepo.save(hoadon);
+        addCTHD(hoadon,hoadon.getChisodien(),tienDien,dichVuDien);
+        addCTHD(hoadon,hoadon.getChisonuoc(),tienNuoc,dichVuNuoc);
+
+
+        return "redirect:/admin/invoice-management/"+hoadon.getIdPhong().getIdToanha().getId()+"/"+hoadon.getIdPhong().getId();
+    }
+
 
     //================================
 

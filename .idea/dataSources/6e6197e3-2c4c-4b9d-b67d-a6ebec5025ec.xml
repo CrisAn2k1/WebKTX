@@ -1144,12 +1144,20 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
+<<<<<<< HEAD
+=======
+      <Position>1</Position>
+>>>>>>> 86f435bb5a85d45ec134a45eaedc60c4f7b0ba74
       <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="320" parent="290" name="tongtien">
       <Position>2</Position>
       <DataType>double|0s</DataType>
+<<<<<<< HEAD
       <NotNull>1</NotNull>
+=======
+      <Position>2</Position>
+>>>>>>> 86f435bb5a85d45ec134a45eaedc60c4f7b0ba74
     </column>
     <column id="321" parent="290" name="ngayxuatHD">
       <Position>3</Position>
