@@ -10,14 +10,14 @@
     <title>Thông Tin Sinh Viên</title>
 
     <!-- Custom fonts for this template-->
-    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
     <link
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
       rel="stylesheet"
     />
 
     <!-- Custom styles for this template-->
-    <link href="assets/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
   </head>
 
   <body id="page-top">
@@ -46,9 +46,17 @@
                 <div class="card border-left-warning shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
+                      <div class="col" >
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                          <img src="/assets/img/hinh.jpg" alt="hinh" class="hinh" />
+                            <img class="hinh" alt="" th:src="@{${infoUser.getAvatar()}}"
+                                 style="
+                                 height: 168px;
+                                  width: 168px;
+                                  border-radius: 90%;
+                                 align-items: center;
+                                 justify-content: center;
+                                  overflow: hidden"
+                            >
                         </div>
                       </div>
                     </div>
@@ -60,9 +68,8 @@
                 <!-- Project Card Example -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h4 class="m-0 font-weight-bold text-primary">
-                      [[${#request.userPrincipal.principal.fullName}]]
-                      <strong> [[${#request.userPrincipal.principal.idphong}]]</strong>
+                    <h4 class="m-0 font-weight-bold text-primary"
+                        th:text="${infoUser.getHoten()} + ' - ' +${infoUser.getIdPhong().getId()} ">
                     </h4>
                   </div>
                   <div class="card-body">
@@ -75,11 +82,11 @@
                         <div><strong> Năm thứ:</strong></div>
                       </div>
                       <div class="col-md-8" style="font-size: 15px; font-weight: bold">
-                        <div>[[${#request.userPrincipal.principal.mssv}]]</div>
-                        <div>[[${#request.userPrincipal.principal.ngaySinh}]]</div>
-                        <div>[[${#request.userPrincipal.principal.gioiTinh}]]</div>
-                        <div>[[${#request.userPrincipal.principal.truongHoc}]]</div>
-                        <div>[[${#request.userPrincipal.principal.nienKhoa}]]</div>
+                        <div th:text="${infoUser.getMssv()}"></div>
+                        <div th:text="${infoUser.getNgaysinh()}"></div>
+                        <div th:text="${infoUser.getGioitinh()}"></div>
+                        <div th:text="${infoUser.truonghoc}"></div>
+                        <div th:text="${currentYear - infoUser.nienkhoa}"></div>
                       </div>
                     </div>
                   </div>
@@ -105,21 +112,21 @@
     <div th:replace="fragments/nav :: logout"></div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
 
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="assets/js/sb-admin-2.min.js"></script>
+    <script src="/assets/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="assets/vendor/chart.js/Chart.min.js"></script>
+    <script src="/assets/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
+    <script src="/assets/js/demo/chart-area-demo.js"></script>
+    <script src="/assets/js/demo/chart-pie-demo.js"></script>
   </body>
 </html>

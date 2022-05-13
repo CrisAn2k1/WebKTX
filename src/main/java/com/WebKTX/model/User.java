@@ -78,11 +78,11 @@ public class User {
     @Column(name = "`cmnd/cccd`", length = 15)
     private String cmndCccd;
 
-    @Column(name = "`cmnd/cccd_mattruoc`")
-    private String cmndCccdMattruoc;
-
-    @Column(name = "`cmnd/cccd_matsau`")
-    private String cmndCccdMatsau;
+//    @Column(name = "`cmnd/cccd_mattruoc`")
+//    private String cmndCccdMattruoc;
+//
+//    @Column(name = "`cmnd/cccd_matsau`")
+//    private String cmndCccdMatsau;
 
     @Column(name = "mssv", length = 15)
     private String mssv;
@@ -153,21 +153,21 @@ public class User {
         this.mssv = mssv;
     }
 
-    public String getCmndCccdMatsau() {
-        return cmndCccdMatsau;
-    }
-
-    public void setCmndCccdMatsau(String cmndCccdMatsau) {
-        this.cmndCccdMatsau = cmndCccdMatsau;
-    }
-
-    public String getCmndCccdMattruoc() {
-        return cmndCccdMattruoc;
-    }
-
-    public void setCmndCccdMattruoc(String cmndCccdMattruoc) {
-        this.cmndCccdMattruoc = cmndCccdMattruoc;
-    }
+//    public String getCmndCccdMatsau() {
+//        return cmndCccdMatsau;
+//    }
+//
+//    public void setCmndCccdMatsau(String cmndCccdMatsau) {
+//        this.cmndCccdMatsau = cmndCccdMatsau;
+//    }
+//
+//    public String getCmndCccdMattruoc() {
+//        return cmndCccdMattruoc;
+//    }
+//
+//    public void setCmndCccdMattruoc(String cmndCccdMattruoc) {
+//        this.cmndCccdMattruoc = cmndCccdMattruoc;
+//    }
 
     public String getCmndCccd() {
         return cmndCccd;
