@@ -12,13 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-
+import javax.servlet.ServletContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -32,6 +28,9 @@ class HomePage {
 
 	@Autowired
 	private UserRepository userRepo;
+
+	@Autowired
+	private DangKyKtxService dangKyKtxService;
 
 	@GetMapping("/huong-dan-dang-ky-o-ktx")
 	public String guideRegister(Model model) {
@@ -54,24 +53,23 @@ class HomePage {
 	}
 
 	@PostMapping("/form-dang-ky-o-ktx/update")
-	public String updateInformation(
-	@RequestParam("avatar")MultipartFile avatar, ModelMap model) throws IOException {
-//		dangKyKtxService.registerKTX(user.getId(), user );
+	public String updateInformation( User user,ModelMap model) throws IOException {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetail currentUser = (UserDetail) auth.getPrincipal();
 		Integer userId = currentUser.id();
-		User user = userRepo.findById(userId).orElse(null);
-		if(avatar.isEmpty()){
+		User newUserKTX = userRepo.findById(userId).orElse(null);
+		dangKyKtxService.registerKTX(user.getId(), user );
+		if(user.getFile().isEmpty()){
 			return "/thong-tin-sinh-vien";
 		}
 		Path path = Paths.get("src/main/resources/static/assets/avatar");
 		try{
-			InputStream inputStream = avatar.getInputStream();
-			Files.copy(inputStream,path.resolve(avatar.getOriginalFilename()),
+			InputStream inputStream = user.getFile().getInputStream();
+			Files.copy(inputStream,path.resolve(user.getFile().getOriginalFilename()),
 					StandardCopyOption.REPLACE_EXISTING);
-			user.setAvatar("./assets/avatar/" + avatar.getOriginalFilename().toLowerCase());
-			model.addAttribute("infoUser",user);
-			userRepo.save(user);
+			newUserKTX.setAvatar("./assets/avatar/" + user.getFile().getOriginalFilename().toLowerCase());
+			model.addAttribute("infoUser",newUserKTX);
+			userRepo.save(newUserKTX);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

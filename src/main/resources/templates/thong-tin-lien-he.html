@@ -65,12 +65,13 @@
                           <div>Tỉnh/Thành phố:</div>
                         </div>
                         <div class="col-md-8" style="font-size: 15px; font-weight: bold">
-                          <div>[[${#request.userPrincipal.principal.dienThoai}]]</div>
-                          <div>[[${#request.userPrincipal.principal.email}]]</div>
-                          <div>[[${#request.userPrincipal.principal.diaChi}]]</div>
-                          <div>[[${#request.userPrincipal.principal.xa}]]</div>
-                          <div>[[${#request.userPrincipal.principal.huyen}]]</div>
-                          <div>[[${#request.userPrincipal.principal.tinh}]]</div>
+                          <div th:text="${infoUser.getPhone()}"></div>
+                          <div th:text="${infoUser.getEmail()}"></div>
+                          <div th:text="${infoUser.getDiachicutru()}"></div>
+                          <div th:text="${infoUser.getXa()}"></div>
+                          <div th:text="${infoUser.getHuyen()}"></div>
+                          <div th:text="${infoUser.getTinh()}"></div>
+
                         </div>
                       </div>
                       <!-- <div class="col-auto">

@@ -1144,12 +1144,12 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>1</Position>
       <DataType>int|0s</DataType>
       <NotNull>1</NotNull>
-      <Position>1</Position>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="320" parent="290" name="tongtien">
       <Position>2</Position>
       <DataType>double|0s</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="321" parent="290" name="ngayxuatHD">
       <Position>3</Position>
@@ -1554,16 +1554,20 @@ id_role</ColNames>
       <Position>24</Position>
       <DataType>varchar(255)|0s</DataType>
     </column>
-    <index id="400" parent="298" name="id_user_phong_idx">
+    <column id="400" parent="298" name="image_url">
+      <Position>25</Position>
+      <DataType>varchar(255)|0s</DataType>
+    </column>
+    <index id="401" parent="298" name="id_user_phong_idx">
       <ColNames>id_phong</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="401" parent="298" name="PRIMARY">
+    <key id="402" parent="298" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="402" parent="298" name="id_user_phong">
+    <foreign-key id="403" parent="298" name="id_user_phong">
       <ColNames>id_phong</ColNames>
       <RefTableName>phong</RefTableName>
       <RefColNames>id_phong</RefColNames>
