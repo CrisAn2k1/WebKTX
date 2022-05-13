@@ -5,6 +5,7 @@ import com.WebKTX.repository.UserRepository;
 import com.WebKTX.service.DangKyKtxService;
 import com.WebKTX.service.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,10 +33,6 @@ class HomePage {
 	@Autowired
 	private UserRepository userRepo;
 
-	@Autowired
-	private DangKyKtxService dangKyKtxService;
-
-
 	@GetMapping("/huong-dan-dang-ky-o-ktx")
 	public String guideRegister(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -47,34 +45,24 @@ class HomePage {
 	@GetMapping("/form-dang-ky-o-ktx/{id}/update")
 	public String formRegister(@PathVariable("id") Integer id, Model model){
 		User newUserKTX = userRepo.findById(id).orElse(null);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		UserDetail currentUser = (UserDetail) auth.getPrincipal();
+		Integer userId = currentUser.id();
+		User user = userRepo.findById(userId).orElse(null);
 		model.addAttribute("newUserKTX",newUserKTX);
 		return "form-register-ktx";
 	}
 
 	@PostMapping("/form-dang-ky-o-ktx/update")
-	public String updateInformation(User user, Model model) throws IOException {
-		dangKyKtxService.registerKTX(user.getId(), user );
-		return "redirect:/thong-tin-sinh-vien";
-	}
-
-	@GetMapping("/upload")
-	public String formUpload(Model model){
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		UserDetail currentUser = (UserDetail) auth.getPrincipal();
-		Integer userId = currentUser.id();
-		User user = userRepo.findById(userId).orElse(null);
-		model.addAttribute(user);
-		return "upload";
-	}
-
-	@PostMapping("/save")
-	public String save(@RequestParam("avatar")MultipartFile avatar, ModelMap model){
+	public String updateInformation(
+	@RequestParam("avatar")MultipartFile avatar, ModelMap model) throws IOException {
+//		dangKyKtxService.registerKTX(user.getId(), user );
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		UserDetail currentUser = (UserDetail) auth.getPrincipal();
 		Integer userId = currentUser.id();
 		User user = userRepo.findById(userId).orElse(null);
 		if(avatar.isEmpty()){
-			return "upload";
+			return "/thong-tin-sinh-vien";
 		}
 		Path path = Paths.get("src/main/resources/static/assets/avatar");
 		try{
@@ -82,12 +70,14 @@ class HomePage {
 			Files.copy(inputStream,path.resolve(avatar.getOriginalFilename()),
 					StandardCopyOption.REPLACE_EXISTING);
 			user.setAvatar("./assets/avatar/" + avatar.getOriginalFilename().toLowerCase());
-			model.addAttribute("user",user);
+			model.addAttribute("infoUser",user);
 			userRepo.save(user);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "view";
+		return "redirect:/thong-tin-sinh-vien";
 	}
+
+
 
 }

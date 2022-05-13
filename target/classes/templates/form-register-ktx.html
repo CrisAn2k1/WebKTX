@@ -74,6 +74,7 @@
             novalidate="novalidate"
             th:action="@{/form-dang-ky-o-ktx/update}"
             th:object="${newUserKTX}"
+            enctype="multipart/form-data"
         >
           <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
           <div class="row" id="StudentInfo">
@@ -521,23 +522,27 @@
                             </div>
                             <div class="edit-view">
                               <p>
-                                <img
-                                  id="ImgAdmissionNoticeimg"
-                                  style="width: 100px"
-                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="
-                                  alt="Image preview..."
-                                />
-                                <input
-                                  class="image_upload"
-                                  type="file"
-                                  id="FileUploadImageAdmissionNotice"
-                                />
-                                <input
-                                  id="ImageAdmissionNotice"
-                                  name="ImageAdmissionNotice"
-                                  type="hidden"
-                                  value=""
-                                />
+                                <label>Ảnh thẻ </label>
+                                <label>Kích thước:3x4</label>
+                                <input type="file"
+                                       class="form-control" name="avatar" placeholder="Enter photo">
+<!--                                <img-->
+<!--                                  id="ImgAdmissionNoticeimg"-->
+<!--                                  style="width: 100px"-->
+<!--                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="-->
+<!--                                  alt="Image preview..."-->
+<!--                                />-->
+<!--                                <input-->
+<!--                                  class="image_upload"-->
+<!--                                  type="file"-->
+<!--                                  id="FileUploadImageAdmissionNotice"-->
+<!--                                />-->
+<!--                                <input-->
+<!--                                  id="ImageAdmissionNotice"-->
+<!--                                  name="ImageAdmissionNotice"-->
+<!--                                  type="hidden"-->
+<!--                                  value=""-->
+<!--                                />-->
                               </p>
                             </div>
                           </div>
