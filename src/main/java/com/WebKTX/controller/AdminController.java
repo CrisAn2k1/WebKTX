@@ -110,6 +110,14 @@ public class AdminController {
             return "edit-user";
         }
     }
+    @GetMapping("/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien")
+    public String detailUser(@PathVariable("id") Integer id, Model model){
+        User detailUser = userRepo.findById(id).orElse(null);
+            model.addAttribute("matoa",detailUser.getIdPhong().getIdToanha().getId());
+            model.addAttribute("maphong",detailUser.getIdPhong().getId());
+            model.addAttribute("detailUser",detailUser);
+            return "chi-tiet-sinh-vien";
+    }
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
     @PostMapping("/quan-ly-sinh-vien/edit")
     public String updateUser(User user){

@@ -117,6 +117,7 @@
                 <td th:text="${user.gioitinh}"></td>
                 <td th:text="${user.phone}"></td>
                 <td th:text="${currentYear - user.nienkhoa}"></td>
+                <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chi tiết</a></td>
                 <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chỉnh sửa</a></td>
                 <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Xoá</a></td>
 
