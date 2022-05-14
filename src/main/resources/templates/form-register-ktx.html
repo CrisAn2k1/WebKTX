@@ -76,7 +76,7 @@
             th:object="${newUserKTX}"
             enctype="multipart/form-data"
         >
-          <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
+          <input type="text" th:field="*{id}" id="id" placeholder="id"  />
           <div class="row" id="StudentInfo">
             <div class="col-sm-12">
               <div class="header clearfix">
@@ -208,13 +208,13 @@
                                 <div class="input-append">
                                   <input
                                     class="date-input col-sm-12"
-                                    data-date-format="03/15/2001"
+                                    data-date-format="15/03/2001"
                                     data-val="true"
                                     data-val-date="The field Ngày sinh must be a date."
                                     data-val-required="Bắt buộc nhập"
                                     id="Birthday"
                                     name="Birthday"
-                                    placeholder="MM/DD/YY"
+                                    placeholder="DD/MM/YYYY"
                                     style="width: 100px"
                                     type="text"
                                     value=""
@@ -525,7 +525,8 @@
                                 <label>Ảnh thẻ </label>
                                 <label>Kích thước:3x4</label>
                                 <input type="file"
-                                       class="form-control" name="avatar" placeholder="Enter photo">
+                                       accept="image/*"
+                                       class="form-control" name="avatar" th:field="*{file}" placeholder="Enter photo">
 <!--                                <img-->
 <!--                                  id="ImgAdmissionNoticeimg"-->
 <!--                                  style="width: 100px"-->

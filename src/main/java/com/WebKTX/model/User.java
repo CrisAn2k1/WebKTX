@@ -1,5 +1,7 @@
 package com.WebKTX.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
@@ -52,6 +54,17 @@ public class User {
 
     @Column(name = "avatar")
     private String avatar;
+
+    @Transient
+    private MultipartFile file;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     @Column(name = "truonghoc", length = 150)
     private String truonghoc;

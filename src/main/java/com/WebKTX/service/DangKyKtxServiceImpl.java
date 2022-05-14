@@ -24,6 +24,7 @@ public class DangKyKtxServiceImpl implements DangKyKtxService{
         formEdit.setMssv(user.getMssv());
         formEdit.setTruonghoc(user.getTruonghoc());
         formEdit.setNienkhoa(user.getNienkhoa());
+        formEdit.setDiachicutru(user.getDiachicutru());
         formEdit.setTinh(user.getTinh());
         formEdit.setHuyen(user.getHuyen());
         formEdit.setXa(user.getXa());

@@ -114,7 +114,15 @@ public class UserController {
     }
 
     @GetMapping("/thong-tin-lien-he")
-    public String infoPage(){
+    public String infoPage(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetail currentUser = (UserDetail) auth.getPrincipal();
+        Integer userId = currentUser.id();
+        User user = userRepo.findById(userId).orElse(null);
+        if(user != null && user.getIdPhong() != null)
+        {
+            model.addAttribute("infoUser",user);
+        }
         return "thong-tin-lien-he";
     }
 
