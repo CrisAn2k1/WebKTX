@@ -18,7 +18,7 @@ public class Hoadon {
     @Column(name = "tongtien")
     private Double tongtien;
 
-    @Column(name = "ngayxuatHD", nullable = false)
+    @Column(name = "ngayxuatHD")
     private Instant ngayxuatHD;
 
     @ManyToOne(fetch = FetchType.LAZY)

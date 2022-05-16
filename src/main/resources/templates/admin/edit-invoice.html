@@ -110,22 +110,32 @@
                     text-align: center;"
               >
                 <div style="width: 100%">
-                <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
+                  <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
+                    <div class="alert alert-warning text-center" role="alert" th:if = "${error}"> Error: <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${error}"  ></error> </div >
+                  <label>Mã phòng:</label>
+                  <input disabled type="text" th:placeholder="${editHD.getIdPhong().getId()}"/><br><br>
 
-                <label>Mã hóa đơn</label>
-                <input disabled type="text" th:placeholder="${editHD.getId()}"/><br><br>
+                  <label >Ngày xuất hóa đơn</label>
+                  <input disabled type="text" th:placeholder="${#dates.format(editHD.getNgayxuatHD(),'dd-MM-yyyy')}" id="ngayxuatHD" />
+                  <br>
+                    <div th:each="ct:${cthd}">
+                      <br>
+                       <div th:if="${ct.getIdDichvu().tendichvu} == 'Điện'">
+                          <label>Chỉ số điện: </label>
+                            <input
+                                   disabled
+                                   th:placeholder="${ct.getChisotieuthu()}">
+                       </div>
+                      <div th:if="${ct.getIdDichvu().tendichvu} == 'Nước'">
+                          <label>Chỉ số nước: </label>
+                            <input
+                                   disabled
+                                   th:placeholder="${ct.getChisotieuthu()}">
+                       </div>
+                    </div>
 
-                <label>Mã phòng</label>
-                <input disabled type="text" th:placeholder="${editHD.getIdPhong().getId()}"/><br><br>
-
-                <label>Tổng tiền</label>
-                <input disabled type="text" th:placeholder="${#numbers.formatDecimal(editHD.getTongtien(), 0, 'COMMA',0, 'POINT')}"/><br><br>
-
-                <label >Ngày xuất hóa đơn</label>
-                <input disabled type="text" th:placeholder="${#dates.format(editHD.getNgayxuatHD(),'dd-MM-yyyy')}" id="ngayxuatHD" />
-                <span th:if="${#fields.hasErrors('ngayxuatHD')}" th:errors="*{ngayxuatHD}"></span><br><br>
-
-                <label>Trạng thái </label>
+                  <br><br>
+                  <label>Trạng thái </label>
 <!--                <input type="text" th:field="*{trangthaithanhtoan}" id="trangthaithanhtoan" placeholder="true/false" />-->
 <!--                <span th:if="${#fields.hasErrors('trangthaithanhtoan')}" th:errors="*{trangthaithanhtoan}"></span><br><br>-->
 
@@ -135,13 +145,13 @@
                 </select>
 
 
-                <div class="btn-group" style="width: 90%">
+                <div class="btn-group" style="width: 75%;margin-top: 20px">
                     <span>
                       <div class="inputbox">
                         <input  type="submit" value="Cập nhật" /><br>
 
                         <button type="button"
-                                th:data-url="@{/admin/invoice-management/{idPhong}(idPhong=${maphong})}"
+                                th:data-url="@{/admin/invoice-management/{idToa}/{idPhong} (idToa=${matoa},idPhong=${maphong})}"
                                 onclick="document.location=(this.getAttribute('data-url'))">Quay lại</button>
                       </div>
                     </span>

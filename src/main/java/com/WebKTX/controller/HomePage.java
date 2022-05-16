@@ -32,6 +32,8 @@ class HomePage {
 	@Autowired
 	private DangKyKtxService dangKyKtxService;
 
+
+
 	@GetMapping("/huong-dan-dang-ky-o-ktx")
 	public String guideRegister(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
