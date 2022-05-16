@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
@@ -38,6 +39,9 @@ public class AdminController {
 
     @Autowired
     private HoaDonRepository hoaDonRepo;
+
+    @Autowired
+    private NoiThatRepository noiThatRepo;
 
     @Autowired
     private PhongNoiThatService phongNoiThatService;
@@ -79,9 +83,9 @@ public class AdminController {
         return secondaryTemplateResolver;
     }
 
-    @GetMapping("/")
-    public  String adminPage(){
-        return "list-user";
+    @GetMapping("")
+    public String admin(){
+        return "redirect:/admin/quan-ly-sinh-vien";
     }
 
     @GetMapping("/quan-ly-sinh-vien")
@@ -96,12 +100,23 @@ public class AdminController {
     public String listUserPhong(@PathVariable("idPhong") String idPhong,@PathVariable("idToaNha") String idToaNha, Model model){
         List<User> listUser = userRepo.findByIdPhong(idPhong);
         int year = Calendar.getInstance().get(Calendar.YEAR);
-        model.addAttribute("currentYear",year);
         model.addAttribute("listUser",listUser);
+        model.addAttribute("currentYear",year);
         model.addAttribute("matoa",idToaNha);
         model.addAttribute("maphong",idPhong);
 
         return "list-user";
+    }
+
+    @GetMapping("/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien")
+    public String detailUser(@PathVariable("id") Integer id, Model model){
+        User detailUser = userRepo.findById(id).orElse(null);
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        model.addAttribute("currentYear",year);
+        model.addAttribute("matoa",detailUser.getIdPhong().getIdToanha().getId());
+        model.addAttribute("maphong",detailUser.getIdPhong().getId());
+        model.addAttribute("detailUser",detailUser);
+        return "admin/chi-tiet-sinh-vien";
     }
     // Hàm chỉnh sửa thông tin user
     // (GET: Truyền và hiển thị vào dữ liệu người dùng trước khi chỉnh sửa)
@@ -149,7 +164,7 @@ public class AdminController {
         model.addAttribute("listFur",listFur);
         model.addAttribute("matoa",idToaNha);
         model.addAttribute("maphong",idPhong);
-        return "admin/furniture-item";
+        return "admin/furniture-management";
     }
 
     @GetMapping("/furniture-management/{idtoa}/{idphong}/{id}/edit")
@@ -176,12 +191,49 @@ public class AdminController {
 
     @GetMapping("/furniture-management/{id}/remove")
     public String removeFurniture(@PathVariable("id") Integer idPhongNoiThat){
+        PhongNoithat phongNT_Phong = phongNoiThatRepo.findById(idPhongNoiThat).orElse(null);
         phongNoiThatService.removeFurniture(idPhongNoiThat);
-        return "redirect:/admin/furniture-management";
+        return "redirect:/admin/furniture-management/"+phongNT_Phong.getIdPhong().getIdToanha().getId()+"/"+phongNT_Phong.getIdPhong().getId();
     }
+
+    @GetMapping("/furniture-management/{idtoa}/{idphong}/new")
+    public String formAddNoiThat(@PathVariable("idphong") String idPhong,Model model){
+        Phong phongNT = phongRepo.findById(idPhong).orElse(null);
+        PhongNoithat newphongNT = new PhongNoithat();
+        newphongNT.setIdPhong(phongNT);
+        model.addAttribute("newPhongNT",newphongNT);
+        model.addAttribute("listNT",noiThatRepo.findAll());
+        return "admin/addFurniture";
+    }
+    @PostMapping("/furniture-management/new")
+    public String addNoiThat(PhongNoithat phongNoithat, RedirectAttributes redirect){
+        String urlNew = "redirect:/admin/furniture-management/"+phongNoithat.getIdPhong().getIdToanha().getId()+"/"+phongNoithat.getIdPhong().getId()+"/new";
+        PhongNoithat exist = phongNoiThatRepo.findByIdNoithatAndIdPhong(phongNoithat.getIdNoithat(),phongNoithat.getIdPhong());
+        if(exist!=null)
+        {
+            redirect.addFlashAttribute("error","Đã có nội thất \"" + phongNoithat.getIdNoithat().getTen() + "\" trong phòng này!");
+            return urlNew;
+        }else if(phongNoithat.getSoluong()==null){
+            redirect.addFlashAttribute("error","Vui lòng nhập số lượng!");
+            return urlNew;
+        }
+        else
+        {
+            redirect.addFlashAttribute("success","Thêm nội thất \"" + phongNoithat.getIdNoithat().getTen() + "\" thành công!" ) ;
+            phongNoiThatRepo.save(phongNoithat);
+        }
+        return urlNew;
+    }
+
+
+
+
 
     //================================
     // Quan ly hoa don
+    private Double tienDien;
+    private Double tienNuoc;
+
     @GetMapping("/invoice-management")
     public String listPhong_HD(Model model){
         List<Toanha> listToaNha = toanhaRepo.findAll();
@@ -206,6 +258,7 @@ public class AdminController {
             return "redirect:/admin/invoice-management";
         }
         else {
+            model.addAttribute("cthd", editHD.getChitiethoadons());
             model.addAttribute("matoa",editHD.getIdPhong().getIdToanha().getId());
             model.addAttribute("maphong",editHD.getIdPhong().getId());
             model.addAttribute("editHD",editHD);
@@ -214,16 +267,19 @@ public class AdminController {
     }
 
     @PostMapping("/invoice-management/edit")
-    public String updateInvoice(Hoadon hoadon){
-        invoiceService.updateInvoice(hoadon.getId(),hoadon);
-        Hoadon hoaDon_Phong = hoaDonRepo.findById(hoadon.getId()).orElse(null);
-        return "redirect:/admin/invoice-management/"+hoaDon_Phong.getIdPhong().getIdToanha().getId()+"/"+hoaDon_Phong.getIdPhong().getId();
-    }
-    @GetMapping("/invoice-management/{idtoa}/{idphong}/{id}/remove")
-    public String removeInvoice(@PathVariable("id") Integer id){
-        invoiceService.removeInvoice(id);
+    public String updateInvoice(Hoadon hoadon, RedirectAttributes redirect){
 
+        Hoadon hoaDon_Phong = hoaDonRepo.findById(hoadon.getId()).orElse(null);
+
+        invoiceService.updateInvoice(hoadon.getId(),hoadon);
+        return  "redirect:/admin/invoice-management/"+hoaDon_Phong.getIdPhong().getIdToanha().getId()+"/"+hoaDon_Phong.getIdPhong().getId();
+    }
+
+    @GetMapping("/invoice-management/{id}/remove")
+    public String removeInvoice(@PathVariable("id") Integer id){
         Hoadon hoaDon_Phong = hoaDonRepo.findById(id).orElse(null);
+
+        invoiceService.removeInvoice(id);
         return "redirect:/admin/invoice-management/"+hoaDon_Phong.getIdPhong().getIdToanha().getId()+"/"+hoaDon_Phong.getIdPhong().getId();
     }
 
@@ -239,23 +295,36 @@ public class AdminController {
     }
 
 
+
+
     public void addCTHD(Hoadon item, Integer chiso, Double money, Dichvudiennuoc dv){
-        Chitiethoadon cthd = new Chitiethoadon();
-        cthd.setIdHoadon(item);
-        cthd.setChisotieuthu(chiso);
-        cthd.setThanhtien(money);
-        cthd.setIdDichvu(dv);
-        cthdRepo.save(cthd);
+        Chitiethoadon newCTHD = new Chitiethoadon();
+        newCTHD.setIdHoadon(item);
+        newCTHD.setChisotieuthu(chiso);
+        newCTHD.setThanhtien(money);
+        newCTHD.setIdDichvu(dv);
+        cthdRepo.save(newCTHD);
     }
 
 
+
     @PostMapping("/invoice-management/new")
-    public String addHD(Hoadon hoadon){
+    public String addHD(Hoadon hoadon, RedirectAttributes redirect){
+
+        String url = "redirect:/admin/invoice-management/"+hoadon.getIdPhong().getIdToanha().getId()+"/"+hoadon.getIdPhong().getId();
+        if (hoadon.getChisodien()==null){
+            redirect.addFlashAttribute("error","Vui lòng nhập chỉ số điện!");
+            return url+"/new";
+        }else if (hoadon.getChisonuoc()==null){
+            redirect.addFlashAttribute("error","Vui lòng nhập chỉ số nước!");
+            return url+"/new";
+        }
+
         Dichvudiennuoc dichVuDien = dichVuRepo.findByTendichvu("Điện");
         Dichvudiennuoc dichVuNuoc = dichVuRepo.findByTendichvu("Nước");
 
-        Double tienDien = hoadon.getChisodien()*dichVuDien.getDongia();
-        Double tienNuoc = hoadon.getChisonuoc()*dichVuNuoc.getDongia();
+        tienDien = hoadon.getChisodien()*dichVuDien.getDongia();
+        tienNuoc = hoadon.getChisonuoc()*dichVuNuoc.getDongia();
 
         hoadon.setNgayxuatHD(Instant.now());
         hoadon.setTrangthaithanhtoan(false);

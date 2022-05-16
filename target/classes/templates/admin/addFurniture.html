@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <meta charset="utf-8" />
   <head>
+    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Biểu mẫu chuyển phòng</title>
@@ -49,17 +49,16 @@
       }
     </style>
   </head>
-
-  <body>
+  <body >
     <div class="main-content-inner">
       <!-- breadcrumb -->
       <div
         class="breadcrumbs"
         id="breadcrumbs"
-        style="background-color: #438eb9; justify-content: left; margin-left: 20px"
+        style="background-color: #438eb9; justify-content: left;margin-left: 20px;"
       >
-          <button  th:data-url="@{/admin/invoice-management/{idToa}/{idPhong}(idToa=${hoaDon.getIdPhong().getIdToanha().getId()}, idPhong=${hoaDon.getIdPhong().getId()})}"
-                   onclick="document.location=(this.getAttribute('data-url'))"><< Quay lại</button>
+        <button  th:data-url="@{/admin/furniture-management/{idToa}/{idPhong}(idToa=${newPhongNT.getIdPhong().getIdToanha().getId()}, idPhong=${newPhongNT.getIdPhong().getId()})}"
+                 onclick="document.location=(this.getAttribute('data-url'))"><< Quay lại</button>
       </div>
 
       <!-- /breadcrumb -->
@@ -68,8 +67,8 @@
         <!--PAGE CONTENT BEGINS HERE-->
 
         <form
-          th:action="@{/admin/invoice-management/new}"
-          th:object="${hoaDon}"
+          th:action="@{/admin/furniture-management/new}"
+          th:object="${newPhongNT}"
           class="form-horizontal clearfix"
           id="form_chuyenphong"
           method="post"
@@ -79,35 +78,25 @@
             <div class="col-sm-12">
               <div class="header clearfix">
                 <div class="text-center">
-                  <h1 class="site-name" style="font-weight: 500">TẠO HOÁ ĐƠN</h1>
+                  <h1 class="site-name" style="font-weight: 500"></h1>
                 </div>
               </div>
               <div class="widget-box">
                 <div class="widget-header">
-                    <h4 class="large" style="color: red;font-weight: bold" th:text="${hoaDon.getIdPhong().getIdToanha().getTen()}"></h4>
+                  <h4 class="large" style="color: red;font-weight: bold" th:text="${newPhongNT.getIdPhong().getIdToanha().getTen()}"></h4>
                 </div>
                 <div class="widget-body">
                   <div class="widget-main clearfix">
                     <div class="row">
+
                       <div class="col-sm-12">
                         <div
                           class="edit-view"
                           style="border: solid 1px #cccccc; border-radius: 3px; padding: 10px"
                         >
-                          <h5 class="green text-center"><b>HOÁ ĐƠN</b></h5>
-                          <div
-                            class="alert alert-warning text-center"
-                            role="alert"
-                            th:if="${error}"
-                          >
-                            Error:
-                            <error
-                              class="bi bi-x-circle"
-                              style="font-weight: bold"
-                              th:text=" ${error}"
-                            ></error>
-                          </div>
-
+                          <h5 class="green text-center"><b>THÊM NỘI THẤT</b></h5>
+                          <div class="alert alert-warning text-center" role="alert" th:if = "${error}"> Error: <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${error}"  ></error> </div >
+                          <div class="alert alert-success text-center" role="alert" th:if = "${success}"> Success: <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${success}"  ></error> </div >
                           <div id="" class="control-group form-group">
                             <label class="control-label col-sm-4 col-xs-12"
                               >Phòng: <span class="text-danger"></span
@@ -119,15 +108,9 @@
                                   class="col-sm-6"
                                   type="text"
                                   disabled
-                                  th:placeholder="${hoaDon.getIdPhong().getId()}"
+                                  th:placeholder="${newPhongNT.getIdPhong().getId()}"
                                 />
-                                <input
-                                  style="font-weight: 600; font-size: 15px"
-                                  class="col-sm-6"
-                                  type="text"
-                                  hidden
-                                  th:field="*{idPhong}"
-                                />
+                                <input hidden th:field="*{idPhong}" />
                               </div>
                               <div class="clearfix">
                                 <span
@@ -138,19 +121,24 @@
                               </div>
                             </div>
                           </div>
-                          <div id="" class="control-group form-group">
-                              <h5 class="green text-center"><b>Chỉ Số Sử Dụng</b></h5>
-                          </div>
                           <div class="control-group form-group">
-                            <label class="control-label col-sm-4 col-xs-12">Điện:</label>
+                            <label class="control-label col-sm-4 col-xs-12">Chọn nội thất:</label>
                             <div class="control-value col-sm-8 col-xs-12">
                               <div class="clearfix">
+                                <select th:field="*{idNoithat}" style="min-width: 60px">
+                                  <option
+                                    th:each="item :${listNT}"
+                                    th:value="${item.id}"
+                                    th:text="${item.ten}"
+                                  ></option>
+                                </select>
+
+                                &nbsp; Số lượng:
                                 <input
-                                  style="font-weight: 600; font-size: 15px"
+                                  style="font-weight: 600; font-size: 15px; width: 50px"
                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                  class="col-sm-6"
-                                  type="text"
-                                  th:field="*{chisodien}"
+                                  type="number"
+                                  th:field="*{soluong}"
                                 />
                               </div>
                               <div class="clearfix">
@@ -163,37 +151,22 @@
                             </div>
                           </div>
                           <div class="control-group form-group">
-                            <label class="control-label col-sm-4 col-xs-12">Nước:</label>
+                            <label class="control-label col-sm-4 col-xs-12"></label>
                             <div class="control-value col-sm-8 col-xs-12">
                               <div class="clearfix">
-                                <input
-                                  style="font-weight: 600; font-size: 15px"
-                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-                                  class="col-sm-6"
-                                  type="text"
-                                  th:field="*{chisonuoc}"
-                                />
-                                <div class="clearfix">
-                                  <span
-                                    class="field-validation-valid help-inline"
-                                    data-valmsg-for="StudentCode"
-                                    data-valmsg-replace="true"
-                                  ></span>
-                                </div>
+                                <button
+                                  style="
+                                    border-radius: 10px;
+                                    background-color: #0db545;
+                                    color: white;
+                                    padding: 5px;
+                                    font-size: large;
+                                  "
+                                >
+                                  Xác nhận
+                                </button>
                               </div>
                             </div>
-
-                            <button
-                              style="
-                                border-radius: 10px;
-                                background-color: #0db545;
-                                color: white;
-                                padding: 5px;
-                                font-size: large;
-                              "
-                            >
-                              Xác nhận và gửi
-                            </button>
                           </div>
                         </div>
                       </div>
@@ -202,13 +175,13 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-12">
-              <ul class="pager" style="float: right !important"></ul>
-            </div>
+          </div>
+          <div class="col-sm-12">
+            <ul class="pager" style="float: right !important"></ul>
           </div>
         </form>
+        <!--PAGE CONTENT ENDS HERE-->
       </div>
-      <!--PAGE CONTENT ENDS HERE-->
       <!--/.page-content-->
     </div>
     <div
