@@ -73,7 +73,7 @@
 
 <body id="page-top">
 <!-- Page Wrapper -->
-  <div id="wrapper">
+<div id="wrapper">
   <!-- Sidebar -->
   <div th:replace="fragments/nav :: sidebaradmin"></div>
   <!-- End of Sidebar -->
@@ -94,39 +94,38 @@
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
-              <thead>
-              <tr>
-                <th>STT</th>
-                <th>MSSV</th>
-                <th>Họ tên</th>
-                <th>CCCD/CMND</th>
-                <th>Ngày sinh</th>
-                <th>Giới tính</th>
-                <th>SĐT</th>
-                <th>Năm thứ</th>
-              </tr>
-              </thead>
-              <tbody th:each="user,sttUser : ${listUser}">
-              <tr>
-                <td th:text="${sttUser.index+1}"></td>
-                <td th:text="${user.mssv}"></td>
-                <td th:text="${user.hoten}"></td>
-                <td th:text="${user.cmndCccd}"></td>
-                <td th:text="${#temporals.format(user.ngaysinh,'dd-MM-yyy')}"></td>
-                <td th:text="${user.gioitinh}"></td>
-                <td th:text="${user.phone}"></td>
-                <td th:text="${currentYear - user.nienkhoa}"></td>
-                <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chi tiết</a></td>
-                <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chỉnh sửa</a></td>
-                <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Xoá</a></td>
-
-              </tr>
-              </tbody>
-          </table>
-            <!-- /.container-fluid -->
+            <div style="font-size: 18px;">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
+                <thead>
+                <tr>
+                  <th>STT</th>
+                  <th>Họ tên</th>
+                  <th>Ngày sinh</th>
+                  <th>Giới tính</th>
+                  <th>SĐT</th>
+                  <th>SV Năm</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+                </thead>
+                <tbody th:each="user ,sttUser : ${listUser}">
+                <tr>
+                  <td th:text="${sttUser.index+1}"></td>
+                  <td th:text="${user.hoten}"></td>
+                  <td th:text="${user.ngaysinh}"></td>
+                  <td th:text="${user.gioitinh}"></td>
+                  <td th:text="${user.phone}"></td>
+                  <td th:text="${currentYear - user.nienkhoa}"></td>
+                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chi tiết</a></td>
+                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chỉnh sửa</a></td>
+                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Xoá</a></td>
+                </tr>
+                </tbody>
+              </table>
+              <!-- /.container-fluid -->
+            </div>
           </div>
-    <!-- End of Main Content -->
+          <!-- End of Main Content -->
         </div>
         <!-- Footer -->
         <div class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
@@ -134,11 +133,11 @@
             <button onclick="document.location='/admin/quan-ly-sinh-vien'">Quay lại</button>
           </p>
         </div>
-        <div th:replace="fragments/nav :: footer"></div>
         <!-- End of Footer -->
       </div>
-        <!-- End of Content Wrapper -->
-      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <div th:replace="fragments/nav :: footer"></div>
   </div>
   <div th:unless="${listUser.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
     <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không sinh viên nào trong phòng này! <br/>
@@ -147,13 +146,13 @@
   </div>
 
 
-    <!-- End of Page Wrapper -->
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
-<!-- Logout Modal-->
-<div th:replace="fragments/nav :: logout"></div>
+  <!-- End of Page Wrapper -->
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  <!-- Logout Modal-->
+  <div th:replace="fragments/nav :: logout"></div>
 
 </div>
 <!-- Bootstrap core JavaScript-->

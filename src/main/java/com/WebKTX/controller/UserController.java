@@ -22,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.Calendar;
 
 @Service
 @Controller
@@ -96,14 +97,33 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/thong-tin-sinh-vien")
+    //Get current user login
+    public User getCurrentUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetail currentUser = (UserDetail) auth.getPrincipal();
+        Integer userId = currentUser.id();
+        User user = userRepo.findById(userId).orElse(null);
+        return user;
+    }
+
+    @GetMapping({"/thong-tin-sinh-vien","/homepage"})
     @PreAuthorize("hasAnyAuthority('user')")
-    public String indexPage(){
+    public String indexPage(Model model){
+        if(getCurrentUser() != null)
+        {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            model.addAttribute("currentYear",year);
+            model.addAttribute("infoUser",getCurrentUser());
+        }
         return "thong-tin-sinh-vien";
     }
 
     @GetMapping("/thong-tin-lien-he")
-    public String infoPage(){
+    public String infoPage(Model model){
+        if(getCurrentUser() != null)
+        {
+            model.addAttribute("infoUser",getCurrentUser());
+        }
         return "thong-tin-lien-he";
     }
 
@@ -117,28 +137,19 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/admin")
-    public String admin(){
-        return "admin";
-    }
-
-    public User getCurrentUser(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetail currentUser = (UserDetail) auth.getPrincipal();
-        Integer userId = currentUser.id();
-        User user = userRepo.findById(userId).orElse(null);
-        return user;
-    }
-
-
     @GetMapping("/dang-ky-chuyen-phong")
     public String registerChuyenPhong(Model model) {
         if(getCurrentUser() != null) {
-            model.addAttribute("user", getCurrentUser());
-            model.addAttribute("newCP", new Hosochuyenphong());
-            return "form-chuyen-phong";
+            if (getCurrentUser().getIdPhong()==null){
+                model.addAttribute("error",true);
+            }
+            else {
+                model.addAttribute("error",false);
+                model.addAttribute("user", getCurrentUser());
+                model.addAttribute("newCP", new Hosochuyenphong());
+            }
         }
-        return "redirect:/login";
+        return "form-chuyen-phong";
     }
 
     @PostMapping("/process_chuyenphong")

@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Optional;
 
 @Service
@@ -58,6 +61,19 @@ public class UserServiceIplm implements UserService {
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
         user.setEnabled(false);
+
+
+        user.setTruonghoc("Updating!");
+        user.setTinh("Updating!");
+        user.setHuyen("Updating!");
+        user.setXa("Updating!");
+        user.setNienkhoa(Calendar.getInstance().get(Calendar.YEAR)-1);
+        user.setDiachicutru("Updating!");
+        user.setMssv("Updating!");
+        user.setPhone("Updating!");
+        user.setCmndCccd("Updating!");
+        user.setAvatar("./assets/avatar/default-user-icon.jpg");
+        user.setNgaysinh(LocalDate.now());
 
         userRepository.save(user);
 

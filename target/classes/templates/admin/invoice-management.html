@@ -44,7 +44,7 @@
             padding: 10px 24px; /* Some padding */
             cursor: pointer; /* Pointer/hand icon */
             float: left; /* Float the buttons side by side */
-            margin-top: 10px;;
+            margin: 10px;
             border-radius: 5px;;
         }
 
@@ -90,7 +90,16 @@
                 <!-- DataTales Example -->
                 <div class="card-body">
                     <div class="table-responsive">
-                        <div style="text-align: center">
+                        <div style="font-size: 18px;">
+                            <div class="btn-group" style="display: flex; justify-content: left">
+                                <button
+                                        type="button"
+                                        th:data-url="@{/admin/invoice-management/{idToa}/{idPhong}/new(idToa=${matoa} , idPhong=${maphong})}"
+                                        onclick="document.location=(this.getAttribute('data-url'))"
+                                >
+                                    Tạo hoá đơn
+                                </button>
+                            </div>
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" th:if="${listHD.size()!=0}">
                                 <thead>
                                 <tr>
@@ -110,13 +119,13 @@
                                     <td th:text="${#dates.format(HoaDon.getNgayxuatHD(),'dd-MM-yyyy')}"></td>
 
                                     <td>
-                                    <span th:if="${HoaDon.getTrangthaithanhtoan() == false }" style="color: red; font-weight: bold">Chưa thanh toán</span>
-                                    <span th:unless="${HoaDon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán</span>
+                                        <span th:if="${HoaDon.getTrangthaithanhtoan() == false }" style="color: red; font-weight: bold">Chưa thanh toán</span>
+                                        <span th:unless="${HoaDon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán</span>
                                     </td>
-                                      <div class="btn-link">
+                                    <div class="btn-link">
                                         <td><a th:href="@{/admin/invoice-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${HoaDon.getId()} )}">Chỉnh sửa</a></td>
-                                        <td><a th:href="@{/admin/invoice-management/{idtoa}/{idphong}/{id}/remove( idtoa=${matoa}, idphong=${maphong}, id=${HoaDon.getId()})}">Xoá</a></td>
-                                      </div>
+                                        <td><a th:href="@{/admin/invoice-management/{id}/remove(id=${HoaDon.getId()})}">Xoá</a></td>
+                                    </div>
                                 </tr>
                                 </tbody>
                             </table>
@@ -131,18 +140,25 @@
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
-            <!-- Footer -->
-            <div th:replace="fragments/nav :: footer"></div>
-            <!-- End of Footer -->
+
         </div>
         <!-- End of Content Wrapper -->
+        <!-- Footer -->
+        <div th:replace="fragments/nav :: footer"></div>
+        <!-- End of Footer -->
     </div>
 
-    <div th:unless="${listHD.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
-        <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không hoá đơn nào trong phòng này! <br/>
-            <button onclick="document.location='/admin/invoice-management'">Quay lại</button>
-        </p>
-
+    <div th:unless="${listHD.size()!=0}"  style="width: 100%;font-size: large;font-weight: bold;display: flex;align-items: center;justify-content: center">
+        <div>
+            <p>Không hoá đơn nào trong phòng này! <br/>
+            <div style="display: flex;justify-content: center;align-items: center;" class="btn-group">
+                <button
+                        th:data-url="@{/admin/invoice-management/{idToa}/{idPhong}/new(idToa=${matoa}, idPhong=${maphong})}"
+                        onclick="document.location=(this.getAttribute('data-url'))">Tạo hoá đơn</button>
+                <button onclick="document.location='/admin/invoice-management'">Quay lại</button>
+            </div>
+            </p>
+        </div>
     </div>
 </div>
 <!-- End of Page Wrapper -->

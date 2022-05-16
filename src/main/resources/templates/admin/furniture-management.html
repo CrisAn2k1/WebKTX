@@ -54,7 +54,7 @@
       padding: 10px 24px; /* Some padding */
       cursor: pointer; /* Pointer/hand icon */
       float: left; /* Float the buttons side by side */
-      margin-top: 10px;;
+      margin: 10px;;
       border-radius: 5px;;
     }
 
@@ -100,9 +100,15 @@
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="table-responsive">
-            <div style="text-align: center">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="text-right">Thông tin nội thất</h4>
+            <div style="text-align: center;font-size: 18px;">
+              <div class="btn-group">
+                <button
+                        type="button"
+                        th:data-url="@{/admin/furniture-management/{idToa}/{idPhong}/new(idToa=${matoa} , idPhong=${maphong})}"
+                        onclick="document.location=(this.getAttribute('data-url'))"
+                >
+                  Tạo hoá đơn
+              </button>
               </div>
               <table>
                 <thead>
@@ -121,17 +127,17 @@
 
                   <div class="btn-link">
                     <td><a th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
-                    <td><a th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Xoá</a></td>
+                    <td><a th:href="@{/admin/furniture-management/{id}/remove(id=${PhongNoiThat.getId()})}">Xoá</a></td>
                   </div>
                 </tr>
                 </tbody>
               </table>
               <!--          <a th:href="@{/admin}">Quay về</a>-->
-               <div class="btn-group" style="width: 100%">
-                 <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">
-                   <button onclick="document.location='/admin/furniture-management'">Quay lại</button>
-                 </p>
-               </div>
+              <div class="btn-group" style="width: 100%">
+                <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">
+                  <button onclick="document.location='/admin/furniture-management'">Quay lại</button>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -144,37 +150,42 @@
     </div>
     <!-- End of Content Wrapper -->
   </div>
-  <div th:unless="${listFur.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
-    <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không nội thất nào trong phòng này! <br/>
-      <button onclick="document.location='/admin/furniture-management'">Quay lại</button>
-    </p>
-
+  <div th:unless="${listFur.size()!=0}"style="width: 100%;font-size: large;font-weight: bold;display: flex;align-items: center;justify-content: center">
+    <div>
+      <p>Không nội thất nào trong phòng này! <br/>
+      <div style="display: flex;justify-content: center;align-items: center;" class="btn-group">
+        <button
+                th:data-url="@{/admin/furniture-management/{idToa}/{idPhong}/new(idToa=${matoa}, idPhong=${maphong})}"
+                onclick="document.location=(this.getAttribute('data-url'))">Thêm nội thất</button>
+        <button onclick="document.location='/admin/furniture-management'">Quay lại</button>      </div>
+      </p>
+    </div>
   </div>
 </div>
-  <!-- End of Page Wrapper -->
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-  <!-- Logout Modal-->
-  <div th:replace="fragments/nav :: logout"></div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div th:replace="fragments/nav :: logout"></div>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
 
-  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="/assets/js/sb-admin-2.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="/assets/js/sb-admin-2.min.js"></script>
 
-  <!-- Page level plugins -->
-  <script src="/assets/vendor/chart.js/Chart.min.js"></script>
+<!-- Page level plugins -->
+<script src="/assets/vendor/chart.js/Chart.min.js"></script>
 
-  <!-- Page level custom scripts -->
-  <script src="/assets/js/demo/chart-area-demo.js"></script>
-  <script src="/assets/js/demo/chart-pie-demo.js"></script>
+<!-- Page level custom scripts -->
+<script src="/assets/js/demo/chart-area-demo.js"></script>
+<script src="/assets/js/demo/chart-pie-demo.js"></script>
 </body>
 </html>

@@ -55,8 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         ,"/thong-tin-sinh-vien","/thong-tin-lien-he","/thong-bao"
                         ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon","/admin/**", "/form-chuyen-phong","/upload").authenticated()  // các URL bắt buộc đăng nhập
                 .antMatchers("/**","/register","/confirm","/uploadImg").permitAll().// các URL không bắt buộc đăng nhập
-                 antMatchers("/homepage" ,"/thong-tin-sinh-vien","/thong-tin-lien-he","/thong-bao"
-                    ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon", "/dang-ky-chuyen-phong","/upload").hasAnyAuthority("user","admin")
+                 antMatchers("/homepage/**" ,"/thong-tin-sinh-vien/**","/thong-tin-lien-he","/thong-bao"
+                    ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx/**","/hoadon", "/dang-ky-chuyen-phong","/upload/**").hasAnyAuthority("user","admin")
                 .antMatchers("/admin/**").hasAnyAuthority("admin").
             and()
                 .csrf().csrfTokenRepository( new HttpSessionCsrfTokenRepository()).

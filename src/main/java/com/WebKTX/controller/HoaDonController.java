@@ -49,7 +49,6 @@ public class HoaDonController {
     @GetMapping("/hoadon/{idHD}")
     public String chiTietHD(@PathVariable("idHD") Integer idHD, Model model){
         List<Chitiethoadon> listCTHD = cthdRepo.findByIdHoadon(idHD);
-        System.out.println("Co tat ca" + listCTHD.size());
         model.addAttribute("listCTHD",listCTHD);
         return "chi-tiet-hoa-don";
     }
