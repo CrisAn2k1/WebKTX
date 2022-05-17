@@ -20,6 +20,9 @@
   <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
   <link href="/assets/css/furniture.css" rel="stylesheet" />
 
+  <!-- Sweet alert 2 -->
+  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
   <!-- Custom styles for table -->
   <style>
     table {
@@ -101,19 +104,19 @@
         <div class="card-body">
           <div class="table-responsive">
             <div style="text-align: center;font-size: 18px;">
-              <div class="btn-group">
+              <div class="btn-group" style="display: flex; justify-content: left">
                 <button
                         type="button"
                         th:data-url="@{/admin/furniture-management/{idToa}/{idPhong}/new(idToa=${matoa} , idPhong=${maphong})}"
                         onclick="document.location=(this.getAttribute('data-url'))"
                 >
-                  Tạo hoá đơn
+                  Thêm nội thất
               </button>
               </div>
               <table>
                 <thead>
                 <tr>
-                  <th>Mã phòng</th>
+                  <th>Phòng</th>
                   <th>Tên nội thất</th>
                   <th>Số lượng </th>
                   <!--      <th>View</th>-->
@@ -127,7 +130,7 @@
 
                   <div class="btn-link">
                     <td><a th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
-                    <td><a th:href="@{/admin/furniture-management/{id}/remove(id=${PhongNoiThat.getId()})}">Xoá</a></td>
+                    <td><a th:data-idnoithat ="${PhongNoiThat.getId()}" onclick="deleteNT(this.getAttribute('data-idnoithat'))">Xoá</a></td>
                   </div>
                 </tr>
                 </tbody>
@@ -187,5 +190,10 @@
 <!-- Page level custom scripts -->
 <script src="/assets/js/demo/chart-area-demo.js"></script>
 <script src="/assets/js/demo/chart-pie-demo.js"></script>
+
+<!-- Sweet alert 2-->
+<script src="/assets/js/noithat.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
 </body>
 </html>

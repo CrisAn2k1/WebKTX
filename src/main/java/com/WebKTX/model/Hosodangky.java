@@ -1,8 +1,11 @@
 package com.WebKTX.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "hosodangky")
@@ -22,13 +25,27 @@ public class Hosodangky {
     private Instant ngaytao;
 
     @Column(name = "ngaynhanphong")
-    private LocalDate ngaynhanphong;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+
+    private Date ngaynhanphong;
 
     @Column(name = "ngaytraphong")
-    private LocalDate ngaytraphong;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date ngaytraphong;
 
     @Column(name = "trangthai")
     private Boolean trangthai;
+
+    @Transient
+    private Phong phong;
+
+    public Phong getPhong() {
+        return phong;
+    }
+
+    public void setPhong(Phong phong) {
+        this.phong = phong;
+    }
 
     public Boolean getTrangthai() {
         return trangthai;
@@ -38,19 +55,19 @@ public class Hosodangky {
         this.trangthai = trangthai;
     }
 
-    public LocalDate getNgaytraphong() {
+    public Date getNgaytraphong() {
         return ngaytraphong;
     }
 
-    public void setNgaytraphong(LocalDate ngaytraphong) {
+    public void setNgaytraphong(Date ngaytraphong) {
         this.ngaytraphong = ngaytraphong;
     }
 
-    public LocalDate getNgaynhanphong() {
+    public Date getNgaynhanphong() {
         return ngaynhanphong;
     }
 
-    public void setNgaynhanphong(LocalDate ngaynhanphong) {
+    public void setNgaynhanphong(Date ngaynhanphong) {
         this.ngaynhanphong = ngaynhanphong;
     }
 

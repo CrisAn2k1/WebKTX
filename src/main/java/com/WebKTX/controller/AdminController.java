@@ -94,7 +94,7 @@ public class AdminController {
         model.addAttribute("listToaNha",listToaNha);
         model.addAttribute("titles","sinh viên");
         model.addAttribute("url","quan-ly-sinh-vien");
-        return "list-phong";
+        return "admin/list-phong";
     }
     @GetMapping("/quan-ly-sinh-vien/{idToaNha}/{idPhong}")
     public String listUserPhong(@PathVariable("idPhong") String idPhong,@PathVariable("idToaNha") String idToaNha, Model model){
@@ -105,7 +105,7 @@ public class AdminController {
         model.addAttribute("matoa",idToaNha);
         model.addAttribute("maphong",idPhong);
 
-        return "list-user";
+        return "admin/list-user";
     }
 
     @GetMapping("/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien")
@@ -130,7 +130,7 @@ public class AdminController {
             model.addAttribute("matoa",editUser.getIdPhong().getIdToanha().getId());
             model.addAttribute("maphong",editUser.getIdPhong().getId());
             model.addAttribute("editUser",editUser);
-            return "edit-user";
+            return "admin/edit-user";
         }
     }
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
@@ -155,7 +155,7 @@ public class AdminController {
         model.addAttribute("listToaNha",listToaNha);
         model.addAttribute("titles"," nội thất");
         model.addAttribute("url","furniture-management");
-        return "list-phong";
+        return "admin/list-phong";
     }
 
     @GetMapping("/furniture-management/{idToaNha}/{idPhong}")
@@ -171,7 +171,6 @@ public class AdminController {
     public String editFur(@PathVariable("id") Integer idPhongNoiThat, Model model){
         PhongNoithat editFur = phongNoiThatRepo.findById(idPhongNoiThat).orElse(null);
         if(editFur == null){
-            System.out.println("Không có bất kỳ kết quả nào ===============");
             return "redirect:/furniture-management";
         }
         else {
@@ -240,7 +239,7 @@ public class AdminController {
         model.addAttribute("listToaNha",listToaNha);
         model.addAttribute("titles","hoá đơn");
         model.addAttribute("url","invoice-management");
-        return "list-phong";
+        return "admin/list-phong";
     }
     @GetMapping("/invoice-management/{idToaNha}/{idPhong}")
     public String listHD(@PathVariable("idPhong") String idPhong,@PathVariable("idToaNha") String idToaNha, Model model){
@@ -289,7 +288,6 @@ public class AdminController {
         Phong phongHD = phongRepo.findById(idPhong).orElse(null);
         Hoadon newHD= new Hoadon();
         newHD.setIdPhong(phongHD);
-        System.out.println(phongHD.getId());
         model.addAttribute("hoaDon",newHD);
         return "admin/addInvoice";
     }
@@ -355,11 +353,10 @@ public class AdminController {
     public String editHSdangky(@PathVariable("id") Integer idHoSoDangKy, Model model){
         Hosodangky editHSdangky = hosoDangKyRepo.findById(idHoSoDangKy).orElse(null);
         if(editHSdangky == null){
-            System.out.println("Không có bất kỳ kết quả nào ===============");
-
             return "redirect:/hosodangky-management";
         }
         else {
+            model.addAttribute("listPhong",phongRepo.findAll());
             model.addAttribute("editHSdangky",editHSdangky);
             return "admin/edit-hosodangky";
         }
@@ -368,6 +365,10 @@ public class AdminController {
     @PostMapping("/hosodangky-management/edit")
     public String updateHSdangky(Hosodangky hosodangky){
         hosoDangKyService.updateHosodangky(hosodangky.getId(),hosodangky);
+
+        User setPhongUser = userRepo.findById(hosodangky.getIdUser().getId()).orElse(null);
+        setPhongUser.setIdPhong(hosodangky.getPhong());
+        userRepo.save(setPhongUser);
         return "redirect:/admin/hosodangky-management";
     }
 
@@ -376,6 +377,11 @@ public class AdminController {
         hosoDangKyService.removeHosodangky(idHosodangky);
         return "redirect:/admin/hosodangky-management";
     }
+
+
+
+
+
     //================================
 
     @GetMapping("/hosochuyenphong-management")
@@ -389,8 +395,6 @@ public class AdminController {
     public String editHSchuyenphong(@PathVariable("id") Integer idHoSoChuyenPhong, Model model){
         Hosochuyenphong editHSchuyenphong = hosoChuyenPhongRepo.findById(idHoSoChuyenPhong).orElse(null);
         if(editHSchuyenphong == null){
-            System.out.println("Không có bất kỳ kết quả nào ===============");
-
             return "redirect:/hosochuyenphong-management";
         }
         else {

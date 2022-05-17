@@ -13,6 +13,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -34,6 +36,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder; // = new BCryptPasswordEncoder();
     @Autowired
     private HoSoChuyenPhongRepository hosoChuyenPhongRepo;
 
@@ -132,11 +136,13 @@ public class UserController {
         return "thong-bao";
     }
 
-    @GetMapping({"/","/signup_success","/login-success"})
+    @GetMapping({"/signup_success","/login-success"})
     public String welcome() {
         return "login";
     }
 
+
+    // Đăng ký chuyển phòng
     @GetMapping("/dang-ky-chuyen-phong")
     public String registerChuyenPhong(Model model) {
         if(getCurrentUser() != null) {
@@ -158,6 +164,34 @@ public class UserController {
             hosoChuyenPhongService.addChuyenPhong(getCurrentUser().getId(), hosochuyenphong);
             return "dangkychuyenphong-success";
         }
+        return "redirect:/login";
+    }
+
+
+    // ========== Đổi mật khẩu
+    @GetMapping("/doi-mat-khau")
+    public String changePassword(Model model){
+
+        model.addAttribute("newPassword",new User());
+        return "change-password";
+    }
+
+    @PostMapping("/process-change-password")
+    public String setChangePassword(User user,RedirectAttributes redirect){
+        boolean checkMached = passwordEncoder.matches(user.getOldPassword(),getCurrentUser().getPassword());
+        if ( checkMached ){
+            if(!user.getPassword().equals(user.getConfirmPassowrd()) ){
+                redirect.addFlashAttribute("message","Nhập lại mật khẩu không trùng khớp");
+                return "redirect:/doi-mat-khau";
+            }
+        }
+        else{
+                redirect.addFlashAttribute("message","Mật khẫu cũ không đúng!");
+                return "redirect:/doi-mat-khau";
+            }
+        String newPassword = passwordEncoder.encode(user.getPassword());
+        getCurrentUser().setPassword(newPassword);
+        userRepo.save(getCurrentUser());
         return "redirect:/login";
     }
 }
