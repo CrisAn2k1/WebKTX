@@ -8,6 +8,45 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
     <link rel="stylesheet" href="/assets/css/bootstrap.min.ktx.css" />
     <link rel="stylesheet" href="/assets/css/ace.min.css" />
+    <style>
+      #minutes,
+      #seconds,
+      #chamcham {
+        font-size: 90px;
+        color: #ff0000;
+      }
+
+      .img-container img {
+        max-width: 100%;
+      }
+
+      .progress {
+        display: none;
+        margin-bottom: 1rem;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .preview {
+        overflow: hidden;
+        width: 152px;
+        height: 227px;
+        margin-left: 20px;
+        border: 1px solid red;
+      }
+
+      .familyinfo {
+        background-color: #fcf8e3 !important;
+      }
+
+      ::placeholder {
+        color: #c9c8c7;
+      }
+    </style>
+
   </head>
   <body>
     <div class="main-content-inner">
@@ -29,44 +68,7 @@
 
         <link href="/assets/cropper/cropper.min.css" rel="stylesheet" />
 
-        <style>
-          #minutes,
-          #seconds,
-          #chamcham {
-            font-size: 90px;
-            color: #ff0000;
-          }
 
-          .img-container img {
-            max-width: 100%;
-          }
-
-          .progress {
-            display: none;
-            margin-bottom: 1rem;
-          }
-
-          img {
-            display: block;
-            max-width: 100%;
-          }
-
-          .preview {
-            overflow: hidden;
-            width: 152px;
-            height: 227px;
-            margin-left: 20px;
-            border: 1px solid red;
-          }
-
-          .familyinfo {
-            background-color: #fcf8e3 !important;
-          }
-
-          ::placeholder {
-            color: #c9c8c7;
-          }
-        </style>
 
         <form
             class="form-horizontal clearfix"
@@ -75,8 +77,7 @@
             th:action="@{/form-dang-ky-o-ktx/update}"
             th:object="${newUserKTX}"
             enctype="multipart/form-data"
-        >
-          <input type="text" th:field="*{id}" id="id" placeholder="id"  />
+        ><input th:field="*{id}" hidden type="text">
           <div class="row" id="StudentInfo">
             <div class="col-sm-12">
               <div class="header clearfix">
@@ -86,6 +87,8 @@
                   </h1>
                 </div>
               </div>
+              <div class="alert alert-danger text-center" role="alert" th:if = "${error}"> Error: <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${error}"  ></error> </div >
+
               <div class="widget-box">
                 <div class="widget-header">
                   <h4 class="smaller">Biểu mẫu đăng ký ở KTX</h4>
@@ -135,6 +138,7 @@
                                     placeholder=""
                                     type="text"
                                     value=""
+                                    required
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                 />
                               </div>
@@ -159,6 +163,7 @@
                                   type="text"
                                   value=""
                                   th:field="*{hoten}"
+                                  required
                                 />
                               </div>
                               <div class="clearfix">
@@ -198,41 +203,40 @@
                           </div>
 
                           <div class="control-group form-group">
-                            <label
-                              class="control-label no-padding-right control-label col-sm-4 col-xs-12"
-                              for="Birthday"
-                              >Ngày sinh <span class="text-danger">(*)</span></label
-                            >
+                            <label class="control-label no-padding-right control-label col-sm-4 col-xs-12" for="Birthday">Ng&#224;y sinh</label>
                             <div class="control-value col-sm-8 col-xs-12">
                               <div class="clearfix">
-                                <div class="input-append">
-                                  <input
-                                    class="date-input col-sm-12"
-                                    data-date-format="15/03/2001"
-                                    data-val="true"
-                                    data-val-date="The field Ngày sinh must be a date."
-                                    data-val-required="Bắt buộc nhập"
-                                    id="Birthday"
-                                    name="Birthday"
-                                    placeholder="DD/MM/YYYY"
-                                    style="width: 100px"
-                                    type="text"
-                                    value=""
-                                    th:field="*{ngaysinh}"
 
+
+                                <div class="input-append">
+                                  <input class="date-input col-sm-12"
+                                         data-date-format="01/01/2000"
+                                         data-val="true"
+                                         data-val-date="The field Ngày sinh must be a date."
+                                         data-val-required="Bắt buộc nhập"
+                                         id="Birthday"
+                                         name="Birthday"
+                                         placeholder="01/01/2000"
+                                         style="width:120px"
+                                         type="date"
+                                         value=""
+                                         required
+                                         th:field="*{ngaysinh}"
                                   />
                                 </div>
+
+                                <script type="text/javascript">
+                                  $(document).ready(function () {
+                                    $("[name='Birthday']").mask('99/99/9999');
+                                  });
+                                </script>
+
                               </div>
                               <div class="clearfix">
-                                <span
-                                  class="field-validation-valid help-inline"
-                                  data-valmsg-for="Birthday"
-                                  data-valmsg-replace="true"
-                                ></span>
+                                <span class="field-validation-valid help-inline" data-valmsg-for="Birthday" data-valmsg-replace="true"></span>
                               </div>
                             </div>
                           </div>
-
 
                           <div class="control-group form-group">
                             <label class="control-label no-padding-right col-sm-4 col-xs-12"
@@ -264,6 +268,7 @@
                                   placeholder="SĐT của sinh viên"
                                   type="text"
                                   value=""
+                                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                   th:field="*{phone}"
                                 />
                               </div>
@@ -527,23 +532,6 @@
                                 <input type="file"
                                        accept="image/*"
                                        class="form-control" name="avatar" th:field="*{file}" placeholder="Enter photo">
-<!--                                <img-->
-<!--                                  id="ImgAdmissionNoticeimg"-->
-<!--                                  style="width: 100px"-->
-<!--                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="-->
-<!--                                  alt="Image preview..."-->
-<!--                                />-->
-<!--                                <input-->
-<!--                                  class="image_upload"-->
-<!--                                  type="file"-->
-<!--                                  id="FileUploadImageAdmissionNotice"-->
-<!--                                />-->
-<!--                                <input-->
-<!--                                  id="ImageAdmissionNotice"-->
-<!--                                  name="ImageAdmissionNotice"-->
-<!--                                  type="hidden"-->
-<!--                                  value=""-->
-<!--                                />-->
                               </p>
                             </div>
                           </div>

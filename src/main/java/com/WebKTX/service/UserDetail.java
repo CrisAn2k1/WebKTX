@@ -85,15 +85,15 @@ public class UserDetail implements UserDetails {
         return user.getHoten();
     }
 
-    public String ngaySinh(){
-        if(user.getNgaysinh()==null)
-        {
-            return "Đang cập nhật";
-        }
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String date = this.user.getNgaysinh().format(formatters);
-        return date;
-    }
+//    public String ngaySinh(){
+//        if(user.getNgaysinh()==null)
+//        {
+//            return "Đang cập nhật";
+//        }
+//        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+//        String date = this.user.getNgaysinh().format(formatters);
+//        return date;
+//    }
 
     public String gioiTinh(){
         if (user.getGioitinh()==null){

@@ -20,6 +20,9 @@
     <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
     <link href="/assets/css/furniture.css" rel="stylesheet" />
 
+    <!-- Sweet alert 2 -->
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
     <!-- Custom styles for table -->
     <style>
         table thead th{
@@ -104,7 +107,7 @@
                                 <thead>
                                 <tr>
                                     <th>Mã hóa đơn</th>
-                                    <th>Tên phòng</th>
+                                    <th>Phòng</th>
                                     <th>Tổng tiền</th>
                                     <th>Ngày xuất</th>
                                     <th>Trạng thái</th>
@@ -123,12 +126,20 @@
                                         <span th:unless="${HoaDon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán</span>
                                     </td>
                                     <div class="btn-link">
-                                        <td><a th:href="@{/admin/invoice-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${HoaDon.getId()} )}">Chỉnh sửa</a></td>
-                                        <td><a th:href="@{/admin/invoice-management/{id}/remove(id=${HoaDon.getId()})}">Xoá</a></td>
+                                        <td><a style="text-decoration: none; font-weight: bold; color: orange;background-color: #dbde77a3;border-radius: 15px; cursor:pointer; padding: 2px 6px;" th:href="@{/admin/invoice-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${HoaDon.getId()} )}">Chỉnh sửa</a></td>
+                                        <td><a th:data-idhoadon="${HoaDon.getId()}" style="padding: 2px 6px;cursor: pointer;border-radius: 15px;background-color: #dbde77a3; color: red; font-weight: bold" onclick="deleteHD(this.getAttribute('data-idhoadon'))">Xóa</a></td>
                                     </div>
                                 </tr>
                                 </tbody>
                             </table>
+
+                            <script>
+
+                            </script>
+
+                            <b4-modal-default></b4-modal-default>
+
+
                             <div class="btn-group" style="width: 100%">
                                 <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">
                                     <button onclick="document.location='/admin/invoice-management'">Quay lại</button>
@@ -186,5 +197,9 @@
 <!-- Page level custom scripts -->
 <script src="/assets/js/demo/chart-area-demo.js"></script>
 <script src="/assets/js/demo/chart-pie-demo.js"></script>
+<script src="/assets/js/hoadon.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

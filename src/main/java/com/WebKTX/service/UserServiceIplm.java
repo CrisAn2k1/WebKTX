@@ -16,6 +16,7 @@ import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -73,7 +74,7 @@ public class UserServiceIplm implements UserService {
         user.setPhone("Updating!");
         user.setCmndCccd("Updating!");
         user.setAvatar("./assets/avatar/default-user-icon.jpg");
-        user.setNgaysinh(LocalDate.now());
+        user.setNgaysinh(Date.from(Instant.now()));
 
         userRepository.save(user);
 
@@ -124,6 +125,4 @@ public class UserServiceIplm implements UserService {
         }
 
     }
-
-
 }

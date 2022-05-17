@@ -80,9 +80,8 @@
                                     <div class="col mr-6">
                                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                             <img th:src="@{${detailUser.getAvatar()}}" alt="hinh" class="hinh" />
-                                            <h4 class="m-0 font-weight-bold text-primary text-center" th:text="${detailUser.hoten}"></h4>
+                                            <h4 class="m-0 font-weight-bold text-primary text-center" style="margin-top: 15px!important;" th:text="${detailUser.hoten}"></h4>
                                             <h6 class="m-0 font-weight-bold text-center" style="margin-top: 7px !important; color: #ea9b47;" th:text="'Phòng: ' +${maphong}+ ' - '  + ${matoa}"></h6>
-
                                         </div>
                                     </div>
                                 </div>
@@ -109,7 +108,7 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div th:text="${detailUser.mssv}"></div>
-                                        <div th:text="${detailUser.ngaysinh}"></div>
+                                        <div th:text="${#dates.format(detailUser.ngaysinh,'dd-MM-yyyy')}"></div>
                                         <div th:text="${detailUser.gioitinh}"></div>
                                         <div th:text="${detailUser.truonghoc}"></div>
                                         <div th:text="${currentYear - detailUser.nienkhoa}"></div>

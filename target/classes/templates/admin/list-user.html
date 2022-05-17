@@ -112,7 +112,7 @@
                 <tr>
                   <td th:text="${sttUser.index+1}"></td>
                   <td th:text="${user.hoten}"></td>
-                  <td th:text="${user.ngaysinh}"></td>
+                  <td th:text="${#dates.format(user.ngaysinh,'dd-MM-yyyy')}"></td>
                   <td th:text="${user.gioitinh}"></td>
                   <td th:text="${user.phone}"></td>
                   <td th:text="${currentYear - user.nienkhoa}"></td>

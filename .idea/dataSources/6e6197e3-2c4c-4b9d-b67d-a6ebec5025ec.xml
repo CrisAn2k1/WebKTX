@@ -1478,73 +1478,68 @@ id_role</ColNames>
       <DefaultExpression>2019</DefaultExpression>
       <Position>12</Position>
     </column>
-    <column id="384" parent="295" name="trangthai">
-      <DataType>bit(1)|0s</DataType>
-      <DefaultExpression>b&apos;0&apos;</DefaultExpression>
-      <Position>13</Position>
-    </column>
-    <column id="385" parent="295" name="tinh">
+    <column id="384" parent="295" name="tinh">
       <DataType>varchar(50)|0s</DataType>
       <DefaultExpression>&apos;Sóc Trăng&apos;</DefaultExpression>
+      <Position>13</Position>
+      <CollationName>utf8_general_ci</CollationName>
+    </column>
+    <column id="385" parent="295" name="huyen">
+      <DataType>varchar(50)|0s</DataType>
+      <DefaultExpression>&apos;Mỹ Xuyên&apos;</DefaultExpression>
       <Position>14</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="386" parent="295" name="huyen">
+    <column id="386" parent="295" name="xa">
       <DataType>varchar(50)|0s</DataType>
-      <DefaultExpression>&apos;Mỹ Xuyên&apos;</DefaultExpression>
+      <DefaultExpression>&apos;TT. Mỹ Xuyên&apos;</DefaultExpression>
       <Position>15</Position>
       <CollationName>utf8_general_ci</CollationName>
     </column>
-    <column id="387" parent="295" name="xa">
-      <DataType>varchar(50)|0s</DataType>
-      <DefaultExpression>&apos;TT. Mỹ Xuyên&apos;</DefaultExpression>
-      <Position>16</Position>
-      <CollationName>utf8_general_ci</CollationName>
-    </column>
-    <column id="388" parent="295" name="id_phong">
+    <column id="387" parent="295" name="id_phong">
       <DataType>varchar(5)|0s</DataType>
       <DefaultExpression>&apos;P1008&apos;</DefaultExpression>
-      <Position>17</Position>
+      <Position>16</Position>
     </column>
-    <column id="389" parent="295" name="cmnd/cccd">
+    <column id="388" parent="295" name="cmnd/cccd">
       <DataType>varchar(15)|0s</DataType>
       <DefaultExpression>&apos;123456789&apos;</DefaultExpression>
+      <Position>17</Position>
+    </column>
+    <column id="389" parent="295" name="cmnd/cccd_mattruoc">
+      <DataType>varchar(255)|0s</DataType>
       <Position>18</Position>
     </column>
-    <column id="390" parent="295" name="cmnd/cccd_mattruoc">
+    <column id="390" parent="295" name="cmnd/cccd_matsau">
       <DataType>varchar(255)|0s</DataType>
       <Position>19</Position>
     </column>
-    <column id="391" parent="295" name="cmnd/cccd_matsau">
-      <DataType>varchar(255)|0s</DataType>
-      <Position>20</Position>
-    </column>
-    <column id="392" parent="295" name="mssv">
+    <column id="391" parent="295" name="mssv">
       <DataType>varchar(15)|0s</DataType>
       <DefaultExpression>&apos;1911065963&apos;</DefaultExpression>
-      <Position>21</Position>
+      <Position>20</Position>
     </column>
-    <column id="393" parent="295" name="enabled">
+    <column id="392" parent="295" name="enabled">
       <DataType>bit(1)|0s</DataType>
       <NotNull>1</NotNull>
+      <Position>21</Position>
+    </column>
+    <column id="393" parent="295" name="verification_code">
+      <DataType>varchar(64)|0s</DataType>
       <Position>22</Position>
     </column>
-    <column id="394" parent="295" name="verification_code">
-      <DataType>varchar(64)|0s</DataType>
-      <Position>23</Position>
-    </column>
-    <foreign-key id="395" parent="295" name="id_user_phong">
+    <foreign-key id="394" parent="295" name="id_user_phong">
       <ColNames>id_phong</ColNames>
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
       <RefColNames>id_phong</RefColNames>
       <RefTableName>phong</RefTableName>
     </foreign-key>
-    <index id="396" parent="295" name="id_user_phong_idx">
+    <index id="395" parent="295" name="id_user_phong_idx">
       <ColNames>id_phong</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="397" parent="295" name="PRIMARY">
+    <key id="396" parent="295" name="PRIMARY">
       <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>

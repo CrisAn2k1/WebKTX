@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
+</head>
+<body>
+    <div style="display: flex;justify-content: center;align-items: center; height: 100vh;" >
+      <a type="button" onclick="test()">  Test </a>
+    </div>
+<script>
+    function test(id) {
+        Swal.fire({
+            title: 'Bạn có chắc chắn muốn xoá?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            cancelButtonText: 'Không',
+            confirmButtonText: 'Có'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                Swal.fire({
+                        title: 'Đã xoá!',
+                        text: 'Bạn đã xoá thành công!',
+                        icon: 'success',
+                }).then(function (){
+                    window.location.href='/invoice-management/' +id+'/remove'
+                })
+            }
+        })
+    }
+</script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>
