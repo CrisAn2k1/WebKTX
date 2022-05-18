@@ -188,28 +188,6 @@ public class AdminController {
         return "redirect:/admin/furniture-management/"+phongNT_Phong.getIdPhong().getIdToanha().getId()+"/"+phongNT_Phong.getIdPhong().getId();
     }
 
-    @GetMapping("/furniture-management/{id}/remove")
-    public String removeFurniture(@PathVariable("id") Integer idPhongNoiThat){
-        PhongNoithat phongNT_Phong = phongNoiThatRepo.findById(idPhongNoiThat).orElse(null);
-        phongNoiThatService.removeFurniture(idPhongNoiThat);
-        return "redirect:/admin/furniture-management/"+phongNT_Phong.getIdPhong().getIdToanha().getId()+"/"+phongNT_Phong.getIdPhong().getId();
-    }
-
-    @PostMapping("/furniture-management/remove")
-    public String removeFurniture(@PathVariable("id") Integer idPhongNoiThat,PhongNoithat phongNoithat, Model model, RedirectAttributes redirAttrs){
-        String urlNew = "redirect:/admin/furniture-management/"+ phongNoithat.getIdPhong().getIdToanha().getId() +"/"+ phongNoithat.getIdPhong().getId()+"/delete";
-        PhongNoithat phongNT_Phong = phongNoiThatRepo.findById(idPhongNoiThat).orElse(null);
-        if (phongNT_Phong == null) {
-            redirAttrs.addFlashAttribute("error", "Không xóa được");
-            return urlNew;
-        }
-        else
-        {
-            redirAttrs.addFlashAttribute("success","Xóa nội thất \"" + phongNoithat.getIdNoithat().getTen() + "\" thành công!") ;
-            phongNoiThatService.removeFurniture(idPhongNoiThat);
-        }
-        return "redirect:/admin/furniture-management/"+phongNT_Phong.getIdPhong().getIdToanha().getId()+"/"+phongNT_Phong.getIdPhong().getId();
-    }
 
     @GetMapping("/furniture-management/{idtoa}/{idphong}/new")
     public String formAddNoiThat(@PathVariable("idphong") String idPhong,Model model){
