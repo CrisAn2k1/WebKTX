@@ -107,81 +107,113 @@
                         style="
                     padding: 55px 50px;
                     border: 3px solid green;
-                    text-align: center;"
+                    text-align: center;
+                    width: 100%;"
+                        enctype="multipart/form-data"
                 >
+
                   <div style="width: 100% !important;">
-                    <div class="row">
-                      <div class="col-sm-6" style="font-weight: bold;font-size: 16px;text-align: end">
-                        <label>Mã hồ sơ: </label><br><br><br><br>
-                        <label>Ngày tạo: </label><br><br><br>
-                        <label>Chọn ngày nhận phòng:</label><br><br><br>
-                        <label>Chọn ngày trả phòng:</label><br><br><br>
-                        <label>Họ tên sinh viên: </label><br><br><br>
-                        <label>CMND/CCCD: </label><br><br><br><br>
-                        <label>Giới tính: </label><br><br><br><br>
-                        <label>Ngày sinh: </label><br><br><br>
-                        <label>Số điện thoại:  </label><br><br><br><br>
-                        <label>MSSV:</label><br><br><br><br>
-                        <label>Trường: </label><br><br><br><br>
-                        <label>Tỉnh/Thành phố: </label><br><br><br>
-                        <label>Quận/Huyện: </label><br><br><br><br>
-                        <label>Phường/Xã: </label><br><br><br>
-                        <label>Địa chỉ cư trú: </label><br><br><br>
-                        <label style="margin-top: 15px">Phòng được sắp xếp:  </label><br><br>
-                        <label> Trạng thái:</label>
+
+                    <div class="row" style="font-size: 16px">
+                      <div class="col-sm-6" style="font-weight: bold;padding: 0 40px;">
+
+
+                        <div class="inputbox">
+                        <label>Ngày tạo: </label>
+                        <input disabled type="text" th:placeholder="${#dates.format(editHSdangky.getNgaytao(),'dd-MM-yyyy')}" />
+                        </div>
+
+
+                        <div class="inputbox">
+                        <label>Họ tên sinh viên: </label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHoten()}"/>
+                        </div>
+
+                        <div class="inputbox">
+                        <label>CMND/CCCD: </label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getCmndCccd()}"/>
+                        </div>
+
+                        <div class="inputbox">
+                        <label>Giới tính: </label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getGioitinh()}"/>
+                        </div>
+
+                        <div class="inputbox">
+                        <label>Ngày sinh: </label>
+                        <input disabled type="text" th:placeholder="${#dates.format(editHSdangky.getIdUser().getNgaysinh(),'dd-MM-yyyy')}"/>
+                        </div>
+
+                        <div class="inputbox">
+                          <label>Địa chỉ cư trú: </label>
+                          <textarea disabled type="text" th:placeholder="${editHSdangky.getIdUser().getDiachicutru()}"></textarea>
+                        </div>
+
+
+                        <div class="inputbox">
+                          <label style="margin-top: 15px">Phòng được sắp xếp:  </label>
+                          <select th:field="*{phong}" style="margin-right: 129px;">
+                            <option th:each="phong: ${listPhong}" th:value="${phong.id}" th:text="${phong.getId()}"></option>
+                          </select>
+                        </div>
+
                       </div>
-                      <div class="col-sm-6" style="text-align: start">
+
+                      <div class="col-sm-6" style="padding: 0 40px">
                         <input  type="text" th:field="*{id}" id="id" placeholder="id" hidden />
 
+                        <div class="inputbox">
+                        <label>Số điện thoại:  </label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getPhone()}"/>
+                        </div>
 
-                        <input disabled type="text" th:placeholder="${editHSdangky.getId()}"/><br><br><br>
+                        <div class="inputbox">
+                        <label>MSSV:</label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getMssv()}"/>
+                        </div>
+
+                        <div class="inputbox">
+                        <label>Trường: </label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getTruonghoc()}"/>
+                        </div>
+
+                        <div class="inputbox">
+                        <label>Tỉnh/Thành phố: </label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getTinh()}"/>
+                        </div>
+
+                        <div class="inputbox">
+                        <label>Quận/Huyện: </label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHuyen()}"/>
+                        </div>
+
+                        <div class="inputbox">
+                        <label>Phường/Xã: </label>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getXa()}"/>
+                        </div>
 
 
-                        <input disabled type="text" th:placeholder="${#dates.format(editHSdangky.getNgaytao(),'dd-MM-yyyy')}"/><br><br>
 
+                        <div class="inputbox">
+                          <label>Chọn ngày nhận phòng:</label>
+                          <input type="date" th:field="*{ngaynhanphong}" style="margin-right: 58px"/>
+                        </div>
 
-                        <input type="date" th:field="*{ngaynhanphong}"/><br><br><br>
+                        <div class="inputbox">
+                          <label>Chọn ngày trả phòng:</label>
+                          <input type="date" th:field="*{ngaytraphong}" style="margin-right: 58px"/>
+                        </div>
 
-
-                        <input type="date" th:field="*{ngaytraphong}"/><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHoten()}"/><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getCmndCccd()}"/><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getGioitinh()}"/><br><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${#dates.format(editHSdangky.getIdUser().getNgaysinh(),'dd-MM-yyyy')}"/><br><br><br>
-                        
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getPhone()}"/><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getMssv()}"/><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getTruonghoc()}"/><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getTinh()}"/><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHuyen()}"/><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getXa()}"/><br><br><br>
-
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getDiachicutru()}"/><br><br><br>
 
 
                         <input hidden type="text" th:field="*{idUser}"/>
 
-                        <select th:field="*{phong}">
-                          <option th:each="phong: ${listPhong}" th:value="${phong.id}" th:text="${phong.getId()}"></option>
-                        </select>
-
-
-                        <br><br>
-                        <select th:field="*{trangthai}">
-                          <option th:value="true">Đã duyệt</option>
-                          <option th:value="true">Chưa duyệt</option>
-
-                        </select>
                       </div>
+                    </div>
+
+                    <div>
+                      <label >Ảnh thẻ: </label>
+                      <img th:src="@{${editHSdangky.getIdUser().getAvatar()}}" alt="" style="width: 200px">
                     </div>
                   </div>
 
@@ -189,7 +221,7 @@
                   <div class="btn-group justify-content-center mt-3" style="width: 90%">
                     <span>
                       <div class="inputbox">
-                        <input  type="submit" value="Duyệt" /><br>
+                        <input  type="submit" value="Xác nhận" /><br>
                         <button type="button" onclick="document.location='/admin/hosodangky-management'">Quay lại</button>
                       </div>
                     </span>

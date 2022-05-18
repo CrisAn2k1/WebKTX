@@ -2,14 +2,12 @@ package com.WebKTX.controller;
 
 import com.WebKTX.model.*;
 import com.WebKTX.repository.*;
-import com.WebKTX.service.InvoiceService;
-import com.WebKTX.service.PhongNoiThatService;
-import com.WebKTX.service.HoSoDangKyService;
-import com.WebKTX.service.HoSoChuyenPhongService;
-import com.WebKTX.service.UserService;
+import com.WebKTX.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.List;
@@ -133,9 +137,32 @@ public class AdminController {
             return "admin/edit-user";
         }
     }
+
+    //Get current user login
+    public User getCurrentUser(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetail currentUser = (UserDetail) auth.getPrincipal();
+        Integer userId = currentUser.id();
+        User user = userRepo.findById(userId).orElse(null);
+        return user;
+    }
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
     @PostMapping("/quan-ly-sinh-vien/edit")
-    public String updateUser(User user){
+    public String updateUser(User user, RedirectAttributes redirect){
+
+        if(user.getFile().isEmpty()){
+            redirect.addFlashAttribute("error","Vui lòng chọn ngày nhận/trả phòng!");
+            return "redirect:/admin/quan-ly-sinh-vien";
+        }
+        Path path = Paths.get("src/main/resources/static/assets/avatar");
+        try{
+            InputStream inputStream = user.getFile().getInputStream();
+            Files.copy(inputStream,path.resolve(user.getFile().getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            user.setAvatar("/assets/avatar/" + user.getFile().getOriginalFilename().toLowerCase());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         userService.updateInfo(user.getId(), user);
         User user_Phong = userRepo.findById(user.getId()).orElse(null);
         return "redirect:/admin/quan-ly-sinh-vien/"+user_Phong.getIdPhong().getIdToanha().getId()+"/"+user_Phong.getIdPhong().getId();
@@ -363,10 +390,9 @@ public class AdminController {
     }
 
     @PostMapping("/hosodangky-management/edit")
-    public String updateHSdangky(Hosodangky hosodangky){
-        hosoDangKyService.updateHosodangky(hosodangky.getId(),hosodangky);
-
+    public String updateHSdangky(Hosodangky hosodangky,RedirectAttributes redirect ){
         User setPhongUser = userRepo.findById(hosodangky.getIdUser().getId()).orElse(null);
+        hosoDangKyService.updateHosodangky(hosodangky.getId(),hosodangky);
         setPhongUser.setIdPhong(hosodangky.getPhong());
         userRepo.save(setPhongUser);
         return "redirect:/admin/hosodangky-management";

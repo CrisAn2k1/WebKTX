@@ -1,6 +1,7 @@
 package com.WebKTX.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -38,6 +39,17 @@ public class Hosodangky {
 
     @Transient
     private Phong phong;
+
+    @Transient
+    private MultipartFile file;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
 
     public Phong getPhong() {
         return phong;

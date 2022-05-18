@@ -105,46 +105,107 @@
                       method="post"
                       novalidate="novalidate"
                       style="
-                    padding: 55px 385px;
+                    padding: 55px 60px;
                     border: 3px solid green;
-                    text-align: center;"
+                    text-align: center;
+                    width: 100%;"
+
               >
-                <input type="text" th:field="*{id}" id="phone" placeholder="phone" hidden />
-                <div class="inputbox">
-                  <label for="hoten">Họ tên  </label>
-                  <input type="text" th:field="*{hoten}" id="hoten" placeholder="Họ tên " />
-                  <span th:if="${#fields.hasErrors('hoten')}" th:errors="*{hoten}"></span>
-                </div>
+                <div class="row">
+                  <div class="col-sm-6" style="padding: 0 40px;">
 
-                <div class="inputbox">
-                  <label for="phone">Số điện thoại   </label>
-                  <input type="text" th:field="*{phone}" id="phone" placeholder="Số điện thoại" />
-                  <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
-                </div>
+                    <input type="text" th:field="*{id}" id="phone" placeholder="phone" hidden />
+                    <div class="inputbox">
+                      <label for="hoten">Họ tên:  </label>
+                      <input type="text" th:field="*{hoten}" id="hoten" placeholder="Họ tên " />
+                      <span th:if="${#fields.hasErrors('hoten')}" th:errors="*{hoten}"></span>
+                    </div>
 
-                <div class="inputbox">
-                  <label for="ngaysinh">Ngày sinh </label>
-                  <input type="text" th:field="*{ngaysinh}" id="ngaysinh" placeholder="Ngày sinh: MM/DD/YY" />
-                  <span th:if="${#fields.hasErrors('ngaysinh')}" th:errors="*{ngaysinh}"></span>
-                </div>
+                    <div class="inputbox">
+                      <label for="email">Email:  </label>
+                      <input type="text" th:field="*{email}" id="email" placeholder="Họ tên " />
+                      <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    </div>
 
-                <div class="inputbox">
-                  <label for="gioitinh">Giới tính</label>
-                  <input type="text" th:field="*{gioitinh}" id="gioitinh" placeholder="Giới tính" />
-                  <span th:if="${#fields.hasErrors('gioitinh')}" th:errors="*{gioitinh}"></span>
-                </div>
+                    <div class="inputbox">
+                      <label for="phone">Số điện thoại:   </label>
+                      <input type="text" th:field="*{phone}" id="phone" placeholder="Số điện thoại" />
+                      <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
+                    </div>
 
-                <div class="inputbox">
-                  <label for="diachicutru">Địa chỉ</label>
-                  <input type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="Địa chỉ cư trú" />
-                  <span th:if="${#fields.hasErrors('diachicutru')}" th:errors="*{diachicutru}"></span>
-                </div>
+                    <div class="inputbox">
+                      <label for="ngaysinh">Ngày sinh: </label>
+                      <input type="date" th:field="*{ngaysinh}" id="ngaysinh" placeholder="Ngày sinh: MM/DD/YY" style=" margin-right: 63px;"/>
+                      <span th:if="${#fields.hasErrors('ngaysinh')}" th:errors="*{ngaysinh}"></span>
+                    </div>
 
-                <div class="inputbox">
-                  <input hidden type="text" th:field="*{nienkhoa}" id="diachicutru" placeholder="Địa chỉ cư trú" />
-                  <span th:if="${#fields.hasErrors('nienkhoa')}" th:errors="*{nienkhoa}"></span>
-                </div>
+                    <div class="inputbox">
+                      <label for="gioitinh">Giới tính: : </label>
+                      <input type="text" th:field="*{gioitinh}" id="gioitinh" placeholder="Giới tính" />
+                      <span th:if="${#fields.hasErrors('gioitinh')}" th:errors="*{gioitinh}"></span>
+                    </div>
 
+                    <div class="inputbox">
+                      <label for="diachicutru">Địa chỉ: </label>
+                      <input type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="Địa chỉ cư trú" />
+                      <span th:if="${#fields.hasErrors('diachicutru')}" th:errors="*{diachicutru}"></span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6" style="padding: 0 40px;">
+
+                    <div class="inputbox">
+                      <label for="truonghoc">Trường học: </label>
+                      <input type="text" th:field="*{truonghoc}" id="truonghoc" placeholder="Trường học" />
+                      <span th:if="${#fields.hasErrors('truonghoc')}" th:errors="*{truonghoc}"></span>
+                    </div>
+
+                    <div class="inputbox">
+                      <label for="tinh">Tỉnh: </label>
+                      <input type="text" th:field="*{tinh}" id="tinh" placeholder="Tỉnh" />
+                      <span th:if="${#fields.hasErrors('tinh')}" th:errors="*{tinh}"></span>
+                    </div>
+
+                    <div class="inputbox">
+                      <label for="huyen">Huyện: </label>
+                      <input type="text" th:field="*{huyen}" id="huyen" placeholder="Huyện" />
+                      <span th:if="${#fields.hasErrors('tinh')}" th:errors="*{tinh}"></span>
+                    </div>
+
+                    <div class="inputbox">
+                      <label for="xa">Xã: </label>
+                      <input type="text" th:field="*{xa}" id="xa" placeholder="Xã" />
+                      <span th:if="${#fields.hasErrors('tinh')}" th:errors="*{tinh}"></span>
+                    </div>
+
+                    <div class="inputbox">
+                      <label for="nienkhoa">Niên khóa: </label>
+                      <input type="text" th:field="*{nienkhoa}" id="nienkhoa" placeholder="Địa chỉ cư trú" />
+                      <span th:if="${#fields.hasErrors('nienkhoa')}" th:errors="*{nienkhoa}"></span>
+                    </div>
+                    <div class="inputbox">
+                    <label>Trạng thái tài khoản</label>
+                    <select th:field="*{enabled}" style="margin-right: 130px;">
+                      <option th:value="true" >Kích hoạt</option>
+                      <option th:value="false" >Khóa</option>
+                    </select>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <label >Ảnh thẻ: </label>
+                  <img th:src="@{${editUser.getAvatar()}}" alt="" style="width: 200px">
+                  <input type="file"
+                         accept="image/*"
+                         class="form-control"
+                         name="avatar"
+                         th:field="*{file}"
+                         placeholder="Enter photo"
+                         style="
+                                width: 28%;
+                                margin: 10px auto;">
+                </div>
+                <br><br>
                 <div class="inputbox" style="justify-content: center">
                 <input type="submit" value="Cập nhật" />
                   <button type="button"

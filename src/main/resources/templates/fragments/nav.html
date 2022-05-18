@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
   <head>
     <meta charset="UTF-8" />
     <title>Title</title>
@@ -283,7 +283,7 @@
             <span class="mr-2 d-none d-lg-inline text-gray-600 small"
               >[[${#request.userPrincipal.principal.fullName}]]
             </span>
-            <img class="img-profile rounded-circle" src="/assets/img/hinh.jpg" />
+            <img class="img-profile rounded-circle"  th:src="@{${#request.userPrincipal.principal.avatar}}"/>
           </a>
           <!-- Dropdown - User Information -->
           <div

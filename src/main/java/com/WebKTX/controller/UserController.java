@@ -111,7 +111,7 @@ public class UserController {
         return user;
     }
 
-    @GetMapping({"/thong-tin-sinh-vien","/homepage"})
+    @GetMapping({"/thong-tin-sinh-vien","/homepage","/"})
     @PreAuthorize("hasAnyAuthority('user')")
     public String indexPage(Model model){
         if(getCurrentUser() != null)
@@ -133,7 +133,8 @@ public class UserController {
     }
 
     @GetMapping("/thong-bao")
-    public String noticePage(){
+    public String noticePage(Model model){
+        model.addAttribute("infoUser", getCurrentUser());
         return "thong-bao";
     }
 

@@ -45,6 +45,8 @@ public class UserServiceIplm implements UserService {
         userEdit.setTinh(user.getTinh());
         userEdit.setHuyen(user.getHuyen());
         userEdit.setXa(user.getXa());
+        userEdit.setEnabled(user.getEnabled());
+        userEdit.setAvatar(user.getAvatar());
         userRepository.save(userEdit);
     }
 

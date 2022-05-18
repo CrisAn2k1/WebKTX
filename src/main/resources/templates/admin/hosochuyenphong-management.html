@@ -107,7 +107,7 @@
               <table th:if="${listHosochuyenphong.size()!=0}">
                 <thead>
                 <tr>
-                  <th>Mã hồ sơ</th>
+                  <th>STT</th>
                   <th>Ngày tạo</th>
                   <th>Họ tên</th>
                   <th>Mã số sinh viên</th>
@@ -115,9 +115,9 @@
                   <!--      <th>View</th>-->
                 </tr>
                 </thead>
-                <tbody th:each="HoSoChuyenPhong : ${listHosochuyenphong}">
+                <tbody th:each="HoSoChuyenPhong,sttHS : ${listHosochuyenphong}">
                 <tr>
-                  <td th:text="${HoSoChuyenPhong.getId()}"></td>
+                  <td th:text="${sttHS.index+1}"></td>
                   <td th:text="${#dates.format(HoSoChuyenPhong.getNgaytao(),'dd-MM-yyyy')}"></td>
                   <td th:text="${HoSoChuyenPhong.getIdUser().getHoten()}"></td>
                   <td th:text="${HoSoChuyenPhong.getIdUser().getMssv()}"></td>

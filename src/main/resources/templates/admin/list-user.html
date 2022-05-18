@@ -102,9 +102,8 @@
                   <th>Họ tên</th>
                   <th>Ngày sinh</th>
                   <th>Giới tính</th>
-                  <th>SĐT</th>
                   <th>SV Năm</th>
-                  <th></th>
+                  <th>Trạng thái tài khoản</th>
                   <th></th>
                 </tr>
                 </thead>
@@ -114,8 +113,11 @@
                   <td th:text="${user.hoten}"></td>
                   <td th:text="${#dates.format(user.ngaysinh,'dd-MM-yyyy')}"></td>
                   <td th:text="${user.gioitinh}"></td>
-                  <td th:text="${user.phone}"></td>
                   <td th:text="${currentYear - user.nienkhoa}"></td>
+                  <td>
+                    <span th:if="${user.getEnabled() == false }" style="color: red; font-weight: bold">Khóa</span>
+                    <span th:unless="${user.getEnabled() == false}" style="color: limegreen; font-weight: bold">Kích hoạt</span>
+                  </td>
                   <td><a
                           style="
                             padding: 2px 6px;

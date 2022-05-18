@@ -63,18 +63,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/homepage")
-//                .successHandler(new AuthenticationSuccessHandler() {
-//                    @Override
-//                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-//                        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-//                        if (roles.contains("admin")) {
-//                            response.sendRedirect("/admin");
-//                        }
-//                        else {
-//                            response.sendRedirect("/homepage");
-//                        }
-//                    }
-//                })//trang mặc định khi đăng nhập thành công
+                .successHandler(new AuthenticationSuccessHandler() {
+                    @Override
+                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+                        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+                        if (roles.contains("admin")) {
+                            response.sendRedirect("/admin");
+                        }
+                        else {
+                            response.sendRedirect("/homepage");
+                        }
+                    }
+                })//trang mặc định khi đăng nhập thành công
                 .failureUrl("/login?success=fail")
                 .loginProcessingUrl("/j_spring_security_check").
             and().logout(logout -> logout
