@@ -129,8 +129,25 @@
                   <td th:text="${PhongNoiThat.soluong}"></td>
 
                   <div class="btn-link">
-                    <td><a th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
-                    <td><a th:data-idnoithat ="${PhongNoiThat.getId()}" onclick="deleteNT(this.getAttribute('data-idnoithat'))">Xoá</a></td>
+                    <td><a
+                            style="
+                              text-decoration: none;
+                              font-weight: bold;
+                              color: #4753ca;
+                              background-color: #dbde77a3;
+                              border-radius: 15px;
+                              cursor:pointer;
+                              padding: 2px 6px;"
+                            th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
+                    <td><a
+                            style="
+                               padding: 2px 6px;
+                               cursor: pointer;
+                               border-radius: 15px;
+                               background-color: #dbde77a3;
+                               color: red;
+                               font-weight: bold"
+                            th:data-idnoithat ="${PhongNoiThat.getId()}" onclick="deleteNT(this.getAttribute('data-idnoithat'))">Xoá</a></td>
                   </div>
                 </tr>
                 </tbody>

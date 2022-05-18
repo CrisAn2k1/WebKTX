@@ -114,7 +114,16 @@
                   <input disabled type="text" th:placeholder="${editHSchuyenphong.getId()}"/><br><br>
 
                   <label>Mô tả </label>
-                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getMota()}"/><br><br>
+                  <input disabled
+                         style="
+                            width: 100%;
+                            padding: 12px 20px;
+                            box-sizing: border-box;
+                            border: 2px solid #ccc;
+                            border-radius: 4px;
+                            background-color: #f8f8f8;
+                            resize: none;"
+                         type="text" th:placeholder="${editHSchuyenphong.getMota()}"/><br><br>
 
                   <label>Ngày tạo </label>
                   <input disabled type="text" th:placeholder="${editHSchuyenphong.getNgaytao()}"/><br><br>

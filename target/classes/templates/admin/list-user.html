@@ -116,9 +116,35 @@
                   <td th:text="${user.gioitinh}"></td>
                   <td th:text="${user.phone}"></td>
                   <td th:text="${currentYear - user.nienkhoa}"></td>
-                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chi tiết</a></td>
-                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chỉnh sửa</a></td>
-                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Xoá</a></td>
+                  <td><a
+                          style="
+                            padding: 2px 6px;
+                            cursor: pointer;
+                            border-radius: 15px;
+                            background-color: #04aa6d;
+                            color: white;
+                            font-weight: bold;
+                            text-decoration: none;"
+                          th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chi tiết</a></td>
+                  <td><a
+                          style="
+                              text-decoration: none;
+                              font-weight: bold;
+                              color: #4753ca;
+                              background-color: #dbde77a3;
+                              border-radius: 15px;
+                              cursor:pointer;
+                              padding: 2px 6px;"
+                          th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chỉnh sửa</a></td>
+                  <td><a
+                          style="
+                             padding: 2px 6px;
+                             cursor: pointer;
+                             border-radius: 15px;
+                             background-color: #dbde77a3;
+                             color: red;
+                             font-weight: bold"
+                          th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Xoá</a></td>
                 </tr>
                 </tbody>
               </table>

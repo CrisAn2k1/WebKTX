@@ -639,7 +639,6 @@ body.on-side .wrap-sticky nav.navbar.bootsnav.sticked{
     /* Navbar Transparent
     =================================*/  
     nav.navbar.bootsnav.no-background{
-        background-color: transparent;
         border: none;
     }
     
