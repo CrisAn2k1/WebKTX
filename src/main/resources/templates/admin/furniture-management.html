@@ -84,7 +84,7 @@
   <div th:replace="fragments/nav :: sidebaradmin"></div>
   <!-- End of Sidebar -->
   <!-- Content Wrapper -->
-  <div th:if="${listFur.size()!=0}" id="content-wrapper" class="d-flex flex-column">
+  <div th:if="${listFur.size()!=0}" id="content-wrapperr" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
       <!-- Topbar -->
@@ -97,6 +97,8 @@
           <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
           </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
         </h1>
+        <div class="alert alert-warning text-center" role="alert" th:if = "${error}"> Error: <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${error}"  ></error> </div >
+        <div class="alert alert-success text-center" role="alert" th:if = "${success}"> Success: <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${success}"  ></error> </div >
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="table-responsive">
@@ -107,7 +109,7 @@
                         th:data-url="@{/admin/furniture-management/{idToa}/{idPhong}/new(idToa=${matoa} , idPhong=${maphong})}"
                         onclick="document.location=(this.getAttribute('data-url'))"
                 >
-                  Tạo hoá đơn
+                  Thêm nội thất
               </button>
               </div>
               <table>
@@ -127,6 +129,7 @@
 
                   <div class="btn-link">
                     <td><a th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
+
                     <td><a th:href="@{/admin/furniture-management/{id}/remove(id=${PhongNoiThat.getId()})}">Xoá</a></td>
                   </div>
                 </tr>

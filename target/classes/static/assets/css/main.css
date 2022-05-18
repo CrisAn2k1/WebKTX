@@ -608,8 +608,8 @@ nav.navbar.bootsnav.navbar-fixed .button-holder {
   position: relative;
   padding: 56px 0px 117px 0px;
   background: url(../img/banner.jpg);
-  background-position: revert;
-  background-size: cover;
+  background-position: top  center;
+  background-size:cover;
   background-repeat: no-repeat;
 }
 #home .caption {

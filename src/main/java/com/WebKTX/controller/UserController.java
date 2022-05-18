@@ -51,7 +51,7 @@ public class UserController {
     }
 
     @PostMapping("/process_register")
-    public String processRegister(User user, HttpServletRequest request, RedirectAttributes redirect)
+    public String processRegister(User user,Model model, HttpServletRequest request, RedirectAttributes redirect)
             throws UnsupportedEncodingException, MessagingException {
         if(!user.getPassword().equals(user.getConfirmPassowrd()))
         {
@@ -68,6 +68,7 @@ public class UserController {
             return "redirect:/register";
         }
             userService.register(user, getSiteURL(request));
+            model.addAttribute("emailId",user.getEmail());
             return "/signup-success";
     }
 

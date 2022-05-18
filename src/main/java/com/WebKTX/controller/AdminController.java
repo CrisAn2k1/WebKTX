@@ -94,7 +94,7 @@ public class AdminController {
         model.addAttribute("listToaNha",listToaNha);
         model.addAttribute("titles","sinh viên");
         model.addAttribute("url","quan-ly-sinh-vien");
-        return "list-phong";
+        return "admin/list-phong";
     }
     @GetMapping("/quan-ly-sinh-vien/{idToaNha}/{idPhong}")
     public String listUserPhong(@PathVariable("idPhong") String idPhong,@PathVariable("idToaNha") String idToaNha, Model model){
@@ -104,8 +104,7 @@ public class AdminController {
         model.addAttribute("currentYear",year);
         model.addAttribute("matoa",idToaNha);
         model.addAttribute("maphong",idPhong);
-
-        return "list-user";
+        return "admin/list-user";
     }
 
     @GetMapping("/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien")
@@ -130,7 +129,7 @@ public class AdminController {
             model.addAttribute("matoa",editUser.getIdPhong().getIdToanha().getId());
             model.addAttribute("maphong",editUser.getIdPhong().getId());
             model.addAttribute("editUser",editUser);
-            return "edit-user";
+            return "admin/edit-user";
         }
     }
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
@@ -193,6 +192,22 @@ public class AdminController {
     public String removeFurniture(@PathVariable("id") Integer idPhongNoiThat){
         PhongNoithat phongNT_Phong = phongNoiThatRepo.findById(idPhongNoiThat).orElse(null);
         phongNoiThatService.removeFurniture(idPhongNoiThat);
+        return "redirect:/admin/furniture-management/"+phongNT_Phong.getIdPhong().getIdToanha().getId()+"/"+phongNT_Phong.getIdPhong().getId();
+    }
+
+    @PostMapping("/furniture-management/remove")
+    public String removeFurniture(@PathVariable("id") Integer idPhongNoiThat,PhongNoithat phongNoithat, Model model, RedirectAttributes redirAttrs){
+        String urlNew = "redirect:/admin/furniture-management/"+ phongNoithat.getIdPhong().getIdToanha().getId() +"/"+ phongNoithat.getIdPhong().getId()+"/delete";
+        PhongNoithat phongNT_Phong = phongNoiThatRepo.findById(idPhongNoiThat).orElse(null);
+        if (phongNT_Phong == null) {
+            redirAttrs.addFlashAttribute("error", "Không xóa được");
+            return urlNew;
+        }
+        else
+        {
+            redirAttrs.addFlashAttribute("success","Xóa nội thất \"" + phongNoithat.getIdNoithat().getTen() + "\" thành công!") ;
+            phongNoiThatService.removeFurniture(idPhongNoiThat);
+        }
         return "redirect:/admin/furniture-management/"+phongNT_Phong.getIdPhong().getIdToanha().getId()+"/"+phongNT_Phong.getIdPhong().getId();
     }
 
