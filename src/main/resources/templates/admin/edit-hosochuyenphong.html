@@ -126,7 +126,8 @@
                          type="text" th:placeholder="${editHSchuyenphong.getMota()}"/><br><br>
 
                   <label>Ngày tạo </label>
-                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getNgaytao()}"/><br><br>
+                  
+                  <input disabled type="text" th:placeholder="${#dates.format(editHSchuyenphong.getNgaytao(),'dd-MM-yyyy')}"/><br><br>
 
                   <label>Họ tên </label>
                   <input disabled type="text" th:placeholder="${editHSchuyenphong.getIdUser().getHoten()}"/><br><br>

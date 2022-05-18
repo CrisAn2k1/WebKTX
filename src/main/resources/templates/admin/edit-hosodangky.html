@@ -112,35 +112,62 @@
                   <div style="width: 100% !important;">
                     <div class="row">
                       <div class="col-sm-6" style="font-weight: bold;font-size: 16px;text-align: end">
-                        <label>Mã hồ sơ: </label><br><br>
+                        <label>Mã hồ sơ: </label><br><br><br><br>
                         <label>Ngày tạo: </label><br><br><br>
                         <label>Chọn ngày nhận phòng:</label><br><br><br>
                         <label>Chọn ngày trả phòng:</label><br><br><br>
                         <label>Họ tên sinh viên: </label><br><br><br>
-                        <label>MSSV:</label><br><br>
+                        <label>CMND/CCCD: </label><br><br><br><br>
+                        <label>Giới tính: </label><br><br><br><br>
+                        <label>Ngày sinh: </label><br><br><br>
+                        <label>Số điện thoại:  </label><br><br><br><br>
+                        <label>MSSV:</label><br><br><br><br>
+                        <label>Trường: </label><br><br><br><br>
+                        <label>Tỉnh/Thành phố: </label><br><br><br>
+                        <label>Quận/Huyện: </label><br><br><br><br>
+                        <label>Phường/Xã: </label><br><br><br>
+                        <label>Địa chỉ cư trú: </label><br><br><br>
                         <label style="margin-top: 15px">Phòng được sắp xếp:  </label><br><br>
                         <label> Trạng thái:</label>
                       </div>
                       <div class="col-sm-6" style="text-align: start">
-                        <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
+                        <input  type="text" th:field="*{id}" id="id" placeholder="id" hidden />
 
 
-                        <input disabled type="text" th:placeholder="${editHSdangky.getId()}"/><br><br>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getId()}"/><br><br><br>
 
 
                         <input disabled type="text" th:placeholder="${#dates.format(editHSdangky.getNgaytao(),'dd-MM-yyyy')}"/><br><br>
 
 
-                        <input  type="date" th:field="*{ngaynhanphong}"/><br><br>
+                        <input type="date" th:field="*{ngaynhanphong}"/><br><br><br>
 
 
-                        <input  type="date" th:field="*{ngaytraphong}"/><br><br><br>
-
+                        <input type="date" th:field="*{ngaytraphong}"/><br><br>
 
                         <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHoten()}"/><br><br><br>
 
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getCmndCccd()}"/><br><br><br>
 
-                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getMssv()}"/><br><br>
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getGioitinh()}"/><br><br><br><br>
+
+                        <input disabled type="text" th:placeholder="${#dates.format(editHSdangky.getIdUser().getNgaysinh(),'dd-MM-yyyy')}"/><br><br><br>
+                        
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getPhone()}"/><br><br><br>
+
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getMssv()}"/><br><br><br>
+
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getTruonghoc()}"/><br><br><br>
+
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getTinh()}"/><br><br><br>
+
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getHuyen()}"/><br><br><br>
+
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getXa()}"/><br><br><br>
+
+                        <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getDiachicutru()}"/><br><br><br>
+
+
                         <input hidden type="text" th:field="*{idUser}"/>
 
                         <select th:field="*{phong}">
