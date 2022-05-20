@@ -7,7 +7,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Website quản lý ký túc xá</title>
+  <title>Quản Lý Nội Thất</title>
 
   <!-- Custom fonts for this template-->
   <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -33,7 +33,13 @@
       text-align: center;
       vertical-align: center;
     }
-    table tbody td.date{
+
+    table thead th{
+      text-align: center;
+      vertical-align: center;
+    }
+
+    table tbody td{
       text-align: center;
       vertical-align: center;
     }
@@ -57,8 +63,8 @@
       padding: 10px 24px; /* Some padding */
       cursor: pointer; /* Pointer/hand icon */
       float: left; /* Float the buttons side by side */
-      margin: 10px;;
-      border-radius: 5px;;
+      margin: 10px;
+      border-radius: 15px;
     }
 
     /* Clear floats (clearfix hack) */
@@ -87,16 +93,16 @@
   <div th:replace="fragments/nav :: sidebaradmin"></div>
   <!-- End of Sidebar -->
   <!-- Content Wrapper -->
-  <div th:if="${listFur.size()!=0}" id="content-wrapper" class="d-flex flex-column">
+  <div th:if="${listFur.size()!=0}" id="content-wrapperr" class="d-flex flex-column" style="position: relative">
     <!-- Main Content -->
     <div id="content">
       <!-- Topbar -->
-      <div th:replace="fragments/nav :: topnav"></div>
+      <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
-      <div class="container-fluid">
+      <div class="">
         <h1 class="h3 mb-2 text-gray-800 text-center">
-          Danh sách nội thất
+         <strong> Danh Sách Nội Thất</strong>
           <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
           </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
         </h1>
@@ -129,8 +135,26 @@
                   <td th:text="${PhongNoiThat.soluong}"></td>
 
                   <div class="btn-link">
-                    <td><a th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
-                    <td><a th:data-idnoithat ="${PhongNoiThat.getId()}" onclick="deleteNT(this.getAttribute('data-idnoithat'))">Xoá</a></td>
+                    <td style="text-align: end; width: 130px;"><a
+                            style="
+                              text-decoration: none;
+                              font-weight: bold;
+                              color: #4753ca;
+                              background-color: rgba(204, 203, 211, 0.8);
+                              border-radius: 15px;
+                              cursor:pointer;
+                              padding: 2px 6px;"
+                            th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
+                    <td style="text-align: start;width: 100px;"><a
+                            style="
+                               text-decoration: none;
+                               padding: 2px 6px;
+                               cursor: pointer;
+                               border-radius: 15px;
+                               background-color: rgba(255, 185, 185, 0.6);
+                               color: red;
+                               font-weight: bold"
+                            th:data-idnoithat ="${PhongNoiThat.getId()}" onclick="deleteNT(this.getAttribute('data-idnoithat'))">Xoá</a></td>
                   </div>
                 </tr>
                 </tbody>
@@ -148,8 +172,11 @@
       </div>
       <!-- End of Main Content -->
       <!-- Footer -->
-      <div th:replace="fragments/nav :: footer"></div>
       <!-- End of Footer -->
+    </div>
+    <div>
+      <div th:replace="fragments/nav :: footer"></div>
+
     </div>
     <!-- End of Content Wrapper -->
   </div>

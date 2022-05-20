@@ -53,7 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/","/homepage","/login-success","/login"
                         ,"/thong-tin-sinh-vien","/thong-tin-lien-he","/thong-bao"
-                        ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon","/admin/**", "/form-chuyen-phong","/upload","/doi-mat-khau").authenticated()  // các URL bắt buộc đăng nhập
+                        ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx","/hoadon"
+                        ,"/admin/**", "/form-chuyen-phong","/upload","/doi-mat-khau"
+                        ,"/dang-ky-chuyen-phong").authenticated()  // các URL bắt buộc đăng nhập
                 .antMatchers("/**","/register","/confirm","/uploadImg").permitAll().// các URL không bắt buộc đăng nhập
                  antMatchers("/homepage/**" ,"/thong-tin-sinh-vien/**","/thong-tin-lien-he","/thong-bao"
                     ,"/huong-dan-dang-ky-o-ktx","/form-dang-ky-o-ktx/**","/hoadon", "/dang-ky-chuyen-phong","/upload/**","/doi-mat-khau").hasAnyAuthority("user","admin")
@@ -63,18 +65,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             and()
                 .formLogin().loginPage("/login").permitAll()
                 .defaultSuccessUrl("/homepage")
-//                .successHandler(new AuthenticationSuccessHandler() {
-//                    @Override
-//                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-//                        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-//                        if (roles.contains("admin")) {
-//                            response.sendRedirect("/admin");
-//                        }
-//                        else {
-//                            response.sendRedirect("/homepage");
-//                        }
-//                    }
-//                })//trang mặc định khi đăng nhập thành công
+                .successHandler(new AuthenticationSuccessHandler() {
+                    @Override
+                    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+                        Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+                        if (roles.contains("admin")) {
+                            response.sendRedirect("/admin");
+                        }
+                        else {
+                            response.sendRedirect("/homepage");
+                        }
+                    }
+                })//trang mặc định khi đăng nhập thành công
                 .failureUrl("/login?success=fail")
                 .loginProcessingUrl("/j_spring_security_check").
             and().logout(logout -> logout

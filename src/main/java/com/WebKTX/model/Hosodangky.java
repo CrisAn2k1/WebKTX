@@ -1,6 +1,7 @@
 package com.WebKTX.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -17,9 +18,6 @@ public class Hosodangky {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private User idUser;
-
-    @Column(name = "mota")
-    private String mota;
 
     @Column(name = "ngaytao")
     private Instant ngaytao;
@@ -77,14 +75,6 @@ public class Hosodangky {
 
     public void setNgaytao(Instant ngaytao) {
         this.ngaytao = ngaytao;
-    }
-
-    public String getMota() {
-        return mota;
-    }
-
-    public void setMota(String mota) {
-        this.mota = mota;
     }
 
     public User getIdUser() {

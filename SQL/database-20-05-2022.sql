@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `quanlyktx` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `quanlyktx`;
 -- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: quanlyktx
@@ -27,16 +25,15 @@ DROP TABLE IF EXISTS `chitiethoadon`;
 CREATE TABLE `chitiethoadon` (
   `id_CTHD` int NOT NULL AUTO_INCREMENT,
   `chisotieuthu` int DEFAULT NULL,
-  `dongia` double DEFAULT NULL,
   `thanhtien` double DEFAULT NULL,
   `id_dichvu` int DEFAULT NULL,
   `id_hoadon` int DEFAULT NULL,
   PRIMARY KEY (`id_CTHD`),
-  KEY `id_cthd_hoadon_idx` (`id_hoadon`),
   KEY `id_cthd_dicvu_idx` (`id_dichvu`),
+  KEY `id_cthd_hoadon_idx` (`id_hoadon`),
   CONSTRAINT `id_cthd_dicvu` FOREIGN KEY (`id_dichvu`) REFERENCES `dichvudiennuoc` (`id_dichvu`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `id_cthd_hoadon` FOREIGN KEY (`id_hoadon`) REFERENCES `hoadon` (`id_hoadon`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +42,7 @@ CREATE TABLE `chitiethoadon` (
 
 LOCK TABLES `chitiethoadon` WRITE;
 /*!40000 ALTER TABLE `chitiethoadon` DISABLE KEYS */;
+INSERT INTO `chitiethoadon` VALUES (31,12,42000,1,17),(32,3,12000,2,17),(33,11,38500,1,18),(34,12,48000,2,18),(41,10,35000,1,22),(42,10,40000,2,22),(45,7,24500,1,24),(46,69,276000,2,24);
 /*!40000 ALTER TABLE `chitiethoadon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +83,7 @@ CREATE TABLE `dichvudiennuoc` (
   `tendichvu` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `dongia` double DEFAULT '3000',
   PRIMARY KEY (`id_dichvu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,6 +92,7 @@ CREATE TABLE `dichvudiennuoc` (
 
 LOCK TABLES `dichvudiennuoc` WRITE;
 /*!40000 ALTER TABLE `dichvudiennuoc` DISABLE KEYS */;
+INSERT INTO `dichvudiennuoc` VALUES (1,'Điện',3500),(2,'Nước',4000);
 /*!40000 ALTER TABLE `dichvudiennuoc` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,15 +126,15 @@ DROP TABLE IF EXISTS `hoadon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hoadon` (
-  `id_hoadon` int NOT NULL,
-  `tongtien` double NOT NULL,
-  `ngayxuatHD` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_hoadon` int NOT NULL AUTO_INCREMENT,
+  `tongtien` double DEFAULT NULL,
+  `ngayxuatHD` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `id_phong` varchar(5) DEFAULT NULL,
   `trangthaithanhtoan` bit(1) DEFAULT b'0',
   PRIMARY KEY (`id_hoadon`),
   KEY `id_hoadon_phong_idx` (`id_phong`),
   CONSTRAINT `id_hoadon_phong` FOREIGN KEY (`id_phong`) REFERENCES `phong` (`id_phong`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +143,7 @@ CREATE TABLE `hoadon` (
 
 LOCK TABLES `hoadon` WRITE;
 /*!40000 ALTER TABLE `hoadon` DISABLE KEYS */;
-INSERT INTO `hoadon` VALUES (1,325000,'2022-04-28 13:40:01','P1008',_binary '\0'),(2,280000,'2022-04-28 13:40:01','P1008',_binary '');
+INSERT INTO `hoadon` VALUES (17,54000,'2022-05-15 21:42:34','P111',_binary ''),(18,86500,'2022-05-15 21:45:33','P111',_binary '\0'),(22,75000,'2022-05-17 18:26:01','P1008',_binary ''),(24,300500,'2022-05-19 10:55:32','P1008',_binary '\0');
 /*!40000 ALTER TABLE `hoadon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -164,7 +163,7 @@ CREATE TABLE `hosochuyenphong` (
   PRIMARY KEY (`id_hosocp`),
   KEY `id_hscp_user_idx` (`id_user`),
   CONSTRAINT `id_hscp_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +172,7 @@ CREATE TABLE `hosochuyenphong` (
 
 LOCK TABLES `hosochuyenphong` WRITE;
 /*!40000 ALTER TABLE `hosochuyenphong` DISABLE KEYS */;
-INSERT INTO `hosochuyenphong` VALUES (1,'Em mong muốn chuyến qua phòng P1009 vì lí do: các bạn trong phòng ngủ quá trễ và la hét rất nhiều.','2022-05-09 15:00:57',18,NULL);
+INSERT INTO `hosochuyenphong` VALUES (15,'','2022-05-19 13:03:14',26,_binary ''),(16,'Phòng quá ồn','2022-05-20 10:10:16',24,_binary '\0');
 /*!40000 ALTER TABLE `hosochuyenphong` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +185,6 @@ DROP TABLE IF EXISTS `hosodangky`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `hosodangky` (
   `id_hosodk` int NOT NULL AUTO_INCREMENT,
-  `mota` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `ngaytao` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ngaynhanphong` date DEFAULT NULL,
   `ngaytraphong` date DEFAULT NULL,
@@ -195,7 +193,7 @@ CREATE TABLE `hosodangky` (
   PRIMARY KEY (`id_hosodk`),
   KEY `id_hsdk_user_idx` (`id_user`),
   CONSTRAINT `id_hsdk_user` FOREIGN KEY (`id_user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +202,7 @@ CREATE TABLE `hosodangky` (
 
 LOCK TABLES `hosodangky` WRITE;
 /*!40000 ALTER TABLE `hosodangky` DISABLE KEYS */;
-INSERT INTO `hosodangky` VALUES (1,'Em là sinh viên năm 3 trường đại học Hutech, em mong muốn được vào ở ktx','2022-05-09 13:29:08','2022-05-10','2022-05-13',18,NULL);
+INSERT INTO `hosodangky` VALUES (5,'2022-05-17 19:50:40','2022-05-29','2022-06-05',26,_binary ''),(6,'2022-05-19 12:38:14','2022-04-25','2022-05-08',24,NULL),(7,'2022-05-19 15:26:56','2022-05-15','2022-05-29',26,NULL),(8,'2022-05-19 15:40:25','2021-07-20','2022-07-20',26,_binary '');
 /*!40000 ALTER TABLE `hosodangky` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +252,7 @@ CREATE TABLE `phong_noithat` (
   KEY `id_phongnt_noithat_idx` (`id_noithat`),
   CONSTRAINT `id_phong_nt_noithat` FOREIGN KEY (`id_noithat`) REFERENCES `danhmucnoithat` (`id_noithat`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `id_phong_nt_phong` FOREIGN KEY (`id_phong`) REFERENCES `phong` (`id_phong`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,7 +261,7 @@ CREATE TABLE `phong_noithat` (
 
 LOCK TABLES `phong_noithat` WRITE;
 /*!40000 ALTER TABLE `phong_noithat` DISABLE KEYS */;
-INSERT INTO `phong_noithat` VALUES (1,'P1001',1,3),(2,'P1001',2,2),(3,'P1001',4,4),(4,'P1008',1,5),(5,'P1008',2,3),(6,'P1008',3,1),(7,'P1008',5,2),(8,'P1008',6,6);
+INSERT INTO `phong_noithat` VALUES (1,'P1001',1,7),(2,'P1001',2,2),(3,'P1001',4,4),(9,'P1001',3,6),(12,'P703',2,10),(29,'P1107',1,NULL),(31,'P1210',1,6),(32,'P1008',2,4),(35,'P1008',6,5),(36,'P1008',4,10),(37,'P1008',3,12);
 /*!40000 ALTER TABLE `phong_noithat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,7 +314,7 @@ CREATE TABLE `roles_users` (
 
 LOCK TABLES `roles_users` WRITE;
 /*!40000 ALTER TABLE `roles_users` DISABLE KEYS */;
-INSERT INTO `roles_users` VALUES (18,1),(18,2),(19,1);
+INSERT INTO `roles_users` VALUES (24,1),(24,2),(26,1);
 /*!40000 ALTER TABLE `roles_users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -361,10 +359,9 @@ CREATE TABLE `user` (
   `gioitinh` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Nam',
   `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `diachicutru` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `avatar` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `truonghoc` varchar(150) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `nienkhoa` int DEFAULT '2019',
-  `trangthai` bit(1) DEFAULT b'0',
   `tinh` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Sóc Trăng',
   `huyen` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'Mỹ Xuyên',
   `xa` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'TT. Mỹ Xuyên',
@@ -376,7 +373,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`),
   KEY `id_user_phong_idx` (`id_phong`),
   CONSTRAINT `id_user_phong` FOREIGN KEY (`id_phong`) REFERENCES `phong` (`id_phong`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -385,7 +382,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (18,'user2k1','$2a$10$9dmwk7/T7LOatqvpWnbe2.kWfp8TB8mDO/QK3jScdX2Vwawv1kZEO',NULL,'Dương Quốc An','2001-04-20','Nam','0335183056','Mỹ Xuyên, Mỹ Xuyên, Sóc Trăng ',NULL,NULL,2017,NULL,NULL,NULL,NULL,'P1008','366356852','1911065963',_binary '',NULL),(19,'testNew','$2a$10$uwvvbqrrsIkBMflWKeZJr.zX2K.GqlueeJN/esRE/wtxR15lBMPim','duongquocan2k1@gmail.com','Dương Quốc An',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,_binary '',NULL);
+INSERT INTO `user` VALUES (24,'user2k1','$2a$10$5gNrpSDoOAnqPRHTAlXpNOKKs00Xo28Y4r2FQqun1WglddvvJ6TVO','duongquocan222@gmail.com','Dương An','2022-05-14','Nam','0335183057','205/45 huyện lộ 14','/assets/avatar/2.jpg','Hutech',2019,'Sóc Trăng','Mỹ Xuyên','TT Mỹ Xuyên','P1009','366356852','1911065963',_binary '',NULL),(26,'test2k1','$2a$10$n9i59hD9xE3lhMV.g2T.9OPP8juKlfS/p7yhlR2qSL8ncrGAvybaS','duongquocan2k1@gmail.com','Dương Quốc An','2001-04-20','Nam','0335183057','205/45 huyện lộ 14','/assets/avatar/1.jpg','Hutech',2019,'Sóc Trăng','Mỹ Xuyên','TT Mỹ Xuyên','P1008','366356852','1911065963',_binary '',NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -398,4 +395,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-11 15:15:41
+-- Dump completed on 2022-05-20 21:31:32

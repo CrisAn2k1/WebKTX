@@ -45,6 +45,11 @@ public class UserServiceIplm implements UserService {
         userEdit.setTinh(user.getTinh());
         userEdit.setHuyen(user.getHuyen());
         userEdit.setXa(user.getXa());
+        userEdit.setEnabled(user.getEnabled());
+        if(!user.getFile().isEmpty())
+        {
+            userEdit.setAvatar(user.getAvatar());
+        }
         userRepository.save(userEdit);
     }
 
@@ -89,7 +94,7 @@ public class UserServiceIplm implements UserService {
         String subject = "Xác nhận đăng kí tài khoản";
         String content = "Dear [[name]],<br>"
                 + "Nhấp vào link bên dưới để kích hoạt tài khoản của bạn:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "<h3><a href=\"[[URL]]\" target=\"_self\">Xác nhận tài khoản!</a></h3>"
                 + "<br>"
                 + "Nguyễn Huy Bảo Toàn";
 

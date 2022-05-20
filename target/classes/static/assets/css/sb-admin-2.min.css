@@ -9948,13 +9948,27 @@ a:focus {
 }
 
 #wrapper #content-wrapper {
+
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  #wrapper #content-wrapperr {
     background-color: #f8f9fc;
     width: 100%;
-    overflow-x: hidden
-}
+    overflow-x: hidden;
+  }
 
 #wrapper #content-wrapper #content {
     flex: 1 0 auto
+}
+#wrapper .container-fluid{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-image: url(../img/banner.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 }
 
 .container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl {

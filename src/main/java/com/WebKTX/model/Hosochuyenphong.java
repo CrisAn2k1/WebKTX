@@ -23,6 +23,17 @@ public class Hosochuyenphong {
     @Column(name = "trangthai")
     private Boolean trangthai;
 
+    @Transient
+    private Phong phong;
+
+    public Phong getPhong() {
+        return phong;
+    }
+
+    public void setPhong(Phong phong) {
+        this.phong = phong;
+    }
+
     public Boolean getTrangthai() {
         return trangthai;
     }

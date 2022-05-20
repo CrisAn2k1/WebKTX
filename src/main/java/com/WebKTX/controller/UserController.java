@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @PostMapping("/process_register")
-    public String processRegister(User user, HttpServletRequest request, RedirectAttributes redirect)
+    public String processRegister(User user,Model model, HttpServletRequest request, RedirectAttributes redirect)
             throws UnsupportedEncodingException, MessagingException {
         if(!user.getPassword().equals(user.getConfirmPassowrd()))
         {
@@ -72,6 +72,7 @@ public class UserController {
             return "redirect:/register";
         }
             userService.register(user, getSiteURL(request));
+            model.addAttribute("emailId", user.getEmail());
             return "/signup-success";
     }
 
@@ -110,14 +111,14 @@ public class UserController {
         return user;
     }
 
-    @GetMapping({"/thong-tin-sinh-vien","/homepage"})
+    @GetMapping({"/thong-tin-sinh-vien","/homepage","/"})
     @PreAuthorize("hasAnyAuthority('user')")
     public String indexPage(Model model){
         if(getCurrentUser() != null)
         {
             int year = Calendar.getInstance().get(Calendar.YEAR);
             model.addAttribute("currentYear",year);
-            model.addAttribute("infoUser",getCurrentUser());
+            model.addAttribute("currentUser",getCurrentUser());
         }
         return "thong-tin-sinh-vien";
     }
@@ -126,13 +127,14 @@ public class UserController {
     public String infoPage(Model model){
         if(getCurrentUser() != null)
         {
-            model.addAttribute("infoUser",getCurrentUser());
+            model.addAttribute("currentUser",getCurrentUser());
         }
         return "thong-tin-lien-he";
     }
 
     @GetMapping("/thong-bao")
-    public String noticePage(){
+    public String noticePage(Model model){
+        model.addAttribute("currentUser", getCurrentUser());
         return "thong-bao";
     }
 
@@ -172,6 +174,7 @@ public class UserController {
     @GetMapping("/doi-mat-khau")
     public String changePassword(Model model){
 
+        model.addAttribute("currentUser",getCurrentUser());
         model.addAttribute("newPassword",new User());
         return "change-password";
     }

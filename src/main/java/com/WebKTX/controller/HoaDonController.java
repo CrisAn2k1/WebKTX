@@ -27,29 +27,38 @@ public class HoaDonController {
     @Autowired
     private CTHDRepository cthdRepo;
 
-    @GetMapping("/hoadon")
-    public String hoadon(Model model){
+    @Autowired
+    private UserRepository userRepo;
+    public User getCurrentUser(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetail currentUser = (UserDetail) auth.getPrincipal();
         Integer userId = currentUser.id();
-        User user = repo.findById(userId).orElse(null);
-        if(user != null && user.getIdPhong() != null)
+        User user = userRepo.findById(userId).orElse(null);
+        return user;
+    }
+
+    @GetMapping("/hoadon")
+    public String hoadon(Model model){
+        if(getCurrentUser() != null && getCurrentUser().getIdPhong() != null)
         {
-            Set<Hoadon> listHoaDon = user.getIdPhong().getHoadons();
+            Set<Hoadon> listHoaDon = getCurrentUser().getIdPhong().getHoadons();
+            model.addAttribute("currentUser", getCurrentUser());
             model.addAttribute("listHoaDon",listHoaDon);
             model.addAttribute("error",false);
         }
-        if (user.getIdPhong()==null){
+        if (getCurrentUser().getIdPhong()==null){
             model.addAttribute("error",true);
         }
 
-        return "hoadon";
+        return "/hoadon";
     }
 
     @GetMapping("/hoadon/{idHD}")
     public String chiTietHD(@PathVariable("idHD") Integer idHD, Model model){
+
         List<Chitiethoadon> listCTHD = cthdRepo.findByIdHoadon(idHD);
         model.addAttribute("listCTHD",listCTHD);
+        model.addAttribute("currentUser", getCurrentUser());
         return "chi-tiet-hoa-don";
     }
 }

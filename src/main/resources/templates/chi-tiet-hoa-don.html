@@ -47,7 +47,7 @@
       cursor: pointer; /* Pointer/hand icon */
       float: left; /* Float the buttons side by side */
       margin-top: 10px;;
-      border-radius: 5px;;
+      border-radius: 15px;;
     }
 
     /* Clear floats (clearfix hack) */
@@ -81,14 +81,15 @@
     <!-- Main Content -->
     <div id="content">
       <!-- Topbar -->
-      <div th:replace="fragments/nav :: topnav"></div>
-      <!-- End of Topbar -->
+      <div
+              th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"
+      ></div>      <!-- End of Topbar -->
 
       <!-- Begin Page Content -->
       <div class="container-fluid" >
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4 text-center">
-          <h1 class="h3 mb-0 text-gray-800" style="color: red !important;font-weight: bold;height: 100%;width: 100%;">Chi tiết hoá Đơn</h1>
+          <h1 class="h3 mb-0 text-gray-800" style="color: #effe2e !important;font-weight: bold;height: 100%;width: 100%;">Chi tiết hoá Đơn</h1>
         </div>
 
         <div class="card shadow mb-4">
@@ -100,8 +101,8 @@
                   <th>STT</th>
                   <th>Dịch vụ</th>
                   <th>Chỉ số tiêu thụ</th>
-                  <th>Đơn giá:</th>
-                  <th>Thành tiền:</th>
+                  <th>Đơn giá</th>
+                  <th>Thành tiền</th>
                 </tr>
                 </thead>
                 <tbody th:each="cthd, count : ${listCTHD}">
@@ -144,15 +145,15 @@
 <div th:replace="fragments/nav :: logout"></div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
 
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <!-- Core plugin JavaScript-->
-<script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 <!-- Custom scripts for all pages-->
-<script src="assets/js/sb-admin-2.min.js"></script>
+<script src="/assets/js/sb-admin-2.min.js"></script>
 <!--    <script src="assets/js/demo/datatables-demo.js"></script>-->
 
 </body>

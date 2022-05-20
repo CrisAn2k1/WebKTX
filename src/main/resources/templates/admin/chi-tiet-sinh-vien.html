@@ -24,14 +24,14 @@
 <!-- Custom styles for button -->
 <style>
     .btn-group button {
-        background-color: #04AA6D; /* Green background */
+        background-color: #00d0c4; /* Green background */
         border: 1px solid green; /* Green border */
         color: white; /* White text */
         padding: 10px 24px; /* Some padding */
         cursor: pointer; /* Pointer/hand icon */
         float: left; /* Float the buttons side by side */
         margin-top: 10px;;
-        border-radius: 5px;;
+        border-radius: 15px;;
     }
 
     /* Clear floats (clearfix hack) */
@@ -47,7 +47,7 @@
 
     /* Add a background color on hover */
     .btn-group button:hover {
-        background-color: #3e8e41;
+        background-color: #d2c755;
     }
 </style>
 
@@ -58,17 +58,17 @@
     <div th:replace="fragments/nav :: sidebaradmin"></div>
     <!-- End of Sidebar -->
     <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column" >
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
-            <div th:replace="fragments/nav :: topnav"></div>
+            <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
             <!-- End of Topbar -->
             <!-- Begin Page Content -->
             <div class="container-fluid">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-center" style="color: red;width: 100%">Thông Tin Sinh Viên <br>  <strong th:text="${'-- ' + detailUser.hoten} + ' --'"></strong></h1>
+                    <h1 class="h3 mb-0 text-center" style="color: #effe2e;width: 100%">Thông Tin Sinh Viên <br>  <strong th:text="${'-- ' + detailUser.hoten} + ' --'"></strong></h1>
                 </div>
                 <!-- Content Row -->
                 <div class="row row-cols-2" style="justify-content: center">
@@ -106,7 +106,7 @@
                                         <div th:if="${detailUser.truonghoc != null}"><strong>Trường: </strong></div>
                                         <div><strong>Năm thứ: </strong></div>
                                     </div>
-                                    <div class="col-md-8">
+                                    <div class="col-md-8" style="font-size: 15px;">
                                         <div th:text="${detailUser.mssv}"></div>
                                         <div th:text="${#dates.format(detailUser.ngaysinh,'dd-MM-yyyy')}"></div>
                                         <div th:text="${detailUser.gioitinh}"></div>

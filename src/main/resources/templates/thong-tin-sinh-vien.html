@@ -31,13 +31,12 @@
         <!-- Main Content -->
         <div id="content">
           <!-- Topbar -->
-          <div th:replace="fragments/nav :: topnav"></div>
-          <!-- End of Topbar -->
+          <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>          <!-- End of Topbar -->
           <!-- Begin Page Content -->
-          <div class="container-fluid">
+          <div class="container-fluid" style="height: 100%">
             <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800">Thông tin sinh viên</h1>
+            <div class="d-sm-flex align-items-center justify-content-center mb-4">
+              <h1 class="h3 mb-0 text-white" style="color: #effe2e !important; font-weight: bold">Thông tin sinh viên</h1>
             </div>
             <!-- Content Row -->
             <div class="row row-cols-2" style="justify-content: center">
@@ -54,8 +53,7 @@
                                   border-radius: 90%;
                                  align-items: center;
                                  justify-content: center;
-                                  overflow: hidden" class="hinh" alt="" th:src="@{${infoUser.getAvatar()}}">
-
+                                  overflow: hidden" class="hinh" alt="" th:src="@{${currentUser.getAvatar()}}">
                         </div>
                       </div>
                     </div>
@@ -68,8 +66,8 @@
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
                     <h4 class="m-0 font-weight-bold text-primary">
-                      <name th:text="${infoUser.getHoten()}"></name>
-                      <idRoom  th:if="${infoUser.getIdPhong()} != null" th:text="' - ' +${infoUser.getIdPhong().getId()}"></idRoom>
+                      <name th:text="${currentUser.getHoten()}"></name>
+                      <idRoom  th:if="${currentUser.getIdPhong()} != null" th:text="' - ' +${currentUser.getIdPhong().getId()}"></idRoom>
                     </h4>
                   </div>
                   <div class="card-body">
@@ -82,14 +80,14 @@
                         <div><strong> Năm thứ:</strong></div>
                       </div>
                       <div class="col-md-8" style="font-size: 15px; font-weight: bold">
-                        <div th:text="${infoUser.getMssv()}"></div>
-                        <div th:text="${#dates.format(infoUser.getNgaysinh(),'dd-MM-yyyy')}"></div>
+                        <div th:text="${currentUser.getMssv()}"></div>
+                        <div th:text="${#dates.format(currentUser.getNgaysinh(),'dd-MM-yyyy')}"></div>
                         <div>
-                          <span th:if="${infoUser.getGioitinh()} != null" th:text="${infoUser.getGioitinh()}"></span>
-                          <span th:if="${infoUser.getGioitinh()} == null" th:text="${'Updating'}"></span>
+                          <span th:if="${currentUser.getGioitinh()} != null" th:text="${currentUser.getGioitinh()}"></span>
+                          <span th:if="${currentUser.getGioitinh()} == null" th:text="${'Updating'}"></span>
                         </div>
-                        <div th:text="${infoUser.truonghoc}"></div>
-                        <div th:text="${currentYear - infoUser.nienkhoa}"></div>
+                        <div th:text="${currentUser.truonghoc}"></div>
+                        <div th:text="${currentYear - currentUser.nienkhoa}"></div>
                       </div>
                     </div>
                   </div>

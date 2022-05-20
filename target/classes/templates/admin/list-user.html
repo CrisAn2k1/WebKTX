@@ -20,6 +20,10 @@
   <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
   <link href="/assets/css/furniture.css" rel="stylesheet" />
 
+  <!-- Sweet alert 2 -->
+  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
+
   <!-- Custom styles for table -->
   <style>
     table {
@@ -48,8 +52,8 @@
       padding: 10px 24px; /* Some padding */
       cursor: pointer; /* Pointer/hand icon */
       float: left; /* Float the buttons side by side */
-      margin-top: 10px;;
-      border-radius: 5px;;
+      margin: 10px;
+      border-radius: 15px;
     }
 
     /* Clear floats (clearfix hack) */
@@ -69,6 +73,7 @@
     }
   </style>
 
+
 </head>
 
 <body id="page-top">
@@ -78,16 +83,16 @@
   <div th:replace="fragments/nav :: sidebaradmin"></div>
   <!-- End of Sidebar -->
   <!-- Content Wrapper -->
-  <div th:if="${listUser.size()!=0}" id="content-wrapper" class="d-flex flex-column">
+  <div th:if="${listUser.size()!=0}" id="content-wrapperr" class="d-flex flex-column">
     <!-- Main Content -->
     <div id="content">
       <!-- Topbar -->
-      <div th:replace="fragments/nav :: topnav"></div>
+      <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
-      <div class="container-fluid">
+      <div class="">
         <h1 class="h3 mb-2 text-gray-800 text-center">
-          Danh sách sinh viên
+         <Strong> Danh Sách Sinh Viên</Strong>
           <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
           </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
         </h1>
@@ -95,6 +100,7 @@
         <div class="card-body">
           <div class="table-responsive">
             <div style="font-size: 18px;">
+              <div class="alert alert-warning text-center" role="alert" th:if = "${error}"> Error: <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${error}"  ></error> </div >
               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" >
                 <thead>
                 <tr>
@@ -102,9 +108,8 @@
                   <th>Họ tên</th>
                   <th>Ngày sinh</th>
                   <th>Giới tính</th>
-                  <th>SĐT</th>
                   <th>SV Năm</th>
-                  <th></th>
+                  <th>Trạng thái tài khoản</th>
                   <th></th>
                 </tr>
                 </thead>
@@ -114,11 +119,42 @@
                   <td th:text="${user.hoten}"></td>
                   <td th:text="${#dates.format(user.ngaysinh,'dd-MM-yyyy')}"></td>
                   <td th:text="${user.gioitinh}"></td>
-                  <td th:text="${user.phone}"></td>
                   <td th:text="${currentYear - user.nienkhoa}"></td>
-                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chi tiết</a></td>
-                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chỉnh sửa</a></td>
-                  <td><a th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Xoá</a></td>
+                  <td>
+                    <span th:if="${user.getEnabled() == false }" style="color: red; font-weight: bold">Khóa</span>
+                    <span th:unless="${user.getEnabled() == false}" style="color: limegreen; font-weight: bold">Kích hoạt</span>
+                  </td>
+                  <td><a
+                          style="
+                            padding: 2px 6px;
+                            cursor: pointer;
+                            border-radius: 15px;
+                            background-color: rgb(112, 223, 120);
+                            color: white;
+                            font-weight: bold;
+                            text-decoration: none;"
+                          th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/chi-tiet-sinh-vien( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chi tiết</a></td>
+                  <td><a
+                          style="
+                              text-decoration: none;
+                              font-weight: bold;
+                              color: #4753ca;
+                              background-color: rgba(204, 203, 211, 0.8);
+                              border-radius: 15px;
+                              cursor:pointer;
+                              padding: 2px 6px;"
+                          th:href="@{/admin/quan-ly-sinh-vien/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${user.getId()} )}">Chỉnh sửa</a></td>
+                  <td><a
+                          th:data-idUser="${user.getId()}"
+                          th:data-currentIdLogin="${currentUser.getId()}"
+                          style="text-decoration: none;
+                          padding: 2px 6px;
+                          cursor: pointer;
+                          border-radius: 15px;
+                          background-color: rgba(255, 185, 185, 0.6);
+                          color: red;
+                          font-weight: bold"
+                          onclick="deleteUser(this.getAttribute('data-idUser'),this.getAttribute('data-currentIdLogin'))">Xoá</a></td>
                 </tr>
                 </tbody>
               </table>
@@ -137,7 +173,11 @@
       </div>
       <!-- End of Content Wrapper -->
     </div>
-    <div th:replace="fragments/nav :: footer"></div>
+    <div class="container bg-white " style="max-width: 100%; margin-top: 220px;">
+      <div class="copyright text-center">
+        <span>Copyright &copy; Nhóm Java</span>
+      </div>
+    </div>
   </div>
   <div th:unless="${listUser.size()!=0}" class="btn-group" style="width: 100%;font-size: large;font-weight: bold;">
     <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">Không sinh viên nào trong phòng này! <br/>
@@ -172,5 +212,10 @@
 <!-- Page level custom scripts -->
 <script src="/assets/js/demo/chart-area-demo.js"></script>
 <script src="/assets/js/demo/chart-pie-demo.js"></script>
+
+<!-- Sweet alert 2 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="/assets/js/user.js"></script>
 </body>
 </html>

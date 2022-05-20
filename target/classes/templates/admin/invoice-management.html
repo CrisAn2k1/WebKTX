@@ -48,7 +48,7 @@
             cursor: pointer; /* Pointer/hand icon */
             float: left; /* Float the buttons side by side */
             margin: 10px;
-            border-radius: 5px;;
+            border-radius: 15px;;
         }
 
         /* Clear floats (clearfix hack) */
@@ -77,16 +77,16 @@
     <div th:replace="fragments/nav :: sidebaradmin"></div>
     <!-- End of Sidebar -->
     <!-- Content Wrapper -->
-    <div th:if="${listHD.size()!=0}" id="content-wrapper" class="d-flex flex-column">
+    <div th:if="${listHD.size()!=0}" id="content-wrapperr" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
-            <div th:replace="fragments/nav :: topnav"></div>
+            <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
             <!-- End of Topbar -->
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="">
                 <h1 class="h3 mb-2 text-gray-800 text-center">
-                    Danh sách hóa đơn
+                    <strong style="font-size: 30px">Danh Sách Hóa Đơn</strong>
                     <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
                     </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
                 </h1>
@@ -126,8 +126,26 @@
                                         <span th:unless="${HoaDon.getTrangthaithanhtoan() == false}" style="color: limegreen; font-weight: bold">Đã thanh toán</span>
                                     </td>
                                     <div class="btn-link">
-                                        <td><a style="text-decoration: none; font-weight: bold; color: orange;background-color: #dbde77a3;border-radius: 15px; cursor:pointer; padding: 2px 6px;" th:href="@{/admin/invoice-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${HoaDon.getId()} )}">Chỉnh sửa</a></td>
-                                        <td><a th:data-idhoadon="${HoaDon.getId()}" style="padding: 2px 6px;cursor: pointer;border-radius: 15px;background-color: #dbde77a3; color: red; font-weight: bold" onclick="deleteHD(this.getAttribute('data-idhoadon'))">Xóa</a></td>
+                                        <td><a
+                                                style="
+                                                  text-decoration: none;
+                                                  font-weight: bold;
+                                                  color: #4753ca;
+                                                  background-color: rgba(204, 203, 211, 0.8);
+                                                  border-radius: 15px;
+                                                  cursor:pointer;
+                                                  padding: 2px 6px;"
+                                               th:href="@{/admin/invoice-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${HoaDon.getId()} )}">Chỉnh sửa</a></td>
+                                        <td><a th:data-idhoadon="${HoaDon.getId()}"
+                                               style="
+                                                 text-decoration: none;
+                                                 padding: 2px 6px;
+                                                 cursor: pointer;
+                                                 border-radius: 15px;
+                                                 background-color: rgba(255, 185, 185, 0.6);
+                                                 color: red;
+                                                 font-weight: bold"
+                                               onclick="deleteHD(this.getAttribute('data-idhoadon'))">Xóa</a></td>
                                     </div>
                                 </tr>
                                 </tbody>
@@ -154,9 +172,6 @@
 
         </div>
         <!-- End of Content Wrapper -->
-        <!-- Footer -->
-        <div th:replace="fragments/nav :: footer"></div>
-        <!-- End of Footer -->
     </div>
 
     <div th:unless="${listHD.size()!=0}"  style="width: 100%;font-size: large;font-weight: bold;display: flex;align-items: center;justify-content: center">
