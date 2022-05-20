@@ -16,7 +16,7 @@ public class HoSoDangKyServiceImpl implements HoSoDangKyService {
         Hosodangky hosodangkyEdit = hosoDangKyRepo.findById(id).orElse(null);
         hosodangkyEdit.setNgaynhanphong(hosodangky.getNgaynhanphong());
         hosodangkyEdit.setNgaytraphong(hosodangky.getNgaytraphong());
-        hosodangkyEdit.setTrangthai(hosodangky.getTrangthai());
+        hosodangkyEdit.setTrangthai(true);
         hosoDangKyRepo.save(hosodangkyEdit);
 
     }

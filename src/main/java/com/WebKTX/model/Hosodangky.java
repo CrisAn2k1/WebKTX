@@ -19,9 +19,6 @@ public class Hosodangky {
     @JoinColumn(name = "id_user")
     private User idUser;
 
-    @Column(name = "mota")
-    private String mota;
-
     @Column(name = "ngaytao")
     private Instant ngaytao;
 
@@ -39,17 +36,6 @@ public class Hosodangky {
 
     @Transient
     private Phong phong;
-
-    @Transient
-    private MultipartFile file;
-
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
-    }
 
     public Phong getPhong() {
         return phong;
@@ -89,14 +75,6 @@ public class Hosodangky {
 
     public void setNgaytao(Instant ngaytao) {
         this.ngaytao = ngaytao;
-    }
-
-    public String getMota() {
-        return mota;
-    }
-
-    public void setMota(String mota) {
-        this.mota = mota;
     }
 
     public User getIdUser() {

@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Chỉnh sửa hóa đơn</title>
+    <title>Chỉnh Số Lượng Nội Thất</title>
 
     <!-- Custom fonts for this template-->
     <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -55,7 +55,7 @@
         cursor: pointer; /* Pointer/hand icon */
         float: left; /* Float the buttons side by side */
         margin-top: 10px;
-        border-radius: 5px;
+        border-radius: 15px !important;
       }
 
       /* Clear floats (clearfix hack) */
@@ -86,16 +86,16 @@
       <!-- Main Content -->
       <div id="content" style="width: 100%">
         <!-- Topbar -->
-        <div th:replace="fragments/nav :: topnav"></div>
+        <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
         <!-- End of Topbar -->
         <!-- Begin Page Content -->
-        <div class="container-fluid">
+        <div class="">
           <!-- DataTales Example -->
           <div class="card-body">
             <div class="">
               <div>
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                  <h2 style="width: 100%;color: red;font-weight: bold" class="text-center">Chỉnh sửa số lượng nội thất</h2>
+                  <h2 style="width: 100%;color: red;font-weight: bold" class="text-center">Chỉnh Sửa Số Lượng Nội Thất</h2>
                 </div>
                 <div class="row" style="justify-content: center">
                   <form
@@ -107,11 +107,17 @@
                   >
                     <div style="width: 100%">
                       <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
-                      <label>Tên phòng: </label>
+                      <label>Toà: </label>
                       <input
                         disabled
                         type="text"
-                        th:placeholder="${editFur.getIdPhong().getId()}"
+                        th:placeholder="${matoa}"
+                      /><br /><br />
+                      <label>Phòng: </label>
+                      <input
+                        disabled
+                        type="text"
+                        th:placeholder="${maphong}"
                       /><br /><br />
                       <label>Tên nội thất: </label>
                       <input
@@ -126,12 +132,22 @@
                         th:field="*{soluong}"
                         id="soluongton"
                       />
+                      <div class="alert alert-warning text-center" role="alert" th:if="${error}">
+                        Error:
+                        <error
+                                class="bi bi-x-circle"
+                                style="font-weight: bold"
+                                th:text=" ${error}">
+
+                        </error>
+                      </div>
                       <span th:if="${#fields.hasErrors('soluong')}" th:errors="*{soluong}"></span
-                      ><br /><br />
+
+                      ><br /><br>
                       <div class="btn-group" style="width: 90%">
                         <span>
                           <div class="inputbox">
-                            <input type="submit" value="Cập nhật" />
+                            <input style="border-radius: 15px" type="submit" value="Cập nhật" />
                             <button
                               type="button"
                               th:data-url="@{/admin/furniture-management/{idToa}/{idPhong}(idToa=${matoa}, idPhong=${maphong})}"

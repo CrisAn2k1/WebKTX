@@ -42,7 +42,7 @@ public class HoaDonController {
         if(getCurrentUser() != null && getCurrentUser().getIdPhong() != null)
         {
             Set<Hoadon> listHoaDon = getCurrentUser().getIdPhong().getHoadons();
-            model.addAttribute("infoUser", getCurrentUser());
+            model.addAttribute("currentUser", getCurrentUser());
             model.addAttribute("listHoaDon",listHoaDon);
             model.addAttribute("error",false);
         }
@@ -58,7 +58,7 @@ public class HoaDonController {
 
         List<Chitiethoadon> listCTHD = cthdRepo.findByIdHoadon(idHD);
         model.addAttribute("listCTHD",listCTHD);
-        model.addAttribute("infoUser", getCurrentUser());
+        model.addAttribute("currentUser", getCurrentUser());
         return "chi-tiet-hoa-don";
     }
 }

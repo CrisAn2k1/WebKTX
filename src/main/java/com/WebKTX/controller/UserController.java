@@ -118,7 +118,7 @@ public class UserController {
         {
             int year = Calendar.getInstance().get(Calendar.YEAR);
             model.addAttribute("currentYear",year);
-            model.addAttribute("infoUser",getCurrentUser());
+            model.addAttribute("currentUser",getCurrentUser());
         }
         return "thong-tin-sinh-vien";
     }
@@ -127,14 +127,14 @@ public class UserController {
     public String infoPage(Model model){
         if(getCurrentUser() != null)
         {
-            model.addAttribute("infoUser",getCurrentUser());
+            model.addAttribute("currentUser",getCurrentUser());
         }
         return "thong-tin-lien-he";
     }
 
     @GetMapping("/thong-bao")
     public String noticePage(Model model){
-        model.addAttribute("infoUser", getCurrentUser());
+        model.addAttribute("currentUser", getCurrentUser());
         return "thong-bao";
     }
 
@@ -174,6 +174,7 @@ public class UserController {
     @GetMapping("/doi-mat-khau")
     public String changePassword(Model model){
 
+        model.addAttribute("currentUser",getCurrentUser());
         model.addAttribute("newPassword",new User());
         return "change-password";
     }

@@ -98,6 +98,7 @@ public class AdminController {
         model.addAttribute("listToaNha",listToaNha);
         model.addAttribute("titles","sinh viên");
         model.addAttribute("url","quan-ly-sinh-vien");
+        model.addAttribute("currentUser",getCurrentUser());
         return "admin/list-phong";
     }
     @GetMapping("/quan-ly-sinh-vien/{idToaNha}/{idPhong}")
@@ -108,6 +109,7 @@ public class AdminController {
         model.addAttribute("currentYear",year);
         model.addAttribute("matoa",idToaNha);
         model.addAttribute("maphong",idPhong);
+        model.addAttribute("currentUser",getCurrentUser());
 
         return "admin/list-user";
     }
@@ -120,6 +122,8 @@ public class AdminController {
         model.addAttribute("matoa",detailUser.getIdPhong().getIdToanha().getId());
         model.addAttribute("maphong",detailUser.getIdPhong().getId());
         model.addAttribute("detailUser",detailUser);
+        model.addAttribute("currentUser",getCurrentUser());
+
         return "admin/chi-tiet-sinh-vien";
     }
     // Hàm chỉnh sửa thông tin user
@@ -134,6 +138,8 @@ public class AdminController {
             model.addAttribute("matoa",editUser.getIdPhong().getIdToanha().getId());
             model.addAttribute("maphong",editUser.getIdPhong().getId());
             model.addAttribute("editUser",editUser);
+            model.addAttribute("currentUser",getCurrentUser());
+
             return "admin/edit-user";
         }
     }
@@ -146,12 +152,14 @@ public class AdminController {
         User user = userRepo.findById(userId).orElse(null);
         return user;
     }
+
+
     // (POST: thực hiện các câu truy vấn và tiến hành set giá trị thay đổi.)
     @PostMapping("/quan-ly-sinh-vien/edit")
     public String updateUser(User user, RedirectAttributes redirect){
 
         if(user.getFile().isEmpty()){
-            redirect.addFlashAttribute("error","Vui lòng chọn ngày nhận/trả phòng!");
+            userService.updateInfo(user.getId(), user);
             return "redirect:/admin/quan-ly-sinh-vien";
         }
         Path path = Paths.get("src/main/resources/static/assets/avatar");
@@ -160,6 +168,7 @@ public class AdminController {
             Files.copy(inputStream,path.resolve(user.getFile().getOriginalFilename()),
                     StandardCopyOption.REPLACE_EXISTING);
             user.setAvatar("/assets/avatar/" + user.getFile().getOriginalFilename().toLowerCase());
+            System.out.println("=================="+user.getAvatar());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -170,10 +179,17 @@ public class AdminController {
 
     // Hàm dùng để xoá user
     @GetMapping("/quan-ly-sinh-vien/{id}/remove")
-    public String removeUser(@PathVariable("id") Integer id){
-        userService.removeUser(id);
-        return "redirect:/admin/quan-ly-sinh-vien";
+    public String removeUser(@PathVariable("id") Integer id, RedirectAttributes redirect){
+        User deleteUser = userRepo.findById(id).orElse(null);
+        String url = "redirect:/admin/quan-ly-sinh-vien/"+deleteUser.getIdPhong().getIdToanha().getId()+"/"+deleteUser.getIdPhong().getId();
+        if (getCurrentUser().getId()==id){
+            return url;
+        }
+        userRepo.delete(deleteUser);
+        return url;
     }
+
+
 
     // Quản lý nội thất
     @GetMapping("/furniture-management")
@@ -182,6 +198,7 @@ public class AdminController {
         model.addAttribute("listToaNha",listToaNha);
         model.addAttribute("titles"," nội thất");
         model.addAttribute("url","furniture-management");
+        model.addAttribute("currentUser",getCurrentUser());
         return "admin/list-phong";
     }
 
@@ -191,6 +208,7 @@ public class AdminController {
         model.addAttribute("listFur",listFur);
         model.addAttribute("matoa",idToaNha);
         model.addAttribute("maphong",idPhong);
+        model.addAttribute("currentUser",getCurrentUser());
         return "admin/furniture-management";
     }
 
@@ -204,14 +222,21 @@ public class AdminController {
             model.addAttribute("matoa",editFur.getIdPhong().getIdToanha().getId());
             model.addAttribute("maphong",editFur.getIdPhong().getId());
             model.addAttribute("editFur",editFur);
+            model.addAttribute("currentUser",getCurrentUser());
             return "admin/edit-furniture";
         }
     }
 
     @PostMapping("/furniture-management/edit")
-    public String updateFurniture(PhongNoithat phongNoithat){
-        phongNoiThatService.updatePhongNoithat(phongNoithat.getId(),phongNoithat);
+    public String updateFurniture(PhongNoithat phongNoithat,RedirectAttributes redirect){
         PhongNoithat phongNT_Phong = phongNoiThatRepo.findById(phongNoithat.getId()).orElse(null);
+        if (phongNoithat.getSoluong()==null)
+        {
+            redirect.addFlashAttribute("error","Vui lùng nhập số lượng!");
+            return "redirect:/admin/furniture-management/"+phongNT_Phong.getIdPhong().getIdToanha().getId()+"/"+phongNT_Phong.getIdPhong().getId()+"/"+phongNoithat.getId()+"/edit";
+        }
+
+        phongNoiThatService.updatePhongNoithat(phongNoithat.getId(),phongNoithat);
         return "redirect:/admin/furniture-management/"+phongNT_Phong.getIdPhong().getIdToanha().getId()+"/"+phongNT_Phong.getIdPhong().getId();
     }
 
@@ -266,6 +291,7 @@ public class AdminController {
         model.addAttribute("listToaNha",listToaNha);
         model.addAttribute("titles","hoá đơn");
         model.addAttribute("url","invoice-management");
+        model.addAttribute("currentUser",getCurrentUser());
         return "admin/list-phong";
     }
     @GetMapping("/invoice-management/{idToaNha}/{idPhong}")
@@ -274,6 +300,7 @@ public class AdminController {
         model.addAttribute("listHD",listHD);
         model.addAttribute("matoa",idToaNha);
         model.addAttribute("maphong",idPhong);
+        model.addAttribute("currentUser",getCurrentUser());
         return "admin/invoice-management";
     }
 
@@ -284,10 +311,20 @@ public class AdminController {
             return "redirect:/admin/invoice-management";
         }
         else {
-            model.addAttribute("cthd", editHD.getChitiethoadons());
+            for (var cthd :editHD.getChitiethoadons())
+            {
+                if(cthd.getIdDichvu().getTendichvu().equals("Điện") ){
+                    model.addAttribute("chisodien",cthd.getChisotieuthu());
+                }
+                else {
+                    model.addAttribute("chisonuoc",cthd.getChisotieuthu());
+
+                }
+            }
             model.addAttribute("matoa",editHD.getIdPhong().getIdToanha().getId());
             model.addAttribute("maphong",editHD.getIdPhong().getId());
             model.addAttribute("editHD",editHD);
+            model.addAttribute("currentUser",getCurrentUser());
             return "admin/edit-invoice";
         }
     }
@@ -373,6 +410,8 @@ public class AdminController {
     public String listHosodangky(Model model){
         List<Hosodangky> listHosodangky =  hosoDangKyRepo.findAll();
         model.addAttribute("listHosodangky",listHosodangky);
+        model.addAttribute("currentUser",getCurrentUser());
+
         return "admin/hosodangky-management";
     }
 
@@ -385,6 +424,7 @@ public class AdminController {
         else {
             model.addAttribute("listPhong",phongRepo.findAll());
             model.addAttribute("editHSdangky",editHSdangky);
+            model.addAttribute("currentUser",getCurrentUser());
             return "admin/edit-hosodangky";
         }
     }
@@ -392,6 +432,10 @@ public class AdminController {
     @PostMapping("/hosodangky-management/edit")
     public String updateHSdangky(Hosodangky hosodangky,RedirectAttributes redirect ){
         User setPhongUser = userRepo.findById(hosodangky.getIdUser().getId()).orElse(null);
+        if(hosodangky.getNgaytraphong()==null||hosodangky.getNgaynhanphong()==null){
+            redirect.addFlashAttribute("error","Vui lòng chọn ngày nhận/trả phòng!");
+            return "redirect:/admin/hosodangky-management/" +hosodangky.getId()+ "/edit";
+        }
         hosoDangKyService.updateHosodangky(hosodangky.getId(),hosodangky);
         setPhongUser.setIdPhong(hosodangky.getPhong());
         userRepo.save(setPhongUser);
@@ -414,6 +458,7 @@ public class AdminController {
     public String listHosochuyenphong(Model model){
         List<Hosochuyenphong> listHosochuyenphong =  hosoChuyenPhongRepo.findAll();
         model.addAttribute("listHosochuyenphong",listHosochuyenphong);
+        model.addAttribute("currentUser",getCurrentUser());
         return "admin/hosochuyenphong-management";
     }
 
@@ -425,12 +470,17 @@ public class AdminController {
         }
         else {
             model.addAttribute("editHSchuyenphong",editHSchuyenphong);
+            model.addAttribute("currentUser",getCurrentUser());
+            model.addAttribute("listPhong",phongRepo.findAll());
             return "admin/edit-hosochuyenphong";
         }
     }
 
     @PostMapping("/hosochuyenphong-management/edit")
     public String updateHSchuyenphong(Hosochuyenphong hosochuyenphong){
+        User setPhong = userRepo.findById(hosochuyenphong.getIdUser().getId()).orElse(null);
+        setPhong.setIdPhong(hosochuyenphong.getPhong());
+
         hosoChuyenPhongService.updateHosochuyenphong(hosochuyenphong.getId(),hosochuyenphong);
         return "redirect:/admin/hosochuyenphong-management";
     }

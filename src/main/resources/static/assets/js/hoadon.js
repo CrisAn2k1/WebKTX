@@ -7,8 +7,8 @@ function deleteHD(id) {
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        cancelButtonText: 'Không',
-        confirmButtonText: 'Có'
+        cancelButtonText: 'Hủy bỏ',
+        confirmButtonText: 'Xóa'
     }).then((result) => {
         if (result.isConfirmed) {
 

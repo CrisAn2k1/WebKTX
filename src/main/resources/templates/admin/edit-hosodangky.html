@@ -7,7 +7,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Chỉnh sửa thông tin hồ sơ đăng ký</title>
+  <title>Chỉnh Sửa Thông Tin Hồ Sơ Đăng Ký</title>
 
   <!-- Custom fonts for this template-->
   <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -87,16 +87,16 @@
     <!-- Main Content -->
     <div id="content" style="width: 100%">
       <!-- Topbar -->
-      <div th:replace="fragments/nav :: topnav"></div>
+      <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
-      <div class="container-fluid">
+      <div class="">
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="d-flex justify-content-center">
             <div style="text-align: center; width: 100%">
               <div class="d-flex justify-content-center align-items-center mb-3">
-                <h3 class="text-right" style="color: red;font-weight: bold">Hồ sơ đăng ký</h3>
+                <h3 class="text-right" style="color: red;font-weight: bold">Hồ Sơ Đăng Ký</h3>
               </div>
 
                 <form
@@ -191,17 +191,15 @@
                         <label>Phường/Xã: </label>
                         <input disabled type="text" th:placeholder="${editHSdangky.getIdUser().getXa()}"/>
                         </div>
-
-
-
+                        <div class="alert alert-warning text-center" role="alert" th:if = "${error}"> <error class="bi bi-x-circle" style="font-weight: bold" th:text = " ${error}"  ></error> </div >
                         <div class="inputbox">
                           <label>Chọn ngày nhận phòng:</label>
-                          <input type="date" th:field="*{ngaynhanphong}" style="margin-right: 58px"/>
+                          <input type="date" required th:field="*{ngaynhanphong}" style="margin-right: 58px"/>
                         </div>
 
                         <div class="inputbox">
                           <label>Chọn ngày trả phòng:</label>
-                          <input type="date" th:field="*{ngaytraphong}" style="margin-right: 58px"/>
+                          <input type="date" required th:field="*{ngaytraphong}" style="margin-right: 58px"/>
                         </div>
 
 

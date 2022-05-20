@@ -9,6 +9,7 @@
 
   <title>Chỉnh sửa thông tin sinh viên</title>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
   <!-- Custom fonts for this template-->
   <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
   <link
@@ -87,16 +88,16 @@
   <!-- Main Content -->
   <div id="content" style="width: 100%">
     <!-- Topbar -->
-    <div th:replace="fragments/nav :: topnav"></div>
+    <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
     <!-- End of Topbar -->
     <!-- Begin Page Content -->
-    <div class="container-fluid">
+    <div class="">
       <!-- DataTales Example -->
       <div class="card-body">
         <div class="">
           <div style="text-align: center">
             <div class="d-flex justify-content-between align-items-center mb-3">
-              <h4 class="text-right">Chỉnh sửa thông tin sinh viên</h4>
+              <h4 class="text-center" style="width: 100%;color: red !important;font-weight: bold">Chỉnh sửa thông tin sinh viên</h4>
             </div>
             <div class="row" style="justify-content: center">
               <form
@@ -109,15 +110,16 @@
                     border: 3px solid green;
                     text-align: center;
                     width: 100%;"
+                      enctype="multipart/form-data"
 
               >
                 <div class="row">
-                  <div class="col-sm-6" style="padding: 0 40px;">
+                  <div class="col-sm-6" style="padding: 0 60px;">
 
                     <input type="text" th:field="*{id}" id="phone" placeholder="phone" hidden />
                     <div class="inputbox">
                       <label for="hoten">Họ tên:  </label>
-                      <input type="text" th:field="*{hoten}" id="hoten" placeholder="Họ tên " />
+                      <input maxlength="50" type="text" th:field="*{hoten}" id="hoten" placeholder="Họ tên " />
                       <span th:if="${#fields.hasErrors('hoten')}" th:errors="*{hoten}"></span>
                     </div>
 
@@ -129,7 +131,7 @@
 
                     <div class="inputbox">
                       <label for="phone">Số điện thoại:   </label>
-                      <input type="text" th:field="*{phone}" id="phone" placeholder="Số điện thoại" />
+                      <input maxlength="11" type="text" th:field="*{phone}" id="phone" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Số điện thoại" />
                       <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></span>
                     </div>
 
@@ -141,46 +143,46 @@
 
                     <div class="inputbox">
                       <label for="gioitinh">Giới tính: : </label>
-                      <input type="text" th:field="*{gioitinh}" id="gioitinh" placeholder="Giới tính" />
+                      <input type="text" maxlength="10" th:field="*{gioitinh}" id="gioitinh" placeholder="Giới tính" />
                       <span th:if="${#fields.hasErrors('gioitinh')}" th:errors="*{gioitinh}"></span>
                     </div>
 
                     <div class="inputbox">
                       <label for="diachicutru">Địa chỉ: </label>
-                      <input type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="Địa chỉ cư trú" />
+                      <input maxlength="100" type="text" th:field="*{diachicutru}" id="diachicutru" placeholder="Địa chỉ cư trú" />
                       <span th:if="${#fields.hasErrors('diachicutru')}" th:errors="*{diachicutru}"></span>
                     </div>
                   </div>
 
-                  <div class="col-sm-6" style="padding: 0 40px;">
+                  <div class="col-sm-6" style="padding: 0 60px;">
 
                     <div class="inputbox">
                       <label for="truonghoc">Trường học: </label>
-                      <input type="text" th:field="*{truonghoc}" id="truonghoc" placeholder="Trường học" />
+                      <input maxlength="150" type="text" th:field="*{truonghoc}" id="truonghoc" placeholder="Trường học" />
                       <span th:if="${#fields.hasErrors('truonghoc')}" th:errors="*{truonghoc}"></span>
                     </div>
 
                     <div class="inputbox">
                       <label for="tinh">Tỉnh: </label>
-                      <input type="text" th:field="*{tinh}" id="tinh" placeholder="Tỉnh" />
+                      <input maxlength="50" type="text" th:field="*{tinh}" id="tinh" placeholder="Tỉnh" />
                       <span th:if="${#fields.hasErrors('tinh')}" th:errors="*{tinh}"></span>
                     </div>
 
                     <div class="inputbox">
                       <label for="huyen">Huyện: </label>
-                      <input type="text" th:field="*{huyen}" id="huyen" placeholder="Huyện" />
+                      <input  type="text" th:field="*{huyen}" id="huyen" placeholder="Huyện" />
                       <span th:if="${#fields.hasErrors('tinh')}" th:errors="*{tinh}"></span>
                     </div>
 
                     <div class="inputbox">
                       <label for="xa">Xã: </label>
-                      <input type="text" th:field="*{xa}" id="xa" placeholder="Xã" />
+                      <input maxlength="50" type="text" th:field="*{xa}" id="xa" placeholder="Xã" />
                       <span th:if="${#fields.hasErrors('tinh')}" th:errors="*{tinh}"></span>
                     </div>
 
                     <div class="inputbox">
                       <label for="nienkhoa">Niên khóa: </label>
-                      <input type="text" th:field="*{nienkhoa}" id="nienkhoa" placeholder="Địa chỉ cư trú" />
+                      <input maxlength="4" type="text" th:field="*{nienkhoa}" id="nienkhoa" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" placeholder="Địa chỉ cư trú" />
                       <span th:if="${#fields.hasErrors('nienkhoa')}" th:errors="*{nienkhoa}"></span>
                     </div>
                     <div class="inputbox">
@@ -192,18 +194,23 @@
                     </div>
                   </div>
                 </div>
+                  <br><br>
                 <div>
-                  <label >Ảnh thẻ: </label>
-                  <img th:src="@{${editUser.getAvatar()}}" alt="" style="width: 200px">
-                  <input type="file"
+                  <label>Avatar </label><br>
+                  <img th:src="@{${editUser.getAvatar()}}" alt="" style="width: 200px"><br><br>
+                  <label>Avatar thay đổi (nếu có): </label><br>
+                  <img id="avatar"  style="width: 200px;" >
+                  <input
+                          id="fileAvatar"
+                          type="file"
                          accept="image/*"
                          class="form-control"
-                         name="avatar"
                          th:field="*{file}"
-                         placeholder="Enter photo"
                          style="
                                 width: 28%;
                                 margin: 10px auto;">
+
+
                 </div>
                 <br><br>
                 <div class="inputbox" style="justify-content: center">
@@ -252,5 +259,21 @@
 <!-- Page level custom scripts -->
 <script src="/assets/js/demo/chart-area-demo.js"></script>
 <script src="/assets/js/demo/chart-pie-demo.js"></script>
+<script type="text/javascript">
+  $(document).ready(function (){
+    $('#fileAvatar').change(function (){
+      showImageAvartar(this);
+    })
+  })
+  function showImageAvartar(fileInput){
+    file = fileInput.files[0];
+    reader = new FileReader();
+
+    reader.onload = function (e){
+      $('#avatar').attr('src',e.target.result)
+    }
+    reader.readAsDataURL(file);
+  }
+</script>
 </body>
 </html>

@@ -48,7 +48,7 @@
             cursor: pointer; /* Pointer/hand icon */
             float: left; /* Float the buttons side by side */
             margin: 10px;
-            border-radius: 5px;;
+            border-radius: 15px;;
         }
 
         /* Clear floats (clearfix hack) */
@@ -81,12 +81,12 @@
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
-            <div th:replace="fragments/nav :: topnav"></div>
+            <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
             <!-- End of Topbar -->
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="">
                 <h1 class="h3 mb-2 text-gray-800 text-center">
-                    Danh sách hóa đơn
+                    <strong style="font-size: 30px">Danh Sách Hóa Đơn</strong>
                     <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
                     </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
                 </h1>

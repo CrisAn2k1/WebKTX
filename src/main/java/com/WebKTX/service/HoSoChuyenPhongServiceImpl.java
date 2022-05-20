@@ -25,7 +25,7 @@ public class HoSoChuyenPhongServiceImpl implements HoSoChuyenPhongService {
     @Override
     public void updateHosochuyenphong(Integer id, Hosochuyenphong hosochuyenphong) {
         Hosochuyenphong hosochuyenphongEdit = hosoChuyenPhongRepo.findById(id).orElse(null);
-        hosochuyenphongEdit.setTrangthai(hosochuyenphong.getTrangthai());
+        hosochuyenphongEdit.setTrangthai(true);
         hosoChuyenPhongRepo.save(hosochuyenphongEdit);
     }
 

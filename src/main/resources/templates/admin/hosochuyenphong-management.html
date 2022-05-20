@@ -7,7 +7,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Website quản lý ký túc xá</title>
+  <title>Quản Lý HS Chuyền Phòng</title>
 
   <!-- Custom fonts for this template-->
   <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -19,6 +19,9 @@
   <!-- Custom styles for this template-->
   <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
   <link href="/assets/css/furniture.css" rel="stylesheet" />
+
+  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
 
   <!-- Custom styles for table -->
   <style>
@@ -93,11 +96,11 @@
     <!-- Main Content -->
     <div id="content">
       <!-- Topbar -->
-      <div th:replace="fragments/nav :: topnav"></div>
+      <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
       <!-- End of Topbar -->
       <!-- Begin Page Content -->
-      <div class="container-fluid">
-        <h1 class="h3 mb-2 text-gray-800 text-center">Danh sách hồ sơ chuyển phòng</h1>
+      <div class="">
+        <h1 class="h3 mb-2 text-center" style="color: red;font-weight: bold">Danh Sách Hồ Sơ Chuyển Phòng</h1>
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="table-responsive">
@@ -126,7 +129,8 @@
                     <span th:unless="${HoSoChuyenPhong.getTrangthai() == false}" style="color: limegreen; font-weight: bold">Đã duyệt</span>
                   </td>
                   <div class="btn-link">
-                    <td><a
+                    <td style="width: 100px;min-width: 100px;">
+                      <a
                             style="
                                 text-decoration: none;
                                 font-weight: bold;
@@ -134,9 +138,11 @@
                                 background-color: rgba(204, 203, 211, 0.8);
                                 border-radius: 15px;
                                 cursor:pointer;
-                                padding: 2px 6px;"
-                            th:href="@{hosochuyenphong-management/{id}/edit(id=${HoSoChuyenPhong.getId()})}">Chỉnh sửa</a></td>
+                                padding: 2px 6px;
+                                "
+                            th:href="@{hosochuyenphong-management/{id}/edit(id=${HoSoChuyenPhong.getId()})}">Chi tiết</a></td>
                     <td><a
+                            th:data-idHSCP="${HoSoChuyenPhong.getId()}"
                             style="
                                text-decoration: none;
                                padding: 2px 6px;
@@ -145,7 +151,7 @@
                                background-color: rgba(255, 185, 185, 0.6);
                                color: red;
                                font-weight: bold"
-                            th:href="@{hosochuyenphong-management/{id}/remove(id=${HoSoChuyenPhong.getId()})}">Xoá</a></td>
+                            onclick="deleteHSCP(this.getAttribute('data-idHSCP'))">Hủy bỏ</a></td>
                   </div>
                 </tr>
                 </tbody>
@@ -199,5 +205,10 @@
 <!-- Page level custom scripts -->
 <script src="/assets/js/demo/chart-area-demo.js"></script>
 <script src="/assets/js/demo/chart-pie-demo.js"></script>
+
+<script src="/assets/js/hosochuyenphong.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 </html>

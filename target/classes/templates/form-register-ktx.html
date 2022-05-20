@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
     <link rel="stylesheet" href="/assets/css/bootstrap.min.ktx.css" />
     <link rel="stylesheet" href="/assets/css/ace.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> </script>
+
     <style>
       #minutes,
       #seconds,
@@ -138,6 +140,7 @@
                                     placeholder=""
                                     type="text"
                                     value=""
+                                    maxlength="15"
                                     required
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                 />
@@ -162,6 +165,7 @@
                                   placeholder="Nguyễn Văn A"
                                   type="text"
                                   value=""
+                                  maxlength="50"
                                   th:field="*{hoten}"
                                   required
                                 />
@@ -189,6 +193,7 @@
                                         data-val-required="Bắt buộc nhập"
                                         id="gioitinh"
                                         name="gioitinh"
+                                        maxlength="10"
                                         th:field="*{gioitinh}"
                                 />
                               </div>
@@ -268,6 +273,7 @@
                                   placeholder="SĐT của sinh viên"
                                   type="text"
                                   value=""
+                                  maxlength="11"
                                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                   th:field="*{phone}"
                                 />
@@ -297,6 +303,7 @@
                                   placeholder="Nếu chưa có mã thì bỏ trống"
                                   type="text"
                                   value=""
+                                  maxlength="15"
                                   th:field="*{mssv}"
                                 />
                               </div>
@@ -320,17 +327,18 @@
                                   class="col-sm-6"
                                   id="StudentCode"
                                   maskformat=""
-                                  name="StudentCode"
+                                  name="School"
                                   placeholder="vd: ĐH Công Nghệ Thông Tin"
                                   type="text"
                                   value=""
+                                  maxlength="150"
                                   th:field="*{truonghoc}"
                                 />
                               </div>
                               <div class="clearfix">
                                 <span
                                   class="field-validation-valid help-inline"
-                                  data-valmsg-for="StudentCode"
+                                  data-valmsg-for="School"
                                   data-valmsg-replace="true"
                                 ></span>
                               </div>
@@ -356,7 +364,10 @@
                                   placeholder=""
                                   style="text-align: right"
                                   type="number"
+                                  pattern="\d*"
                                   value="2022"
+                                  maxlength="4"
+                                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
                                   th:field="*{nienkhoa}"
                                 />
                               </div>
@@ -401,6 +412,7 @@
                                           data-val-required="Bắt buộc nhập"
                                           id="ProvineId"
                                           name="ProvineId"
+                                          maxlength="50"
                                           th:field="*{tinh}"
                                   />
                                 </div>
@@ -428,6 +440,7 @@
                                           data-val-required="Bắt buộc nhập"
                                           id="DistrictId"
                                           name="DistrictId"
+                                          maxlength="50"
                                           th:field="*{huyen}"
                                   />
                                 </div>
@@ -455,6 +468,7 @@
                                           data-val-required="Bắt buộc nhập"
                                           id="WardsId"
                                           name="WardsId"
+                                          maxlength="50"
                                           th:field="*{xa}"
                                   />
                                 </div>
@@ -486,6 +500,7 @@
                                           placeholder="Địa chỉ cư trú"
                                           type="text"
                                           value=""
+                                          maxlength="100"
                                           th:field="*{diachicutru}"
                                   />
                                 </div>
@@ -505,16 +520,6 @@
                         <div style="border: solid 1px #cccccc; border-radius: 3px; padding: 10px">
                           <div id="divImageAdmissionNotice">
                             <div>
-                              <h5 class="green inline">
-                                <b style="text-transform: uppercase">
-                                  <span
-                                    >ĐỐI VỚI TÂN SINH VIÊN (NĂM 1): HÌNH ẢNH GIẤY XÁC NHẬN/GIỚI
-                                    THIỆU HOẶC ĐƠN ĐĂNG KÝ Ở KÝ TÚC XÁ CÓ XÁC NHẬN CỦA NHÀ
-                                    TRƯỜNG</span
-                                  >
-                                  <span class="text-danger">(*)</span><br />
-                                </b>
-                              </h5>
                               <h5 class="green inline" style="color: blue !important">
                                 <b style="text-transform: uppercase">
                                   <span
@@ -528,146 +533,16 @@
                             <div class="edit-view">
                               <p>
                                 <label>Ảnh thẻ </label>
-                                <label>Kích thước:3x4</label>
-                                <input type="file"
+                                <label>kích thước:3x4</label>
+                                <img id="avatar"  src="/assets/avatar/icon-img.jpg" style="width: 200px;" ><br>
+                                <input
+                                        id="fileAvatar"
+                                        type="file"
                                        accept="image/*"
                                        class="form-control" name="avatar" th:field="*{file}" placeholder="Enter photo">
                               </p>
                             </div>
                           </div>
-
-<!--                          <div>-->
-<!--                            <h5 class="green inline">-->
-<!--                              <b style="text-transform: uppercase">-->
-<!--                                <span>Ảnh thẻ 4x6 </span> <span class="text-danger">(*)</span><br />-->
-<!--                              </b>-->
-<!--                              <br />-->
-<!--                              <span style="color: red"-->
-<!--                                >* Lưu ý: yêu cầu nền xanh, áo sơ mi, chụp rõ khuôn mặt, chỉnh bằng-->
-<!--                                khung hình theo mẫu</span-->
-<!--                              >-->
-<!--                            </h5>-->
-<!--                          </div>-->
-<!--                          <div class="edit-view">-->
-<!--                            <img-->
-<!--                              id="ImageAvatarimg"-->
-<!--                              style="width: 100px"-->
-<!--                              src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="-->
-<!--                              alt="Image preview..."-->
-<!--                            />-->
-<!--                            <input-->
-<!--                              type="file"-->
-<!--                              name="image"-->
-<!--                              id="FileUploadImageAvatar"-->
-<!--                              class="image"-->
-<!--                            />-->
-<!--                            <input id="ImageAvatar" name="ImageAvatar" type="hidden" value="" />-->
-
-<!--                            <div-->
-<!--                              class="modal fade"-->
-<!--                              id="modal"-->
-<!--                              tabindex="-1"-->
-<!--                              role="dialog"-->
-<!--                              aria-labelledby="modalLabel"-->
-<!--                              aria-hidden="true"-->
-<!--                            >-->
-<!--                              <div class="modal-dialog modal-lg" role="document">-->
-<!--                                <div class="modal-content">-->
-<!--                                  <div class="modal-header">-->
-<!--                                    <h5 class="modal-title" id="modalLabel">Điều chỉnh ảnh</h5>-->
-<!--                                    <button-->
-<!--                                      type="button"-->
-<!--                                      class="close"-->
-<!--                                      data-dismiss="modal"-->
-<!--                                      aria-label="Close"-->
-<!--                                    >-->
-<!--                                      <span aria-hidden="true">×</span>-->
-<!--                                    </button>-->
-<!--                                  </div>-->
-<!--                                  <div class="modal-body">-->
-<!--                                    <div class="img-container">-->
-<!--                                      <div class="row">-->
-<!--                                        <div class="col-md-8">-->
-<!--                                          &lt;!&ndash;  default image where we will set the src via jquery&ndash;&gt;-->
-<!--                                          <img id="image" />-->
-<!--                                        </div>-->
-<!--                                        <div class="col-md-4">-->
-<!--                                          <div class="preview"></div>-->
-<!--                                        </div>-->
-<!--                                      </div>-->
-<!--                                    </div>-->
-<!--                                  </div>-->
-<!--                                  <div class="modal-footer">-->
-<!--                                    <button type="button" class="btn btn-primary" id="crop">-->
-<!--                                      Xác nhận-->
-<!--                                    </button>-->
-<!--                                  </div>-->
-<!--                                </div>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
-
-<!--                          <div class="inline">-->
-<!--                            <div class="edit-view col-sm-6 col-xs-12" style="padding-left: 0px">-->
-<!--                              <h5 class="green inline">-->
-<!--                                <b>Ảnh CMND mặt trước <span class="text-danger">(*)</span></b>-->
-<!--                              </h5>-->
-<!--                              <p>-->
-<!--                                <span style="color: red"-->
-<!--                                  >* Sv vui lòng xoay ngang hình ảnh trước khi upload</span-->
-<!--                                >-->
-<!--                                <img-->
-<!--                                  id="ImageCMNDBeforeimg"-->
-<!--                                  style="width: 100px"-->
-<!--                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="-->
-<!--                                  alt="Image preview..."-->
-<!--                                />-->
-<!--                                <input-->
-<!--                                  class="image_upload"-->
-<!--                                  type="file"-->
-<!--                                  id="FileUploadImageCMNDBefore"-->
-<!--                                  onchange="encodeImageAsURL('ImageCMNDBefore');"-->
-<!--                                />-->
-<!--                                <input-->
-<!--                                  id="ImageCMNDBefore"-->
-<!--                                  name="ImageCMNDBefore"-->
-<!--                                  type="hidden"-->
-<!--                                  value=""-->
-<!--                                />-->
-<!--                              </p>-->
-<!--                            </div>-->
-<!--                            <div class="edit-view col-sm-6 col-xs-12" style="padding-left: 0px">-->
-<!--                              <h5 class="green inline">-->
-<!--                                <b>Ảnh CMND mặt sau <span class="text-danger">(*)</span></b>-->
-<!--                              </h5>-->
-<!--                              <p>-->
-<!--                                <span style="color: red"-->
-<!--                                  >* Sv vui lòng xoay ngang hình ảnh trước khi upload</span-->
-<!--                                >-->
-<!--                                <img-->
-<!--                                  id="ImageCMNDAfterimg"-->
-<!--                                  style="width: 100px"-->
-<!--                                  src="https://media.istockphoto.com/vectors/image-preview-icon-picture-placeholder-for-website-or-uiux-design-vector-id1222357475?k=20&m=1222357475&s=170667a&w=0&h=YGycIDbBRAWkZaSvdyUFvotdGfnKhkutJhMOZtIoUKY="-->
-<!--                                  alt="Image preview..."-->
-<!--                                />-->
-<!--                                <input-->
-<!--                                  class="image_upload"-->
-<!--                                  type="file"-->
-<!--                                  id="FileUploadImageCMNDAfter"-->
-<!--                                  onchange="encodeImageAsURL('ImageCMNDAfter');"-->
-<!--                                />-->
-<!--                                <input-->
-<!--                                  id="ImageCMNDAfter"-->
-<!--                                  name="ImageCMNDAfter"-->
-<!--                                  type="hidden"-->
-<!--                                  value=""-->
-<!--                                />-->
-<!--                              </p>-->
-<!--                            </div>-->
-<!--                          </div>-->
-
-
-
                           <label
                             style="margin-top: 20px; color: red; font-size: 16px; font-weight: bold"
                           >
@@ -723,5 +598,21 @@
         Quay lại trang thông tin
       </button>
     </div>
+    <script type="text/javascript">
+      $(document).ready(function (){
+        $('#fileAvatar').change(function (){
+          showImageAvartar(this);
+        })
+      })
+      function showImageAvartar(fileInput){
+        file = fileInput.files[0];
+        reader = new FileReader();
+
+        reader.onload = function (e){
+          $('#avatar').attr('src',e.target.result)
+        }
+        reader.readAsDataURL(file);
+      }
+    </script>
   </body>
 </html>

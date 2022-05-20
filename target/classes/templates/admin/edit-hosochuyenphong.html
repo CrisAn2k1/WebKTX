@@ -7,7 +7,7 @@
   <meta name="description" content="" />
   <meta name="author" content="" />
 
-  <title>Chỉnh sửa thông tin hồ sơ chuyển phòng</title>
+  <title>Chỉnh Sửa Thông Tin Hồ Sơ Chuyển Phòng</title>
 
   <!-- Custom fonts for this template-->
   <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -85,20 +85,21 @@
   <!-- End of Sidebar -->
   <!-- Content Wrapper -->
     <!-- Main Content -->
-    <div id="content">
+    <div id="content" style="width: 100%">
       <!-- Topbar -->
-      <div th:replace="fragments/nav :: topnav"></div>
-      <!-- End of Topbar -->
+      <div
+              th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"
+      ></div>      <!-- End of Topbar -->
       <!-- Begin Page Content -->
-      <div class="container-fluid">
+      <div class="">
         <!-- DataTales Example -->
         <div class="card-body">
           <div class="">
             <div style="text-align: center">
               <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="text-right">Chỉnh sửa thông tin hồ sơ chuyển phòng</h4>
+                <h4 class="text-center" style="width: 100%;font-weight: bold;color: red;">Hồ Sơ Chuyển Phòng</h4>
               </div>
-              <div class="row">
+              <div class="row justify-content-center">
                 <form
                         th:object="${editHSchuyenphong}"
                         th:action="@{/admin/hosochuyenphong-management/edit}"
@@ -109,15 +110,16 @@
                     border: 3px solid green;
                     text-align: center;"
                 >
+                  <input type="text" th:field="*{idUser}" hidden>
                   <input type="text" th:field="*{id}" id="id" placeholder="id" hidden />
-                  <label>Mã hồ sơ  </label>
-                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getId()}"/><br><br>
+                  <label>Phòng hiện tại:  </label>
+                  <input disabled type="text" th:placeholder="${editHSchuyenphong.getIdUser().getIdPhong().getId()}"/><br><br>
 
-                  <label>Mô tả </label>
+                  <label>Mô tả lý do </label>
                   <textarea disabled
                          style="
                             height: 120px;
-                            width: 120%;
+                            width: 100%;
                             padding: 12px 20px;
                             box-sizing: border-box;
                             border: 2px solid #ccc;
@@ -127,26 +129,25 @@
                          type="text" th:placeholder="${editHSchuyenphong.getMota()}"></textarea>
                   <br><br>
 
-                  <label>Ngày tạo </label>
+                  <label>Ngày tạo: </label>
                   
                   <input disabled type="text" th:placeholder="${#dates.format(editHSchuyenphong.getNgaytao(),'dd-MM-yyyy')}"/><br><br>
 
-                  <label>Họ tên </label>
+                  <label>Họ tên: </label>
                   <input disabled type="text" th:placeholder="${editHSchuyenphong.getIdUser().getHoten()}"/><br><br>
 
-                  <label>MSSV </label>
+                  <label>MSSV: </label>
                   <input disabled type="text" th:placeholder="${editHSchuyenphong.getIdUser().getMssv()}"/><br><br>
 
-                  <label>Trạng thái </label>
-                  <select th:field="*{trangthai}">
-                    <option th:value="true"> Duyệt</option>
-                    <option th:value="false">Đang chờ</option>
-                  </select>
+                  <label style="margin-right:10px; ">Chọn phòng mới: </label>
+                  <select th:field="*{phong}">
+                    <option th:each="item: ${listPhong}" th:value="${item.getId()}" th:text="${item.getId()}"> </option>
+                  </select><br><br>
 
-                  <div class="btn-group" style="width: 90%">
+                  <div class="btn-group" style="width: 75%">
                     <span>
                       <div class="inputbox">
-                        <input  type="submit" value="Cập nhật" /><br>
+                        <input  type="submit" value="Xác Nhận" /><br>
                         <button type="button" onclick="document.location='/admin/hosochuyenphong-management'">Quay lại</button>
                       </div>
                     </span>

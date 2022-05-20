@@ -46,34 +46,7 @@
     </style>
 
     <!-- Custom styles for button -->
-    <style>
-        .btn-group button {
-            background-color: #04AA6D; /* Green background */
-            border: 1px solid green; /* Green border */
-            color: white; /* White text */
-            padding: 10px 24px; /* Some padding */
-            cursor: pointer; /* Pointer/hand icon */
-            float: left; /* Float the buttons side by side */
-            margin:5px;
-            border-radius: 5px;;
-        }
-
-        /* Clear floats (clearfix hack) */
-        .btn-group:after {
-            content: "";
-            clear: both;
-            display: table;
-        }
-
-        .btn-group button:not(:last-child) {
-            border-right: none; /* Prevent double borders */
-        }
-
-        /* Add a background color on hover */
-        .btn-group button:hover {
-            background-color: #3e8e41;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/custom.button.css">
 </head>
 
 <body id="page-top">
@@ -83,36 +56,39 @@
     <div th:replace="fragments/nav :: sidebaradmin"></div>
     <!-- End of Sidebar -->
     <!-- Content Wrapper -->
-    <div th:if="${listToaNha.size()!=0}" id="content-wrapper" class="d-flex flex-column">
+    <div th:if="${listToaNha.size()!=0}" id="content-wrapper" class="d-flex flex-column" style="position: relative">
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
-            <div th:replace="fragments/nav :: topnav"></div>
+            <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
             <!-- End of Topbar -->
             <!-- Begin Page Content -->
             <div class="container-fluid">
-                <h1 class="h3 mb-2 text-gray-800 text-center" style="color: red !important;font-weight: bold;height: 100%;width: 100%;" >Quản lý <item th:text="${titles}"></item></h1>
+                <h1 class="h3 mb-2 text-gray-800 text-center" style="color: #effe2e !important;font-weight: bold;height: 100%;width: 100%;" >Quản lý <item th:text="${titles}"></item></h1>
                 <div th:each="toa : ${listToaNha}">
-                    <div th:if="${toa.getPhongs().size()!=0}" th:text="${toa.ten}"
+                    <div th:if="${toa.getPhongs().size()!=0}" th:text="${toa.ten}" class="fa fa-house-user"
                          style="
                                 font-size: 20px;
+                                display: inherit;
                                 font-weight: bold;
                                 color: #2a2a06;
-                                background-color: #e1cbfb;
+                                background-color: #f1b15b;
                                 height: 30px;
-                                width: 90px;
+                                width: 120px;
                                 border-radius: 3px;
                                 text-align: center;
-                                margin: 16px 0px 7px 7px"
+                                margin: 20px 0px 7px 7px;
+                                padding: 4px"
+
                     >
                     </div>
                     <div th:each="phong : ${toa.getPhongs()}" class="btn-group">
-                            <button
-                                    th:text="${phong.id}"
-                                    th:data-url="@{{url}/{idToa}/{idPhong}( url=${url},idToa = ${phong.getIdToanha().getId()},idPhong=${phong.getId()})}"
-                                    onclick="document.location=(this.getAttribute('data-url'))">
-                            </button>
-                        </div>
+                        <button
+                                th:text="${phong.id}"
+                                th:data-url="@{{url}/{idToa}/{idPhong}( url=${url},idToa = ${phong.getIdToanha().getId()},idPhong=${phong.getId()})}"
+                                onclick="document.location=(this.getAttribute('data-url'))">
+                        </button>
+                    </div>
                 </div>
 
             </div>
