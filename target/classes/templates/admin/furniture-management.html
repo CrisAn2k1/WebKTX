@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <title>Quản Lý Nội Thất</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet"
+  />
+
+  <!-- Custom styles for this template-->
+  <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
+  <link href="/assets/css/furniture.css" rel="stylesheet" />
+
+  <!-- Sweet alert 2 -->
+  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+
+  <!-- Custom styles for table -->
+  <style>
+    table {
+      counter-reset: rowNumber;
+    }
+
+    table thead{
+      text-align: center;
+      vertical-align: center;
+    }
+
+    table thead th{
+      text-align: center;
+      vertical-align: center;
+    }
+
+    table tbody td{
+      text-align: center;
+      vertical-align: center;
+    }
+    table tbody tr td.stt:before {
+      display: table-cell;
+      counter-increment: rowNumber;
+      content: counter(rowNumber);
+      padding-right: 0.3em;
+      text-align: center;
+      vertical-align: middle;
+      margin: 0 auto;
+    }
+  </style>
+
+  <!-- Custom styles for button -->
+  <style>
+    .btn-group button {
+      background-color: #04AA6D; /* Green background */
+      border: 1px solid green; /* Green border */
+      color: white; /* White text */
+      padding: 10px 24px; /* Some padding */
+      cursor: pointer; /* Pointer/hand icon */
+      float: left; /* Float the buttons side by side */
+      margin: 10px;
+      border-radius: 15px;
+    }
+
+    /* Clear floats (clearfix hack) */
+    .btn-group:after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+    .btn-group button:not(:last-child) {
+      border-right: none; /* Prevent double borders */
+    }
+
+    /* Add a background color on hover */
+    .btn-group button:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div th:replace="fragments/nav :: sidebaradmin"></div>
+  <!-- End of Sidebar -->
+  <!-- Content Wrapper -->
+  <div th:if="${listFur.size()!=0}" id="content-wrapperr" class="d-flex flex-column" style="position: relative">
+    <!-- Main Content -->
+    <div id="content">
+      <!-- Topbar -->
+      <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>
+      <!-- End of Topbar -->
+      <!-- Begin Page Content -->
+      <div class="">
+        <h1 class="h3 mb-2 text-gray-800 text-center">
+         <strong> Danh Sách Nội Thất</strong>
+          <div>Toà: <idtoa style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${matoa}"></idtoa>
+          </div>Phòng: <idphong style="color: red;font-weight: bold;font-size: 1.85rem;" th:text="${maphong}"></idphong>
+        </h1>
+        <!-- DataTales Example -->
+        <div class="card-body">
+          <div class="table-responsive">
+            <div style="text-align: center;font-size: 18px;">
+              <div class="btn-group" style="display: flex; justify-content: left">
+                <button
+                        type="button"
+                        th:data-url="@{/admin/furniture-management/{idToa}/{idPhong}/new(idToa=${matoa} , idPhong=${maphong})}"
+                        onclick="document.location=(this.getAttribute('data-url'))"
+                >
+                  Thêm nội thất
+              </button>
+              </div>
+              <table>
+                <thead>
+                <tr>
+                  <th>Phòng</th>
+                  <th>Tên nội thất</th>
+                  <th>Số lượng </th>
+                  <!--      <th>View</th>-->
+                </tr>
+                </thead>
+                <tbody th:each="PhongNoiThat : ${listFur}">
+                <tr>
+                  <td th:text="${PhongNoiThat.getIdPhong().getId()}"></td>
+                  <td th:text="${PhongNoiThat.getIdNoithat().getTen()}"></td>
+                  <td th:text="${PhongNoiThat.soluong}"></td>
+
+                  <div class="btn-link">
+                    <td style="text-align: end; width: 130px;"><a
+                            style="
+                              text-decoration: none;
+                              font-weight: bold;
+                              color: #4753ca;
+                              background-color: rgba(204, 203, 211, 0.8);
+                              border-radius: 15px;
+                              cursor:pointer;
+                              padding: 2px 6px;"
+                            th:href="@{/admin/furniture-management/{idtoa}/{idphong}/{id}/edit( idtoa=${matoa}, idphong=${maphong}, id=${PhongNoiThat.getId()} )}">Chỉnh sửa</a></td>
+                    <td style="text-align: start;width: 100px;"><a
+                            style="
+                               text-decoration: none;
+                               padding: 2px 6px;
+                               cursor: pointer;
+                               border-radius: 15px;
+                               background-color: rgba(255, 185, 185, 0.6);
+                               color: red;
+                               font-weight: bold"
+                            th:data-idnoithat ="${PhongNoiThat.getId()}" onclick="deleteNT(this.getAttribute('data-idnoithat'))">Xoá</a></td>
+                  </div>
+                </tr>
+                </tbody>
+              </table>
+              <!--          <a th:href="@{/admin}">Quay về</a>-->
+              <div class="btn-group" style="width: 100%">
+                <p style="display: flex;flex-direction: column;align-items: center; margin: auto;">
+                  <button onclick="document.location='/admin/furniture-management'">Quay lại</button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.container-fluid -->
+      </div>
+      <!-- End of Main Content -->
+      <!-- Footer -->
+      <!-- End of Footer -->
+    </div>
+    <div>
+      <div th:replace="fragments/nav :: footer"></div>
+
+    </div>
+    <!-- End of Content Wrapper -->
+  </div>
+  <div th:unless="${listFur.size()!=0}"style="width: 100%;font-size: large;font-weight: bold;display: flex;align-items: center;justify-content: center">
+    <div>
+      <p>Không nội thất nào trong phòng này! <br/>
+      <div style="display: flex;justify-content: center;align-items: center;" class="btn-group">
+        <button
+                th:data-url="@{/admin/furniture-management/{idToa}/{idPhong}/new(idToa=${matoa}, idPhong=${maphong})}"
+                onclick="document.location=(this.getAttribute('data-url'))">Thêm nội thất</button>
+        <button onclick="document.location='/admin/furniture-management'">Quay lại</button>      </div>
+      </p>
+    </div>
+  </div>
+</div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<div th:replace="fragments/nav :: logout"></div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+
+<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/assets/js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="/assets/vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="/assets/js/demo/chart-area-demo.js"></script>
+<script src="/assets/js/demo/chart-pie-demo.js"></script>
+
+<!-- Sweet alert 2-->
+<script src="/assets/js/noithat.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+</body>
+</html>

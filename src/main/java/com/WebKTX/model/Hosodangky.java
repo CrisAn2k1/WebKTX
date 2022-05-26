@@ -1,8 +1,12 @@
 package com.WebKTX.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table(name = "hosodangky")
@@ -15,20 +19,31 @@ public class Hosodangky {
     @JoinColumn(name = "id_user")
     private User idUser;
 
-    @Column(name = "mota")
-    private String mota;
-
     @Column(name = "ngaytao")
     private Instant ngaytao;
 
     @Column(name = "ngaynhanphong")
-    private LocalDate ngaynhanphong;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+
+    private Date ngaynhanphong;
 
     @Column(name = "ngaytraphong")
-    private LocalDate ngaytraphong;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date ngaytraphong;
 
     @Column(name = "trangthai")
     private Boolean trangthai;
+
+    @Transient
+    private Phong phong;
+
+    public Phong getPhong() {
+        return phong;
+    }
+
+    public void setPhong(Phong phong) {
+        this.phong = phong;
+    }
 
     public Boolean getTrangthai() {
         return trangthai;
@@ -38,19 +53,19 @@ public class Hosodangky {
         this.trangthai = trangthai;
     }
 
-    public LocalDate getNgaytraphong() {
+    public Date getNgaytraphong() {
         return ngaytraphong;
     }
 
-    public void setNgaytraphong(LocalDate ngaytraphong) {
+    public void setNgaytraphong(Date ngaytraphong) {
         this.ngaytraphong = ngaytraphong;
     }
 
-    public LocalDate getNgaynhanphong() {
+    public Date getNgaynhanphong() {
         return ngaynhanphong;
     }
 
-    public void setNgaynhanphong(LocalDate ngaynhanphong) {
+    public void setNgaynhanphong(Date ngaynhanphong) {
         this.ngaynhanphong = ngaynhanphong;
     }
 
@@ -60,14 +75,6 @@ public class Hosodangky {
 
     public void setNgaytao(Instant ngaytao) {
         this.ngaytao = ngaytao;
-    }
-
-    public String getMota() {
-        return mota;
-    }
-
-    public void setMota(String mota) {
-        this.mota = mota;
     }
 
     public User getIdUser() {

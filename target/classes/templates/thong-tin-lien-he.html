@@ -7,7 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>THÔNG TIN LIÊN HỆ</title>
+    <title>Thông Tin Liên Hệ</title>
 
     <!-- Custom fonts for this template-->
     <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
@@ -32,27 +32,28 @@
         <!-- Main Content -->
         <div id="content">
           <!-- Topbar -->
-          <div th:replace="fragments/nav :: topnav"></div>
-          <!-- End of Topbar -->
+          <div
+                  th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"
+          ></div>          <!-- End of Topbar -->
 
           <!-- Begin Page Content -->
-          <div class="container-fluid">
+          <div class="container-fluid" style="height: 100%">
             <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800">Thông tin liên hệ</h1>
+            <div class="d-sm-flex align-items-center justify-content-center mb-4">
+              <h1 class="h3 mb-0 text-white" style="font-weight: bold;color: #effe2e !important;">Thông tin liên hệ</h1>
             </div>
 
             <!-- Content Row -->
-            <div class="row" style="margin: 30px">
+            <div class="row d-flex justify-content-center align-center" style="margin: 30px">
               <!-- Earnings (Monthly) Card Example -->
               <div class="col-xl-5 col-md-10 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-header py-4">
-                    <h6 class="m-0 font-weight-bold text-primary">Thông tin cư trú, liên hệ</h6>
+                    <h5 class="m-0 font-weight-bold text-primary text-center">Thông tin cư trú, liên hệ</h5>
                   </div>
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                      <div class="row" style="width: 100%">
+                      <div class="row" style="width: 100%;">
                         <div
                           class="col-md-4"
                           style="text-align: left; font-size: 15px; font-weight: 600"
@@ -65,12 +66,13 @@
                           <div>Tỉnh/Thành phố:</div>
                         </div>
                         <div class="col-md-8" style="font-size: 15px; font-weight: bold">
-                          <div>[[${#request.userPrincipal.principal.dienThoai}]]</div>
-                          <div>[[${#request.userPrincipal.principal.email}]]</div>
-                          <div>[[${#request.userPrincipal.principal.diaChi}]]</div>
-                          <div>[[${#request.userPrincipal.principal.xa}]]</div>
-                          <div>[[${#request.userPrincipal.principal.huyen}]]</div>
-                          <div>[[${#request.userPrincipal.principal.tinh}]]</div>
+                          <div th:text="${currentUser.getPhone()}"></div>
+                          <div th:text="${currentUser.getEmail()}"></div>
+                          <div th:text="${currentUser.getDiachicutru()}"></div>
+                          <div th:text="${currentUser.getXa()}"></div>
+                          <div th:text="${currentUser.getHuyen()}"></div>
+                          <div th:text="${currentUser.getTinh()}"></div>
+
                         </div>
                       </div>
                       <!-- <div class="col-auto">

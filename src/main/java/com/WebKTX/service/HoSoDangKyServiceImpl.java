@@ -14,7 +14,9 @@ public class HoSoDangKyServiceImpl implements HoSoDangKyService {
     @Override
     public void updateHosodangky(Integer id, Hosodangky hosodangky) {
         Hosodangky hosodangkyEdit = hosoDangKyRepo.findById(id).orElse(null);
-        hosodangkyEdit.setTrangthai(hosodangky.getTrangthai());
+        hosodangkyEdit.setNgaynhanphong(hosodangky.getNgaynhanphong());
+        hosodangkyEdit.setNgaytraphong(hosodangky.getNgaytraphong());
+        hosodangkyEdit.setTrangthai(true);
         hosoDangKyRepo.save(hosodangkyEdit);
 
     }

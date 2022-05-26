@@ -7,17 +7,17 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Website quản lý ký túc xá</title>
+    <title>Thông Tin Sinh Viên</title>
 
     <!-- Custom fonts for this template-->
-    <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
     <link
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
       rel="stylesheet"
     />
 
     <!-- Custom styles for this template-->
-    <link href="assets/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="/assets/css/sb-admin-2.min.css" rel="stylesheet" />
   </head>
 
   <body id="page-top">
@@ -31,13 +31,12 @@
         <!-- Main Content -->
         <div id="content">
           <!-- Topbar -->
-          <div th:replace="fragments/nav :: topnav"></div>
-          <!-- End of Topbar -->
+          <div th:replace="fragments/nav :: topnav(hoten=${currentUser.getHoten()},avatar=${currentUser.getAvatar()})"></div>          <!-- End of Topbar -->
           <!-- Begin Page Content -->
-          <div class="container-fluid">
+          <div class="container-fluid" style="height: 100%">
             <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800">Thông tin sinh viên</h1>
+            <div class="d-sm-flex align-items-center justify-content-center mb-4">
+              <h1 class="h3 mb-0 text-white" style="color: #effe2e !important; font-weight: bold">Thông tin sinh viên</h1>
             </div>
             <!-- Content Row -->
             <div class="row row-cols-2" style="justify-content: center">
@@ -46,9 +45,15 @@
                 <div class="card border-left-warning shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
+                      <div class="col" >
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                          <img src="/assets/img/hinh.jpg" alt="hinh" class="hinh" />
+                            <img style="
+                                 height: 200px;
+                                  width: 200px;
+                                  border-radius: 90%;
+                                 align-items: center;
+                                 justify-content: center;
+                                  overflow: hidden" class="hinh" alt="" th:src="@{${currentUser.getAvatar()}}">
                         </div>
                       </div>
                     </div>
@@ -61,8 +66,8 @@
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
                     <h4 class="m-0 font-weight-bold text-primary">
-                      [[${#request.userPrincipal.principal.fullName}]]
-                      <strong> [[${#request.userPrincipal.principal.idphong}]]</strong>
+                      <name th:text="${currentUser.getHoten()}"></name>
+                      <idRoom  th:if="${currentUser.getIdPhong()} != null" th:text="' - ' +${currentUser.getIdPhong().getId()}"></idRoom>
                     </h4>
                   </div>
                   <div class="card-body">
@@ -75,11 +80,14 @@
                         <div><strong> Năm thứ:</strong></div>
                       </div>
                       <div class="col-md-8" style="font-size: 15px; font-weight: bold">
-                        <div>[[${#request.userPrincipal.principal.mssv}]]</div>
-                        <div>[[${#request.userPrincipal.principal.ngaySinh}]]</div>
-                        <div>[[${#request.userPrincipal.principal.gioiTinh}]]</div>
-                        <div>[[${#request.userPrincipal.principal.truongHoc}]]</div>
-                        <div>[[${#request.userPrincipal.principal.nienKhoa}]]</div>
+                        <div th:text="${currentUser.getMssv()}"></div>
+                        <div th:text="${#dates.format(currentUser.getNgaysinh(),'dd-MM-yyyy')}"></div>
+                        <div>
+                          <span th:if="${currentUser.getGioitinh()} != null" th:text="${currentUser.getGioitinh()}"></span>
+                          <span th:if="${currentUser.getGioitinh()} == null" th:text="${'Updating'}"></span>
+                        </div>
+                        <div th:text="${currentUser.truonghoc}"></div>
+                        <div th:text="${currentYear - currentUser.nienkhoa}"></div>
                       </div>
                     </div>
                   </div>
@@ -105,21 +113,21 @@
     <div th:replace="fragments/nav :: logout"></div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
+    <script src="/assets/vendor/jquery/jquery.min.js"></script>
 
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="assets/js/sb-admin-2.min.js"></script>
+    <script src="/assets/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="assets/vendor/chart.js/Chart.min.js"></script>
+    <script src="/assets/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="assets/js/demo/chart-area-demo.js"></script>
-    <script src="assets/js/demo/chart-pie-demo.js"></script>
+    <script src="/assets/js/demo/chart-area-demo.js"></script>
+    <script src="/assets/js/demo/chart-pie-demo.js"></script>
   </body>
 </html>

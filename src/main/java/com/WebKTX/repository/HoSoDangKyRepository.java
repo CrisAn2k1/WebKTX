@@ -11,4 +11,6 @@ import java.util.List;
 public interface HoSoDangKyRepository extends JpaRepository<Hosodangky, Integer> {
     @Query("SELECT h FROM Hosodangky h WHERE h.id=?1")
     List<Hosodangky> findByIdHosodangky(String id);
+
+    List<Hosodangky> findByTrangthai(Boolean trangthai);
 }

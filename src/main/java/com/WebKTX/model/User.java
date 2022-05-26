@@ -1,7 +1,11 @@
 package com.WebKTX.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -21,6 +25,28 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Transient
+    private String confirmPassowrd;
+
+    public String getConfirmPassowrd() {
+        return confirmPassowrd;
+    }
+
+    public void setConfirmPassowrd(String confirmPassowrd) {
+        this.confirmPassowrd = confirmPassowrd;
+    }
+
+    @Transient
+    private String oldPassword;
+
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
+    }
+
     @Column(name = "email")
     private String email;
 
@@ -28,7 +54,8 @@ public class User {
     private String hoten;
 
     @Column(name = "ngaysinh")
-    private LocalDate ngaysinh;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date ngaysinh;
 
     @Column(name = "gioitinh", length = 10)
     private String gioitinh;
@@ -42,14 +69,22 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
+    @Transient
+    private MultipartFile file;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
     @Column(name = "truonghoc", length = 150)
     private String truonghoc;
 
     @Column(name = "nienkhoa")
     private Integer nienkhoa;
-
-    @Column(name = "trangthai")
-    private Boolean trangthai;
 
     @Column(name = "tinh", length = 50)
     private String tinh;
@@ -66,12 +101,6 @@ public class User {
 
     @Column(name = "`cmnd/cccd`", length = 15)
     private String cmndCccd;
-
-    @Column(name = "`cmnd/cccd_mattruoc`")
-    private String cmndCccdMattruoc;
-
-    @Column(name = "`cmnd/cccd_matsau`")
-    private String cmndCccdMatsau;
 
     @Column(name = "mssv", length = 15)
     private String mssv;
@@ -142,22 +171,6 @@ public class User {
         this.mssv = mssv;
     }
 
-    public String getCmndCccdMatsau() {
-        return cmndCccdMatsau;
-    }
-
-    public void setCmndCccdMatsau(String cmndCccdMatsau) {
-        this.cmndCccdMatsau = cmndCccdMatsau;
-    }
-
-    public String getCmndCccdMattruoc() {
-        return cmndCccdMattruoc;
-    }
-
-    public void setCmndCccdMattruoc(String cmndCccdMattruoc) {
-        this.cmndCccdMattruoc = cmndCccdMattruoc;
-    }
-
     public String getCmndCccd() {
         return cmndCccd;
     }
@@ -196,14 +209,6 @@ public class User {
 
     public void setTinh(String tinh) {
         this.tinh = tinh;
-    }
-
-    public Boolean getTrangthai() {
-        return trangthai;
-    }
-
-    public void setTrangthai(Boolean trangthai) {
-        this.trangthai = trangthai;
     }
 
     public Integer getNienkhoa() {
@@ -254,11 +259,11 @@ public class User {
         this.gioitinh = gioitinh;
     }
 
-    public LocalDate getNgaysinh() {
+    public Date getNgaysinh() {
         return ngaysinh;
     }
 
-    public void setNgaysinh(LocalDate ngaysinh) {
+    public void setNgaysinh(Date ngaysinh) {
         this.ngaysinh = ngaysinh;
     }
 

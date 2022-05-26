@@ -4,220 +4,268 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đăng ký ở ký túc xá</title>
+    <title>Biểu mẫu hướng dẫn đăng ký ở KTX</title>
 
     <!-- text fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" />
     <link rel="stylesheet" href="assets/css/bootstrap.min.ktx.css" />
     <link rel="stylesheet" href="assets/css/ace.min.css" />
+
+    <!-- Css for button   -->
+    <style>
+      .btn-group button {
+        background-color: #04AA6D; /* Green background */
+        border: 1px solid green; /* Green border */
+        color: white; /* White text */
+        padding: 10px 24px; /* Some padding */
+        cursor: pointer; /* Pointer/hand icon */
+        float: left; /* Float the buttons side by side */
+        margin: 10px;;
+        border-radius: 5px;;
+      }
+
+      /* Clear floats (clearfix hack) */
+      .btn-group:after {
+        content: "";
+        clear: both;
+        display: table;
+      }
+
+      .btn-group button:not(:last-child) {
+        border-right: none; /* Prevent double borders */
+      }
+
+      /* Add a background color on hover */
+      .btn-group button:hover {
+        background-color: #3e8e41;
+      }
+    </style>
   </head>
+
   <body>
-    <div class="breadcrumbs" id="breadcrumbs" style="background-color: #438eb9">
-      <button onclick="document.location='/form-dang-ky-o-ktx'">Đến trang đăng ký >></button>
-    </div>
-    <div class="row" style="font-size: 14px">
-      <div class="col-sm-6">
-        <div class="position-relative">
-          <div
-            class="widget-body widget-box"
-            style="border-radius: 10px; background-color: #f7f7f7"
-          >
-            <div class="widget-main">
-              <h3 class="blue text-center" style="margin-top: 0px; font-weight: 700">
-                THÔNG TIN DÀNH CHO TÂN SINH VIÊN ĐĂNG KÝ Ở KÝ TÚC XÁ NĂM HỌC 2021 - 2022
-              </h3>
-
-              <h4 style="margin-top: 0px; font-weight: 700">I. HƯỚNG DẪN ĐĂNG KÝ</h4>
-              <div class="clearfix">
-                <ul class="list-unstyled spaced">
-                  <li>
-                    <b
-                      >Để đảm bảo thời gian đăng ký ở Ký túc xá trực tuyến, sinh viên chuẩn bị đầy
-                      đủ file hình sau:</b
-                    >
-                  </li>
-                  <li style="margin-left: 40px">
-                    - Chứng minh nhân dân/thẻ căn cước công dân (mặt trước và mặt sau);
-                  </li>
-                  <li style="margin-left: 40px">
-                    <span
-                      >- Giấy xác nhận/giới thiệu hoặc đơn đăng ký ở Ký túc xá có xác nhận của nhà
-                      trường</span
-                    ><br />
-                  </li>
-                  <li style="margin-left: 40px">
-                    - Hình kích thước 4 x 6 (nền xanh, áo sơ mi, chụp rõ khuôn mặt);
-                  </li>
-                  <li><b>Sinh viên tìm hiểu kỹ thông tin sau:</b></li>
-                  <li style="margin-left: 40px">
-                    - Thời gian trả kết quả: trong 72 giờ tính từ khi hệ thống xác nhận đăng ký
-                    thành công.
-                  </li>
-                  <li><b>Vui lòng đọc kỹ thông tin sau:</b></li>
-                  <li style="margin-left: 10px">
-                    <i class="fa fa-check green" aria-hidden="true"></i> 1. Phải là sinh viên đang
-                    theo học hoặc đang thực tập.
-                  </li>
-
-                  <li style="margin-left: 10px">
-                    <i class="fa fa-check green" aria-hidden="true"></i> 2. Sinh viên cung cấp địa
-                    chỉ E-mail đang sử dụng thường xuyên để nhận mã xác thực và thực hiện các bước
-                    tiếp theo.
-                  </li>
-                  <li style="margin-left: 10px">
-                    <i class="fa fa-check green" aria-hidden="true"></i> 3. Phương án sắp xếp sinh
-                    viên:
-                  </li>
-                  <li style="margin-left: 40px">
-                    - Sinh viên năm 1 - năm 2 ở toà <strong>B1 -> B5</strong>
-                  </li>
-                  <li style="margin-left: 40px">
-                    - Sinh viên năm 3 trở đi ở toà <strong>A1 -> A5, D02 -> D06</strong>
-                  </li>
-
-                  <li style="margin-left: 10px">
-                    <i class="fa fa-check green" aria-hidden="true"></i> 4. Trong 72h tính từ khi hệ
-                    thống xác nhận đăng ký thành công, sinh viên kiểm tra E-mail để biết kết quả và
-                    thực hiện theo hướng dẫn.
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+    <dib th:if="${allow}">
+      <div class="breadcrumbs" id="breadcrumbs" style="background-color: #438eb9">
+        <button th:data-url="@{/form-dang-ky-o-ktx}"
+                onclick="document.location=(this.getAttribute('data-url'))">Đến trang đăng ký >></button>
       </div>
-      <div class="col-sm-6">
-        <div class="position-relative">
-          <div
-            class="widget-body widget-box"
-            style="border-radius: 10px; background-color: #f7f7f7"
-          >
-            <div class="widget-main">
-              <div class="table-responsive clearfix">
-                <br />
-                <div style="margin-left: 5px">
-                  <i class="fa fa-check green" aria-hidden="true"></i
-                  ><b> 5. Các loại phòng ở: Tiền phòng ở (đơn vị tính: đồng)</b>
-                </div>
+      <div class="row" style="font-size: 14px">
+        <div class="col-sm-6">
+          <div class="position-relative">
+            <div
+              class="widget-body widget-box"
+              style="border-radius: 10px; background-color: #f7f7f7"
+            >
+              <div class="widget-main">
+                <h3 class="blue text-center" style="margin-top: 0px; font-weight: 700">
+                  THÔNG TIN DÀNH CHO TÂN SINH VIÊN ĐĂNG KÝ Ở KÝ TÚC XÁ NĂM HỌC 2021 - 2022
+                </h3>
 
-                <table class="table table-bordered table-striped top-10">
-                  <thead>
-                    <tr>
-                      <th class="grid-header text-center" style="width: 150px">
-                        <div>Loại phòng</div>
-                      </th>
-                      <th class="grid-header text-center" style="width: 150px">
-                        <div>Mức giá</div>
-                        <div>(theo 01 tháng)</div>
-                      </th>
-                      <th class="grid-header text-center" style="width: 150px">
-                        <div>Mức giá</div>
-                        <div>(theo 02 tháng)</div>
-                      </th>
-                      <th class="grid-header text-center" style="width: 150px">
-                        <div>Mức giá</div>
-                        <div>(theo 03 tháng)</div>
-                      </th>
-                      <th class="grid-header text-center" style="width: 150px">
-                        <div>Mức giá</div>
-                        <div>(theo 04 tháng)</div>
-                      </th>
-                      <th class="grid-header text-center" style="width: 150px">
-                        <div>Mức giá</div>
-                        <div>(theo 4,5 tháng)</div>
-                      </th>
-                      <th class="grid-header text-center" style="width: 150px">
-                        <div>Mức giá</div>
-                        <div>(theo 05 tháng)</div>
-                      </th>
-                      <th class="grid-header text-center" style="width: 150px">
-                        <div>Mức giá</div>
-                        <div>(theo 5,5 tháng)</div>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-center">
-                        <div>Phòng 8</div>
-                        <div>sinh viên</div>
-                      </td>
-                      <td class="text-right">140.000</td>
-                      <td class="text-right">280.000</td>
-                      <td class="text-right">420.000</td>
-                      <td class="text-right">560.000</td>
-                      <td class="text-right">630.000</td>
-                      <td class="text-right">700.000</td>
-                      <td class="text-right">770.000</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center">
-                        <div>Phòng 6</div>
-                        <div>sinh viên</div>
-                      </td>
-                      <td class="text-right">190.000</td>
-                      <td class="text-right">380.000</td>
-                      <td class="text-right">570.000</td>
-                      <td class="text-right">760.000</td>
-                      <td class="text-right">855.000</td>
-                      <td class="text-right">950.000</td>
-                      <td class="text-right">1.045.000</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center">
-                        <div>Phòng 4</div>
-                        <div>sinh viên</div>
-                      </td>
-                      <td class="text-right">350.000</td>
-                      <td class="text-right">700.000</td>
-                      <td class="text-right">1.050.000</td>
-                      <td class="text-right">1.400.000</td>
-                      <td class="text-right">1.575.000</td>
-                      <td class="text-right">1.750.000</td>
-                      <td class="text-right">1.925.000</td>
-                    </tr>
-                    <tr>
-                      <td class="text-center">
-                        <div>Phòng 4</div>
-                        <div>sinh viên,</div>
-                        <div>máy lạnh</div>
-                      </td>
-                      <td class="text-right">580.000</td>
-                      <td class="text-right">1.160.000</td>
-                      <td class="text-right">1.740.000</td>
-                      <td class="text-right">2.320.000</td>
-                      <td class="text-right">2.610.000</td>
-                      <td class="text-right">2.900.000</td>
-                      <td class="text-right">3.190.000</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <h4 style="margin-top: 0px; font-weight: 700">I. HƯỚNG DẪN ĐĂNG KÝ</h4>
+                <div class="clearfix">
+                  <ul class="list-unstyled spaced">
+                    <li>
+                      <b
+                        >Để đảm bảo thời gian đăng ký ở Ký túc xá trực tuyến, sinh viên chuẩn bị đầy
+                        đủ file hình sau:</b
+                      >
+                    </li>
+                    <li style="margin-left: 40px">
+                      - Chứng minh nhân dân/thẻ căn cước công dân (mặt trước và mặt sau);
+                    </li>
+                    <li style="margin-left: 40px">
+                      <span
+                        >- Giấy xác nhận/giới thiệu hoặc đơn đăng ký ở Ký túc xá có xác nhận của nhà
+                        trường</span
+                      ><br />
+                    </li>
+                    <li style="margin-left: 40px">
+                      - Hình kích thước 4 x 6 (nền xanh, áo sơ mi, chụp rõ khuôn mặt);
+                    </li>
+                    <li><b>Sinh viên tìm hiểu kỹ thông tin sau:</b></li>
+                    <li style="margin-left: 40px">
+                      - Thời gian trả kết quả: trong 72 giờ tính từ khi hệ thống xác nhận đăng ký
+                      thành công.
+                    </li>
+                    <li><b>Vui lòng đọc kỹ thông tin sau:</b></li>
+                    <li style="margin-left: 10px">
+                      <i class="fa fa-check green" aria-hidden="true"></i> 1. Phải là sinh viên đang
+                      theo học hoặc đang thực tập.
+                    </li>
 
-                <div>
-                  Mức phí trên chưa bao gồm tiền sử dụng điện, nước hằng tháng, ngoài ra sinh viên
-                  đóng các khoản tiền: Thế chân tài sản cơ sở vật chất, tiền hồ sơ...
-                </div>
-                <div>
-                  Sau khi được duyệt ở Ký túc xá, sinh viên xem chi tiết thông báo các khoản phải
-                  nộp tại email đã đăng ký trước đó.
+                    <li style="margin-left: 10px">
+                      <i class="fa fa-check green" aria-hidden="true"></i> 2. Sinh viên cung cấp địa
+                      chỉ E-mail đang sử dụng thường xuyên để nhận mã xác thực và thực hiện các bước
+                      tiếp theo.
+                    </li>
+                    <li style="margin-left: 10px">
+                      <i class="fa fa-check green" aria-hidden="true"></i> 3. Phương án sắp xếp sinh
+                      viên:
+                    </li>
+                    <li style="margin-left: 40px">
+                      - Sinh viên năm 1 - năm 2 ở toà <strong>B1 -> B5</strong>
+                    </li>
+                    <li style="margin-left: 40px">
+                      - Sinh viên năm 3 trở đi ở toà <strong>A1 -> A5, D02 -> D06</strong>
+                    </li>
+
+                    <li style="margin-left: 10px">
+                      <i class="fa fa-check green" aria-hidden="true"></i> 4. Trong 72h tính từ khi hệ
+                      thống xác nhận đăng ký thành công, sinh viên kiểm tra E-mail để biết kết quả và
+                      thực hiện theo hướng dẫn.
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="col-sm-6">
+          <div class="position-relative">
+            <div
+              class="widget-body widget-box"
+              style="border-radius: 10px; background-color: #f7f7f7"
+            >
+              <div class="widget-main">
+                <div class="table-responsive clearfix">
+                  <br />
+                  <div style="margin-left: 5px">
+                    <i class="fa fa-check green" aria-hidden="true"></i
+                    ><b> 5. Các loại phòng ở: Tiền phòng ở (đơn vị tính: đồng)</b>
+                  </div>
+
+                  <table class="table table-bordered table-striped top-10">
+                    <thead>
+                      <tr>
+                        <th class="grid-header text-center" style="width: 150px">
+                          <div>Loại phòng</div>
+                        </th>
+                        <th class="grid-header text-center" style="width: 150px">
+                          <div>Mức giá</div>
+                          <div>(theo 01 tháng)</div>
+                        </th>
+                        <th class="grid-header text-center" style="width: 150px">
+                          <div>Mức giá</div>
+                          <div>(theo 02 tháng)</div>
+                        </th>
+                        <th class="grid-header text-center" style="width: 150px">
+                          <div>Mức giá</div>
+                          <div>(theo 03 tháng)</div>
+                        </th>
+                        <th class="grid-header text-center" style="width: 150px">
+                          <div>Mức giá</div>
+                          <div>(theo 04 tháng)</div>
+                        </th>
+                        <th class="grid-header text-center" style="width: 150px">
+                          <div>Mức giá</div>
+                          <div>(theo 4,5 tháng)</div>
+                        </th>
+                        <th class="grid-header text-center" style="width: 150px">
+                          <div>Mức giá</div>
+                          <div>(theo 05 tháng)</div>
+                        </th>
+                        <th class="grid-header text-center" style="width: 150px">
+                          <div>Mức giá</div>
+                          <div>(theo 5,5 tháng)</div>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="text-center">
+                          <div>Phòng 8</div>
+                          <div>sinh viên</div>
+                        </td>
+                        <td class="text-right">140.000</td>
+                        <td class="text-right">280.000</td>
+                        <td class="text-right">420.000</td>
+                        <td class="text-right">560.000</td>
+                        <td class="text-right">630.000</td>
+                        <td class="text-right">700.000</td>
+                        <td class="text-right">770.000</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <div>Phòng 6</div>
+                          <div>sinh viên</div>
+                        </td>
+                        <td class="text-right">190.000</td>
+                        <td class="text-right">380.000</td>
+                        <td class="text-right">570.000</td>
+                        <td class="text-right">760.000</td>
+                        <td class="text-right">855.000</td>
+                        <td class="text-right">950.000</td>
+                        <td class="text-right">1.045.000</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <div>Phòng 4</div>
+                          <div>sinh viên</div>
+                        </td>
+                        <td class="text-right">350.000</td>
+                        <td class="text-right">700.000</td>
+                        <td class="text-right">1.050.000</td>
+                        <td class="text-right">1.400.000</td>
+                        <td class="text-right">1.575.000</td>
+                        <td class="text-right">1.750.000</td>
+                        <td class="text-right">1.925.000</td>
+                      </tr>
+                      <tr>
+                        <td class="text-center">
+                          <div>Phòng 4</div>
+                          <div>sinh viên,</div>
+                          <div>máy lạnh</div>
+                        </td>
+                        <td class="text-right">580.000</td>
+                        <td class="text-right">1.160.000</td>
+                        <td class="text-right">1.740.000</td>
+                        <td class="text-right">2.320.000</td>
+                        <td class="text-right">2.610.000</td>
+                        <td class="text-right">2.900.000</td>
+                        <td class="text-right">3.190.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div>
+                    Mức phí trên chưa bao gồm tiền sử dụng điện, nước hằng tháng, ngoài ra sinh viên
+                    đóng các khoản tiền: Thế chân tài sản cơ sở vật chất, tiền hồ sơ...
+                  </div>
+                  <div>
+                    Sau khi được duyệt ở Ký túc xá, sinh viên xem chi tiết thông báo các khoản phải
+                    nộp tại email đã đăng ký trước đó.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div
-      class="breadcrumbs"
-      id="breadcrumbs"
-      style="background-color: #438eb9; justify-content: center"
-    >
-      <button
-        style="position: fixed; bottom: 5px"
-        onclick="document.location='/thong-tin-sinh-vien'"
+      <div
+        class="breadcrumbs"
+        id="breadcrumbs"
+        style="background-color: #438eb9; justify-content: center"
       >
-        Quay lại trang thông tin
-      </button>
+        <button
+          style="position: fixed; bottom: 5px"
+          onclick="document.location='/thong-tin-sinh-vien'"
+        >
+          Quay lại trang thông tin
+        </button>
+      </div>
+    </dib>
+    <div>
+      <div th:if="${!allow}" class="btn-group" style="height: 100vh;
+                                                font-size: large;
+                                                font-weight: bold;
+                                                text-align: center;
+                                                display: flex;
+                                                align-content: center;
+                                                justify-content: center;
+                                                align-items: center;
+                                                flex-direction: column;">
+        <p style="margin: 10px 0;">Vui lòng thử lại sau!</p>
+        <button onclick="document.location='/thong-tin-sinh-vien'">Quay lại</button>
+      </div>
     </div>
   </body>
 </html>
